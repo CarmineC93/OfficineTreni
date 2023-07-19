@@ -1,4 +1,4 @@
-package org.lessons.java.bean;
+package org.lessons.java.auth.pojo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,33 +11,33 @@ import javax.validation.constraints.Size;
 @Entity
 public class Utente{
 
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@NotBlank(message = "l'email non puo essere vuota")
 	@Size(min = 5,message = "minimo 5 caratteri")
 	private String email;
-	
+
 	@NotBlank(message = "il nome non puo essere vuota")
 	@Size(min = 5,message = "minimo 5 caratteri")
 	private String nome;
-	
+
 	@NotBlank(message = "il cognome non puo essere vuota")
 	@Size(min = 5,message = "minimo 5 caratteri")
 	private String cognome;
-	
+
 	@NotBlank(message = "la password non puo essere vuota")
 	@Size(min = 8,message = "minimo 8 caratteri")
 	private String password;
-	
+
 	@ManyToOne
 	private Ruolo ruolo;
-	
+
 
 	public Utente() {}
-	
+
 	public Utente(int id, String email, String nome, String cognome, String password) {
 		this.id = id;
 		this.email = email;
@@ -85,16 +85,16 @@ public class Utente{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
 }
 

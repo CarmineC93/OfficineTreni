@@ -1,4 +1,4 @@
-package org.lessons.java.bean;
+package org.lessons.java.auth.pojo;
 
 import java.util.List;
 
@@ -11,18 +11,18 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Ruolo{
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@NotBlank
 	private String nome;
-	
+
 	@OneToMany(mappedBy = "ruolo")
 	private List<Utente> utente;
-	
-	
+
+
 	public Ruolo() {}
 
 
@@ -31,7 +31,7 @@ public class Ruolo{
 		this.nome = nome;
 	}
 
-	
+
 
 	public int getId() {
 		return id;
@@ -51,10 +51,10 @@ public class Ruolo{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 }
