@@ -5,13 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import beans.CargoItalo;
-import beans.LocomotivaItalo;
-import beans.LocomotivaTrenItalia;
-import beans.PasseggeriItalo;
-import beans.RistoranteItalo;
-import beans.RistoranteTrenItalia;
-
 @Configuration
 public class AppConfig {
     @Bean
