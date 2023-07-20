@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
+import lombok.Data;
+
+//@Data
 @Entity
 public class Ruolo{
 
