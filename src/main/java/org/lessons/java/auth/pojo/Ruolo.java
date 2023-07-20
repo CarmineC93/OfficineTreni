@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
-//@Data
+@Data
 @Entity
 public class Ruolo{
 
