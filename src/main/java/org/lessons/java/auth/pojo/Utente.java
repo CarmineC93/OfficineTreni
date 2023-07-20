@@ -1,15 +1,17 @@
 package org.lessons.java.auth.pojo;
 
-import javax.persistence.Entity;
+import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import lombok.Data;
+import org.lessons.java.pojo.Treno;
 
 //@Data
 @Entity
@@ -36,8 +38,14 @@ public class Utente{
 	@Size(min = 8,message = "minimo 8 caratteri")
 	private String password;
 
+	
 	@ManyToOne
 	private Ruolo ruolo;
+	
+	
+	@OneToMany(mappedBy = "utente")
+	private List<Treno> treno;
+	
 
 
 	public Utente() {}
