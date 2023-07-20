@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 19, 2023 alle 19:09
+-- Creato il: Lug 20, 2023 alle 15:04
 -- Versione del server: 10.4.11-MariaDB
 -- Versione PHP: 7.4.1
 
@@ -92,6 +92,19 @@ INSERT INTO `composizione` (`treno`, `vagone`, `posizione`) VALUES
 (4, 16, 7),
 (4, 11, 8),
 (4, 16, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura stand-in per le viste `datitreno`
+-- (Vedi sotto per la vista effettiva)
+--
+CREATE TABLE `datitreno` (
+`idTreno` int(11)
+,`pesoTotale` double
+,`lunghezzaTotale` double
+,`costoComplessivo` double
+);
 
 -- --------------------------------------------------------
 
@@ -213,6 +226,7 @@ INSERT INTO `ruolo` (`idRuolo`, `nome`) VALUES
 CREATE TABLE `treno` (
   `idTreno` int(11) NOT NULL,
   `utente` int(11) NOT NULL,
+  `sigla` varchar(45) NOT NULL,
   `nome` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -220,11 +234,11 @@ CREATE TABLE `treno` (
 -- Dump dei dati per la tabella `treno`
 --
 
-INSERT INTO `treno` (`idTreno`, `utente`, `nome`) VALUES
-(1, 3, 'Cittanotte'),
-(2, 1, 'Freezer'),
-(3, 2, 'VIP Party'),
-(4, 10, 'Cargomove');
+INSERT INTO `treno` (`idTreno`, `utente`, `sigla`, `nome`) VALUES
+(1, 3, 'HPPPPPPP', 'Cittanotte'),
+(2, 1, 'HCCCC', 'Freezer'),
+(3, 2, 'HPPPRPPP', 'VIP Party'),
+(4, 10, 'HCCCCCCCC', 'Trainsport');
 
 -- --------------------------------------------------------
 
@@ -292,6 +306,15 @@ INSERT INTO `vagone` (`idVagone`, `peso`, `lunghezza`, `colore`, `compagnia`, `c
 (14, 5000, 40, 'Nero', 'Italo', 2000),
 (15, 7000, 50, 'Verde', 'Trenitalia', 1900),
 (16, 7500, 50, 'Azzurro', 'Italo', 2000);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura per vista `datitreno`
+--
+DROP TABLE IF EXISTS `datitreno`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datitreno`  AS  select `treno`.`idTreno` AS `idTreno`,sum(`vagone`.`peso`) AS `pesoTotale`,sum(`vagone`.`lunghezza`) AS `lunghezzaTotale`,sum(`vagone`.`costo`) AS `costoComplessivo` from ((`treno` left join `composizione` on(`composizione`.`treno` = `treno`.`idTreno`)) left join `vagone` on(`composizione`.`vagone` = `vagone`.`idVagone`)) group by `treno`.`idTreno` ;
 
 --
 -- Indici per le tabelle scaricate
