@@ -1,4 +1,4 @@
-package org.lessons.java.pojo;
+package org.lessons.java.bean;
 
 import java.io.Serializable;
 
@@ -12,11 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.lessons.java.auth.pojo.Utente;
-import org.lessons.java.bean.Bean;
-
 @Entity
-@Table(name= "treno")
 public class Treno implements Serializable,Bean{
 	
 	@Id
@@ -28,9 +24,12 @@ public class Treno implements Serializable,Bean{
 	private String nome;
 	
 	
+	
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "utente")
 	private Utente utente;
+	
+	
 	
 	/*
 	
@@ -62,10 +61,7 @@ public class Treno implements Serializable,Bean{
 	
 
   public Treno(int id,
-			String nome,
-			double peso,
-			double lunghezza,
-			double prezzo) {
+			String nome) {
 		
 		this.idTreno = id;
 		this.nome = nome;

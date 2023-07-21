@@ -1,5 +1,6 @@
-package org.lessons.java.pojo;
+package org.lessons.java.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -11,8 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name= "vagone")
-public class Vagone {
+public class Vagone implements Serializable,Bean{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

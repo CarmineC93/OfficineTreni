@@ -12,7 +12,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.lessons.java.bean.Bean;
-import org.lessons.java.pojo.Treno;
+import org.lessons.java.bean.Treno;
 
 public abstract class BaseDao {
 
@@ -83,29 +83,25 @@ public abstract class BaseDao {
 	   }
 	    
 	    
-	    public List<Treno> findAllTreni() {
-	        List<Treno> result = null;
-	        Session session = factory.openSession();
-	        Transaction tx = null;
-
-	        try {
-	            tx = session.beginTransaction();
-	            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-	            CriteriaQuery<Treno> criteriaQuery = criteriaBuilder.createQuery(Treno.class);
-	            Root<Treno> root = criteriaQuery.from(Treno.class);
-	            criteriaQuery.select(root);
-	            result = session.createQuery(criteriaQuery).getResultList();
-	            tx.commit();
-	        } catch (Exception e) {
-	            if (tx != null) tx.rollback();
-	            e.printStackTrace();
-	        } finally {
-	            session.close();
-	        }
-
-	        return result;
-	    }
-	   
+	    protected Bean find(Class classe, Integer id){
+		      Session session = factory.openSession();
+		      Transaction tx = null;
+		      Bean bean = null;
+		      
+		      try {
+		         tx = session.beginTransaction();
+		         
+		         bean = (Bean) session.get(classe, id);
+		         
+		         tx.commit();
+		      } catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      } finally {
+		         session.close(); 
+		      }
+		      return bean;
+		   } 
 	
 	
 }

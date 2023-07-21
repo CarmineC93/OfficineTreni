@@ -1,26 +1,26 @@
-package org.lessons.java.auth.pojo;
+package org.lessons.java.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.lessons.java.pojo.Treno;
 
-//@Data
 @Entity
-public class Utente{
+public class Utente implements Serializable,Bean{
 
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int idUtente;
 
 	@NotBlank(message = "l'email non puo essere vuota")
 	@Size(min = 5,message = "minimo 5 caratteri")
@@ -40,6 +40,7 @@ public class Utente{
 
 	
 	@ManyToOne
+	@JoinColumn(name = "ruolo")
 	private Ruolo ruolo;
 	
 	
@@ -51,19 +52,19 @@ public class Utente{
 	public Utente() {}
 
 	public Utente(int id, String email, String nome, String cognome, String password) {
-		this.id = id;
+		this.idUtente = id;
 		this.email = email;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.password = password;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdUtente() {
+		return idUtente;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdUtente(int id) {
+		this.idUtente = id;
 	}
 
 	public String getEmail() {

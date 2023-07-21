@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,17 +9,20 @@
 </head>
 <body>
 	<h1>Treni</h1>
-	<!--
-	<%@ page import="org.lessons.java.pojo.Treno" %>
 	
-	<c:forEach var="treno" items="${treni}">
-		 Access properties of the 'treno' object 
-		<p>${treno.getNome}</p>
-	</c:forEach>
-	
-	-->
-
-	${treni} 
+	<table>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+        </tr>
+        <c:forEach var="treno" items="${listaTreni}">
+            <tr>
+                <td>${treno.idTreno}</td>
+                <td>${treno.nome}</td>
+                <td>${treno.utente.nome}</td>
+            </tr>
+        </c:forEach>
+    </table>
 
 
 </body>

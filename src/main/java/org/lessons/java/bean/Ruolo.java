@@ -1,5 +1,6 @@
-package org.lessons.java.auth.pojo;
+package org.lessons.java.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -11,13 +12,13 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
-@Data
+
 @Entity
-public class Ruolo{
+public class Ruolo implements Serializable,Bean{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int idRuolo;
 
 	@NotBlank
 	private String nome;
@@ -30,19 +31,19 @@ public class Ruolo{
 
 
 	public Ruolo(int id,String nome) {
-		this.id = id;
+		this.idRuolo = id;
 		this.nome = nome;
 	}
 
 
 
-	public int getId() {
-		return id;
+	public int getIdRuolo() {
+		return idRuolo;
 	}
 
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdRuolo(int id) {
+		this.idRuolo = id;
 	}
 
 
