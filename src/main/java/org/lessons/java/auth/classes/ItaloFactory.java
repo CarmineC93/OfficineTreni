@@ -8,8 +8,8 @@ public class ItaloFactory extends VagoneFactory {
 	}
 
 	public static Cargo creaCargo(int id, float peso, float lunghezza, String colore, String compagnia, float costo,
-			String scopo, float spazio) {
-				return new CargoItalo(id, peso, lunghezza, colore, compagnia, costo, scopo, spazio);
+			float spazio, String scopo) {
+				return new CargoItalo(id, peso, lunghezza, colore, compagnia, costo, spazio, scopo);
 		// TODO Auto-generated method stub
 		
 	}
@@ -23,7 +23,7 @@ public class ItaloFactory extends VagoneFactory {
 
 	public static Ristorante creaRistorante(int id, float peso, float lunghezza, String colore, String compagnia, float costo,
 			int tavoli) {
-				return new RistoranteItalo(id, peso, lunghezza, colore, compagnia, costo, tavoli);return null;
+				return new RistoranteItalo(id, peso, lunghezza, colore, compagnia, costo, tavoli);
 		// TODO Auto-generated method stub
 		
 	}

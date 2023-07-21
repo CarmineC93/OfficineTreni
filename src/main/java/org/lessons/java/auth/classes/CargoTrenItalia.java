@@ -1,8 +1,8 @@
 package org.lessons.java.auth.classes;
 public class CargoTrenItalia extends Cargo{
 
-	public CargoTrenItalia(int id, float peso, float lunghezza, float costo, String colore, String compagnia, float spazio,
-			String scopo, float spazio2) {
+	public CargoTrenItalia(int id, float peso, float lunghezza, String colore, String compagnia, float costo, float spazio,
+			String scopo) {
 		super(id, peso, lunghezza, colore, compagnia, costo, spazio, scopo);
 		// TODO Auto-generated constructor stub
 	}

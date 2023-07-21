@@ -24,9 +24,9 @@ public class Passeggeri extends Vagone {
 	public int cuccetteDisponibili; // prezzo del biglietto
 	public float prezzoCuccetta; // posti-letto
 
-	public Passeggeri(float peso, float lunghezza, float costo, String colore, String compagnia, float costo2, int postiDisponibili, float prezzoPosto, int cuccetteDisponibili, float prezzoCuccetta) {
+	public Passeggeri(int id, float peso, float lunghezza, String colore, String compagnia, float costo, int postiDisponibili, float prezzoPosto, int cuccetteDisponibili, float prezzoCuccetta) {
 		// TODO Auto-generated constructor stub
-		super(peso, lunghezza, costo, colore, compagnia);
+		super(id, peso, lunghezza, colore, compagnia, costo);
 		this.postiDisponibili = postiDisponibili;
 		if (postiDisponibili == 0) {
 			this.prezzoPosto = 0;

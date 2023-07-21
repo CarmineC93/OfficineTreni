@@ -16,10 +16,9 @@ public class Locomotiva extends Vagone {
 
 	public Locomotiva(int id, float peso, float lunghezza, String colore, String compagnia, float costo, float pesoTrainante, int tecnici) {
 		// TODO Auto-generated constructor stub
-		super(peso, lunghezza, costo, colore, compagnia);
+		super(id, peso, lunghezza, colore, compagnia, costo);
 		this.tecnici = tecnici;
 		this.pesoTrainante = pesoTrainante;
-		this.tecnici = tecnici;
 	}
 
 	@Override

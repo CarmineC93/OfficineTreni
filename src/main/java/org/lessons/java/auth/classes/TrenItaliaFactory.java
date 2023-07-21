@@ -9,8 +9,8 @@ public class TrenItaliaFactory extends VagoneFactory {
 	}
 
 	public static Cargo creaCargo(int id, float peso, float lunghezza, String colore, String compagnia, float costo,
-			String scopo, float spazio) {
-				return new CargoTrenItalia(id, peso, lunghezza, colore, compagnia, costo, scopo, spazio);
+			float spazio, String scopo) {
+				return new CargoTrenItalia(id, peso, lunghezza, colore, compagnia, costo, spazio, scopo);
 		// TODO Auto-generated method stub
 		
 	}

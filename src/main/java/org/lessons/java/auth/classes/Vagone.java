@@ -25,6 +25,7 @@ public class Vagone implements VagoneBase{
 
 	
 	public Vagone(int id, float peso, float lunghezza, String colore, String compagnia, float costo) {
+		this.id = id;
 		this.peso = peso;
 		this.lunghezza = lunghezza;
 		this.colore = colore;

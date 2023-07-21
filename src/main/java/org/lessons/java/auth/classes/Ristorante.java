@@ -23,7 +23,7 @@ public class Ristorante extends Vagone {
 
 	public Ristorante(int id, float peso, float lunghezza, String colore, String compagnia, float costo, int tavoli) {
 		// TODO Auto-generated constructor stub
-		super(peso, lunghezza, costo, colore, compagnia);
+		super(id, peso, lunghezza, colore, compagnia, costo);
 		this.tavoli = tavoli;
 	}
 
