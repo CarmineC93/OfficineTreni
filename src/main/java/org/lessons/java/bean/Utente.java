@@ -21,11 +21,11 @@ public class Utente implements Serializable,Bean{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idUtente;
-
-	@NotBlank(message = "l'email non puo essere vuota")
-	@Size(min = 5,message = "minimo 5 caratteri")
-	private String email;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "ruolo")
+	private Ruolo ruolo;
+	
 	@NotBlank(message = "il nome non puo essere vuota")
 	@Size(min = 5,message = "minimo 5 caratteri")
 	private String nome;
@@ -34,25 +34,27 @@ public class Utente implements Serializable,Bean{
 	@Size(min = 5,message = "minimo 5 caratteri")
 	private String cognome;
 
+	@NotBlank(message = "l'email non puo essere vuota")
+	@Size(min = 5,message = "minimo 5 caratteri")
+	private String email;
+
 	@NotBlank(message = "la password non puo essere vuota")
 	@Size(min = 8,message = "minimo 8 caratteri")
 	private String password;
 
-	
-	@ManyToOne
-	@JoinColumn(name = "ruolo")
-	private Ruolo ruolo;
-	
+	@OneToMany(mappedBy = "utente")
+	private List<Treno> treni;
 	
 	@OneToMany(mappedBy = "utente")
-	private List<Treno> treno;
+	private List<Ordine> ordini;
 	
 
 
 	public Utente() {}
 
-	public Utente(int id, String email, String nome, String cognome, String password) {
+	public Utente(int id, String email, String nome, String cognome, String password, Ruolo ruolo) {
 		this.idUtente = id;
+		this.ruolo = ruolo;
 		this.email = email;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -63,16 +65,16 @@ public class Utente implements Serializable,Bean{
 		return idUtente;
 	}
 
-	public void setIdUtente(int id) {
-		this.idUtente = id;
+	public void setIdUtente(int idUtente) {
+		this.idUtente = idUtente;
 	}
 
-	public String getEmail() {
-		return email;
+	public Ruolo getRuolo() {
+		return ruolo;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setRuolo(Ruolo ruolo) {
+		this.ruolo = ruolo;
 	}
 
 	public String getNome() {
@@ -91,12 +93,36 @@ public class Utente implements Serializable,Bean{
 		this.cognome = cognome;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Treno> getTreni() {
+		return treni;
+	}
+
+	public void setTreni(List<Treno> treni) {
+		this.treni = treni;
+	}
+
+	public List<Ordine> getOrdini() {
+		return ordini;
+	}
+
+	public void setOrdini(List<Ordine> ordini) {
+		this.ordini = ordini;
 	}
 
 

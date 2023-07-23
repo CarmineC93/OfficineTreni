@@ -11,9 +11,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.lessons.java.bean.Treno;
+import org.lessons.java.bean.Ruolo;
 
-public class TrenoDaoImp extends BaseDao implements TrenoDao {
+public class RuoloDaoImp extends BaseDao implements RuoloDao {
 
 	private static SessionFactory factory;
 
@@ -27,35 +27,35 @@ public class TrenoDaoImp extends BaseDao implements TrenoDao {
 	}
 
 	@Override
-	public void create(Treno bean) {
+	public void create(Ruolo bean) {
 		// TODO Auto-generated method stub
 		super.create(bean);
 	}
 
 	@Override
-	public void update(Treno bean) {
+	public void update(Ruolo bean) {
 		// TODO Auto-generated method stub
 		super.update(bean);
 	}
 
 	@Override
-	public void delete(Treno bean) {
+	public void delete(Ruolo bean) {
 		// TODO Auto-generated method stub
 		super.delete(bean);
 	}
 
 	@Override
-	public List<Treno> findAll() {
+	public List<Ruolo> findAll() {
 		Session session = factory.openSession();
 		Transaction tx = null;
-		List<Treno> resultList = null;
+		List<Ruolo> resultList = null;
 
 		try {
 			tx = session.beginTransaction();
 
 			CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-			CriteriaQuery<Treno> criteriaQuery = criteriaBuilder.createQuery(Treno.class);
-			Root<Treno> root = criteriaQuery.from(Treno.class);
+			CriteriaQuery<Ruolo> criteriaQuery = criteriaBuilder.createQuery(Ruolo.class);
+			Root<Ruolo> root = criteriaQuery.from(Ruolo.class);
 			criteriaQuery.select(root);
 
 			resultList = session.createQuery(criteriaQuery).getResultList();

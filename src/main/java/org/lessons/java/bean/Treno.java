@@ -8,150 +8,97 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Treno implements Serializable,Bean{
-	
+public class Treno implements Serializable, Bean {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idTreno;
-	
-	@NotNull(message = "Il nome non pu√≤ essere vuoto")
-	@Size(min = 5,message = "minimo 5 caratteri")
-	private String nome;
-	
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name = "utente")
 	private Utente utente;
-	
-	
-	
-	/*
-	
-	@NotNull(message = "Il peso non pu√≤ essere vuoto")
-	private double peso;
-	
-	@NotNull(message = "La lunghezza non pu√≤ essere vuota")
-	private double lunghezza;
-	
-	@NotNull(message = "Il prezzo non pu√≤ essere vuoto")
-	private double prezzo;
-	*/
-	
-    //RELATIONS
-	/*
-	@ManyToMany
-    @JoinTable(
-            name = "composizione",
-            joinColumns = @JoinColumn(name = "treno_id", referencedColumnName="id"),
-            inverseJoinColumns = @JoinColumn(name = "vagone_id", referencedColumnName="id") 
-            )
-    private List<Vagone> composizione;
-    */
-	public Treno() {}
-	
-	
-	
-	
-	
 
-  public Treno(int id,
-			String nome) {
-		
-		this.idTreno = id;
-		this.nome = nome;
-		
-		
+	@NotNull(message = "La sigla non puÚ essere vuoto")
+	private String sigla;
+
+	@NotNull(message = "Il nome non puÚ essere vuoto")
+	@Size(min = 5, message = "minimo 5 caratteri")
+	private String nome;
+
+	@NotNull(message = "Il nome della compagnia non puÚ essere vuoto")
+	private String compagnia;
+
+	@OneToMany
+	@JoinColumn(name = "ordine")
+	private Ordine ordine;
+
+	public Treno() {
 	}
 
+	public Treno(int id, String nome, String sigla, String compagnia, Utente utente) {
 
+		this.idTreno = id;
+		this.nome = nome;
+		this.sigla = sigla;
+		this.compagnia = compagnia;
+		this.utente = utente;
 
+	}
 
-
-
-//GETTER & SETTER
-    
 	public int getIdTreno() {
 		return idTreno;
 	}
 
-
-	public void setIdTreno(int id) {
-		this.idTreno = id;
+	public void setIdTreno(int idTreno) {
+		this.idTreno = idTreno;
 	}
-
 
 	public String getNome() {
 		return nome;
 	}
 
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
+	public String getSigla() {
+		return sigla;
+	}
 
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+
+	public String getCompagnia() {
+		return compagnia;
+	}
+
+	public void setCompagnia(String compagnia) {
+		this.compagnia = compagnia;
+	}
 
 	public Utente getUtente() {
 		return utente;
 	}
 
-
-
 	public void setUtente(Utente utente) {
 		this.utente = utente;
 	}
-	
-	
 
-	/*
-	public double getPeso() {
-		return peso;
+	public Ordine getOrdine() {
+		return ordine;
 	}
 
-
-	public void setPeso(double peso) {
-		this.peso = peso;
+	public void setOrdine(Ordine ordine) {
+		this.ordine = ordine;
 	}
 
+//GETTER & SETTER
 
-	public double getLunghezza() {
-		return lunghezza;
-	}
-
-
-	public void setLunghezza(double lunghezza) {
-		this.lunghezza = lunghezza;
-	}
-
-
-	public double getPrezzo() {
-		return prezzo;
-	}
-
-
-	public void setPrezzo(double prezzo) {
-		this.prezzo = prezzo;
-	}
-	*/
-
-	/*
-
-	public List<Vagone> getComposizione() {
-		return composizione;
-	}
-
-
-	public void setComposizione(List<Vagone> composizione) {
-		this.composizione = composizione;
-	}
-	
-	*/
-
-	
 }

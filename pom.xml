@@ -57,17 +57,16 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>2.5.3</version>
 		</dependency>
-		
-		
+
+
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-tx</artifactId>
-		    <version>5.3.9</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>5.3.9</version>
 		</dependency>
 
-		
-		
+
 		<!--
 		https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 		<dependency>
@@ -122,9 +121,9 @@
 
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-core</artifactId>
-		    <version>5.3.9</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>5.3.9</version>
 		</dependency>
 
 
@@ -160,10 +159,11 @@
 		</dependency>
 
 		<dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>jstl</artifactId>
-    <version>1.2</version>
-</dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
 
 
 	</dependencies>

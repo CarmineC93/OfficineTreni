@@ -11,9 +11,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.lessons.java.bean.Utente;
+import org.lessons.java.bean.Composizione;
 
-public class UtenteDaoImp extends BaseDao implements UtenteDao{
+public class ComposizioneDaoImp extends BaseDao implements ComposizioneDao{
 
 	private static SessionFactory factory; 
 	 
@@ -27,35 +27,35 @@ public class UtenteDaoImp extends BaseDao implements UtenteDao{
 	 }
 	
 	@Override
-	public void create(Utente bean) {
+	public void create(Composizione bean) {
 		// TODO Auto-generated method stub
 		super.create(bean);
 	}
 
 	@Override
-	public void update(Utente bean) {
+	public void update(Composizione bean) {
 		// TODO Auto-generated method stub
 		super.update(bean);
 	}
 
 	@Override
-	public void delete(Utente bean) {
+	public void delete(Composizione bean) {
 		// TODO Auto-generated method stub
 		super.delete(bean);
 	}
 	
 	@Override
-	public List<Utente> findAll() {
+	public List<Composizione> findAll() {
         Session session = factory.openSession();
         Transaction tx = null; 
-        List<Utente> resultList = null;
+        List<Composizione> resultList = null;
 
         try {
             tx = session.beginTransaction();
 
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<Utente> criteriaQuery = criteriaBuilder.createQuery(Utente.class);
-            Root<Utente> root = criteriaQuery.from(Utente.class);
+            CriteriaQuery<Composizione> criteriaQuery = criteriaBuilder.createQuery(Composizione.class);
+			Root<Composizione> root = criteriaQuery.from(Composizione.class);
             criteriaQuery.select(root);
 
             resultList = session.createQuery(criteriaQuery).getResultList();

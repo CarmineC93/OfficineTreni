@@ -12,9 +12,8 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
-
 @Entity
-public class Ruolo implements Serializable,Bean{
+public class Ruolo implements Serializable, Bean {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,39 +25,29 @@ public class Ruolo implements Serializable,Bean{
 	@OneToMany(mappedBy = "ruolo")
 	private List<Utente> utente;
 
-
-	public Ruolo() {}
-
-
-	public Ruolo(int id,String nome) {
-		this.idRuolo = id;
-		this.nome = nome;
+	public Ruolo() {
 	}
 
-
+	public Ruolo(int id, String nome, List<Utente> utente) {
+		this.idRuolo = id;
+		this.nome = nome;
+		this.utente = utente;
+	}
 
 	public int getIdRuolo() {
 		return idRuolo;
 	}
 
-
 	public void setIdRuolo(int id) {
 		this.idRuolo = id;
 	}
-
 
 	public String getNome() {
 		return nome;
 	}
 
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-
-
-
-
 
 }

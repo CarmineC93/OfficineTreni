@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 21, 2023 alle 14:41
+-- Creato il: Lug 23, 2023 alle 01:22
 -- Versione del server: 10.4.11-MariaDB
 -- Versione PHP: 7.4.1
 
@@ -53,45 +53,46 @@ INSERT INTO `cargo` (`idVagone`, `scopo`, `spazio`) VALUES
 CREATE TABLE `composizione` (
   `treno` int(11) NOT NULL,
   `vagone` int(11) NOT NULL,
-  `posizione` int(11) NOT NULL
+  `posizione` int(11) NOT NULL,
+  `tipologia` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dump dei dati per la tabella `composizione`
 --
 
-INSERT INTO `composizione` (`treno`, `vagone`, `posizione`) VALUES
-(1, 4, 1),
-(1, 7, 2),
-(1, 7, 3),
-(1, 7, 4),
-(1, 7, 5),
-(1, 7, 6),
-(1, 12, 7),
-(1, 12, 8),
-(1, 12, 9),
-(2, 6, 1),
-(2, 11, 2),
-(2, 11, 3),
-(2, 11, 4),
-(2, 11, 5),
-(3, 4, 1),
-(3, 7, 2),
-(3, 7, 3),
-(3, 12, 4),
-(3, 13, 5),
-(3, 12, 6),
-(3, 7, 7),
-(3, 7, 8),
-(4, 10, 1),
-(4, 11, 2),
-(4, 16, 3),
-(4, 11, 4),
-(4, 16, 5),
-(4, 11, 6),
-(4, 16, 7),
-(4, 11, 8),
-(4, 16, 9);
+INSERT INTO `composizione` (`treno`, `vagone`, `posizione`, `tipologia`) VALUES
+(1, 4, 1, 'Locomotiva'),
+(1, 7, 2, 'Passeggeri'),
+(1, 7, 3, 'Passeggeri'),
+(1, 7, 4, 'Passeggeri'),
+(1, 7, 5, 'Passeggeri'),
+(1, 7, 6, 'Passeggeri'),
+(1, 12, 7, 'Passeggeri'),
+(1, 12, 8, 'Passeggeri'),
+(1, 12, 9, 'Passeggeri'),
+(2, 6, 1, 'Locomotiva'),
+(2, 11, 2, 'Cargo'),
+(2, 11, 3, 'Cargo'),
+(2, 11, 4, 'Cargo'),
+(2, 11, 5, 'Cargo'),
+(3, 4, 1, 'Locomotiva'),
+(3, 7, 2, 'Passeggeri'),
+(3, 7, 3, 'Passeggeri'),
+(3, 12, 4, 'Passeggeri'),
+(3, 13, 5, 'Ristorante'),
+(3, 12, 6, 'Passeggeri'),
+(3, 7, 7, 'Passeggeri'),
+(3, 7, 8, 'Passeggeri'),
+(4, 10, 1, 'Locomotiva'),
+(4, 11, 2, 'Cargo'),
+(4, 16, 3, 'Cargo'),
+(4, 11, 4, 'Cargo'),
+(4, 16, 5, 'Cargo'),
+(4, 11, 6, 'Cargo'),
+(4, 16, 7, 'Cargo'),
+(4, 11, 8, 'Cargo'),
+(4, 16, 9, 'Cargo');
 
 -- --------------------------------------------------------
 
