@@ -16,6 +16,7 @@
 			<version>5.6.15.Final</version>
 		</dependency>
 
+  
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -67,7 +68,12 @@
 		</dependency>
 
 		
-		
+		<dependency>
+    		<groupId>org.apache.commons</groupId>
+    		<artifactId>commons-dbcp2</artifactId>
+    		<version>2.9.0</version> <!-- Sostituisci con l'ultima versione disponibile -->
+		</dependency>
+
 		<!--
 		https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 		<dependency>
@@ -91,6 +97,8 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>5.7.5</version>
 		</dependency>
+		
+
 
 
 		<!--

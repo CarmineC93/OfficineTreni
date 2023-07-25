@@ -1,10 +1,14 @@
 package org.lessons.java.dao;
 
 import org.lessons.java.bean.Utente;
+import org.springframework.stereotype.Component;
 
+ 
 public interface UtenteDao {
 	
-	public void create(Utente bean);
+	Utente findByEmail(String email);
+	
+	public void create(Utente bean); //save
 	public void update(Utente bean);
 	public void delete(Utente bean);
 	public Utente find(Integer id);

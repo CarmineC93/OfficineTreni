@@ -1,7 +1,9 @@
 <%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ page import="org.lessons.java.treno.Treno" %>
+       
+   
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,15 +19,16 @@
 	
 	
 	<% 
-		Treno treno = (Treno) request.getAttribute("treno");
+	//<%@ page import="org.lessons.java.treno.Treno
+		//Treno treno = (Treno) request.getAttribute("treno");
 		
-		String sigla = treno.getComposizioneTreno();
+		//String sigla = treno.getComposizioneTreno();
 	
-		char c = sigla.charAt(0);
+		//char c = sigla.charAt(0);
 	%>
 		
 		
-		<img src="/OfficineTreni/resources/img/<%=c%>.jpg"/>
+		<img src="/OfficineTreni/resources/img/<%=%>.jpg"/>
 		
 	<% 
 		
