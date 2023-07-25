@@ -7,14 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	
+	<h1>${errore}</h1>
+	
 	<form action="crea" method="post">
 	 <label for="nome">nome treno:</label><br>
-	<input type="text" id="nome" name="nome" value=""><br>
+	<input type="text" id="nome" name="nome" value="${treno.nome}"><br>
 	 <label for="compagnia">compagnia treno:</label><br>
-	<input type="text" id="compagnia" name="compagnia" value=""><br>
+	<input type="text" id="compagnia" name="compagnia" value="${treno.compagnia}"><br>
   <label for="sigla">sigla treno:</label><br>
-  <input type="text" id="sigla" name="sigla" value=""><br>
+  <input type="text" id="sigla" name="sigla" value="${treno.sigla}"><br>
   <input type="submit" value="Submit">
 	</form> 
 
