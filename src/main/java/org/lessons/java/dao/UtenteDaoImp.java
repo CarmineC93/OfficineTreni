@@ -22,4 +22,9 @@ public class UtenteDaoImp extends BaseDao implements UtenteDao{
 		super.delete(bean);
 	}
 
+	@Override 
+	public Utente find(Integer id) {
+		return (Utente) super.find(Utente.class, id);
+	}
+	
 }

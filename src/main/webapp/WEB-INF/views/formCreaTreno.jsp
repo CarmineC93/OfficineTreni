@@ -8,7 +8,11 @@
 </head>
 <body>
 
-	<form action="crea" method="get">
+	<form action="crea" method="post">
+	 <label for="nome">nome treno:</label><br>
+	<input type="text" id="nome" name="nome" value=""><br>
+	 <label for="compagnia">compagnia treno:</label><br>
+	<input type="text" id="compagnia" name="compagnia" value=""><br>
   <label for="sigla">sigla treno:</label><br>
   <input type="text" id="sigla" name="sigla" value=""><br>
   <input type="submit" value="Submit">

@@ -9,11 +9,6 @@ import org.lessons.java.dao.TrenoDaoImp;
 
 public class TrenoService {
 
-	
-
-	
-	 
-
 
 private TrenoDao dao = new TrenoDaoImp();
 	

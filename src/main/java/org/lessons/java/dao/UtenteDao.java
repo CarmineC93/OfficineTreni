@@ -7,5 +7,6 @@ public interface UtenteDao {
 	public void create(Utente bean);
 	public void update(Utente bean);
 	public void delete(Utente bean);
+	public Utente find(Integer id);
 	
 }

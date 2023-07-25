@@ -22,13 +22,14 @@ public class Treno implements Serializable,Bean{
 	@NotNull(message = "Il nome non può essere vuoto")
 	@Size(min = 5,message = "minimo 5 caratteri")
 	private String nome;
-	
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name = "utente")
 	private Utente utente;
 	
+	private String sigla;
+	
+	private String compagnia;
 	
 	
 	/*
@@ -105,6 +106,29 @@ public class Treno implements Serializable,Bean{
 
 	public void setUtente(Utente utente) {
 		this.utente = utente;
+	}
+
+
+	public String getSigla() {
+		return sigla;
+	}
+
+
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+
+
+
+	public String getCompagnia() {
+		return compagnia;
+	}
+
+
+
+	public void setCompagnia(String compagnia) {
+		this.compagnia = compagnia;
 	}
 	
 	

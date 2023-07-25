@@ -23,5 +23,8 @@ public class UtenteService {
 		dao.delete(utente);
 //		System.out.println("eliminato l'utente con id: " + utente.getId());
 	}
-
+	
+	public Utente find(int id) {
+		return dao.find(id);
+	} 
 }

@@ -20,6 +20,8 @@
                 <td>${treno.idTreno}</td>
                 <td>${treno.nome}</td>
                 <td>${treno.utente.nome}</td>
+                <td>${treno.sigla}</td>
+                <td>${treno.compagnia}</td>
             </tr>
         </c:forEach>
     </table>
