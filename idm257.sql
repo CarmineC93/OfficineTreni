@@ -4,10 +4,20 @@
 --
 -- Host: 127.0.0.1
 <<<<<<<< Updated upstream:idm23723.sql
+<<<<<<< Updated upstream
+=======
+<<<<<<<< Updated upstream:idm23723.sql
+>>>>>>> Stashed changes
 -- Creato il: Lug 23, 2023 alle 01:22
 ========
 -- Creato il: Lug 25, 2023 alle 11:35
 >>>>>>>> Stashed changes:idm257.sql
+<<<<<<< Updated upstream
+=======
+========
+-- Creato il: Lug 25, 2023 alle 11:35
+>>>>>>>> Stashed changes:idm257.sql
+>>>>>>> Stashed changes
 -- Versione del server: 10.4.11-MariaDB
 -- Versione PHP: 7.4.1
 
