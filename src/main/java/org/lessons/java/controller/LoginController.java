@@ -42,7 +42,7 @@ public class LoginController {
             
             //disconnessione automatica
             
-             session.setMaxInactiveInterval(10);       
+//             session.setMaxInactiveInterval(10);       
 
             return "redirect:home";
 

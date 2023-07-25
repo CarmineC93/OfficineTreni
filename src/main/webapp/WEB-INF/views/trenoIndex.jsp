@@ -14,6 +14,9 @@
         <tr>
             <th>ID</th>
             <th>Nome</th>
+            <th>utente</th>
+            <th>sigla</th>
+            <th>compagnia</th>
         </tr>
         <c:forEach var="treno" items="${listaTreni}">
             <tr>

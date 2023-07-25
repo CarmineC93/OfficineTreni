@@ -3,6 +3,7 @@ package org.lessons.java.service;
 
 import org.lessons.java.bean.Utente;
 import org.lessons.java.dao.UtenteDao;
+import org.lessons.java.dao.UtenteDaoImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,8 @@ public class UtenteService {
 	
 	@Autowired
     private UtenteDao dao;
+	
+	private UtenteDao dao2 = new UtenteDaoImp();
 
 	public Utente findByEmail(String email) {
 		return dao.findByEmail(email);
@@ -44,6 +47,6 @@ public class UtenteService {
 	}
 	
 	public Utente find(int id) {
-		return dao.find(id);
+		return dao2.find(id);
 	} 
 }

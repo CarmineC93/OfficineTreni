@@ -3,6 +3,7 @@
 	<name>webapptreni</name>
 	<comment></comment>
 	<projects>
+		<project>TrenoPatterns</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
