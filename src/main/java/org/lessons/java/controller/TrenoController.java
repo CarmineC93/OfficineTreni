@@ -45,8 +45,9 @@ public class TrenoController {
 	
 	
 	@PostMapping("/crea")
-	public String creaTreno(@ModelAttribute Treno treno,Model model) {
+	public String creaTreno(@ModelAttribute Treno treno, Model model) {
 		
+		//parte con sigle 
 //		System.out.println("sigla = " + sigla);
 		
 //		GenericBilder italoBilder = new GenericBilder();
