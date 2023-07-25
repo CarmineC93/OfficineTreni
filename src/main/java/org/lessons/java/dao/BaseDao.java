@@ -13,12 +13,14 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.lessons.java.bean.Bean;
 import org.lessons.java.bean.Treno;
+import org.lessons.java.bean.Utente;
 
 public abstract class BaseDao {
 
-	private static SessionFactory factory; 
+	public static SessionFactory factory; 
 	 
 	 static {
+		 
 	 try {
        factory = new Configuration().configure().buildSessionFactory();
     } catch (Throwable ex) { 
@@ -27,10 +29,12 @@ public abstract class BaseDao {
     }
 	 }
 	
+
+	 
 	   protected void create(Bean bean){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
-	      
+
 	      
 	      try {
 	         tx = session.beginTransaction();
@@ -104,4 +108,27 @@ public abstract class BaseDao {
 		   } 
 	
 	
+	    public Utente findByEmail(String email) {
+		     Session session = factory.openSession();
+
+	
+	        Transaction tx = null;
+	        Utente utente = null;
+
+	        try {
+	            tx = session.beginTransaction();
+	            utente = session.createQuery("FROM Utente WHERE email = :email", Utente.class)
+	                           .setParameter("email", email)
+	                           .uniqueResult();
+	            tx.commit();
+	        } catch (HibernateException e) {
+	            if (tx != null) tx.rollback();
+	            e.printStackTrace();
+	        } finally {
+	            // Don't close the session here, let the BaseDao handle it
+	        }
+
+	        return utente;
+	    }
+	    
 }

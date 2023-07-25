@@ -3,8 +3,6 @@ package org.lessons.java.controller;
 import java.util.List;
 
 import org.lessons.java.bean.Treno;
-import org.lessons.java.bilderConcreto.GenericBilder;
-import org.lessons.java.eccezzioni.TrenoException;
 import org.lessons.java.service.TrenoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,7 +46,7 @@ public class TrenoController {
 		
 		System.out.println("sigla = " + sigla);
 		
-		GenericBilder italoBilder = new GenericBilder();
+		/*GenericBilder italoBilder = new GenericBilder();
 		
 		org.lessons.java.treno.Treno trenoItalo = null;
 		
@@ -63,8 +61,10 @@ public class TrenoController {
 		model.addAttribute("treno",trenoItalo);
 	
 		
-		return "viewTreno";
+		return "viewTreno";*/
+		return null;
 	}
+	
 	
 	
 }

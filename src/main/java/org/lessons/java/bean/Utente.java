@@ -2,28 +2,35 @@ package org.lessons.java.bean;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 
 @Entity
-public class Utente implements Serializable,Bean{
-
+@Table(name= "utente")
+public class Utente implements Serializable, Bean{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idUtente;
+	private int id;
 
 	@NotBlank(message = "l'email non puo essere vuota")
 	@Size(min = 5,message = "minimo 5 caratteri")
+	@Column(unique = true)
 	private String email;
 
 	@NotBlank(message = "il nome non puo essere vuota")
@@ -38,33 +45,32 @@ public class Utente implements Serializable,Bean{
 	@Size(min = 8,message = "minimo 8 caratteri")
 	private String password;
 
+	//RELATIONS
 	
-	@ManyToOne
-	@JoinColumn(name = "ruolo")
-	private Ruolo ruolo;
-	
-	
+	@ManyToMany
+	@JoinTable(name = "utente_ruolo",
+			joinColumns = @JoinColumn(name = "id_utente"),
+			inverseJoinColumns = @JoinColumn(name = "id_ruolo")
+	)
+    private Set<Ruolo> ruolo;
+
+	/*
 	@OneToMany(mappedBy = "utente")
-	private List<Treno> treno;
+	private List<Treno> treno;*/
+	
+	//CONSTRUCTORS
 	
 
 
-	public Utente() {}
+    //GETTER & SETTER
 
-	public Utente(int id, String email, String nome, String cognome, String password) {
-		this.idUtente = id;
-		this.email = email;
-		this.nome = nome;
-		this.cognome = cognome;
-		this.password = password;
-	}
-
+	
 	public int getIdUtente() {
-		return idUtente;
+		return id;
 	}
 
 	public void setIdUtente(int id) {
-		this.idUtente = id;
+		this.id = id;
 	}
 
 	public String getEmail() {
@@ -99,15 +105,12 @@ public class Utente implements Serializable,Bean{
 		this.password = password;
 	}
 
+	public Set<Ruolo> getRuolo() {
+		return ruolo;
+	}
 
-
-
-
-
-
-
-
-
-
+	public void setRuolo(Set<Ruolo> ruolo) {
+		this.ruolo = ruolo;
+	}
 }
 

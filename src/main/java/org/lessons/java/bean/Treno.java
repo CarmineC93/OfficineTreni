@@ -29,10 +29,7 @@ public class Treno implements Serializable,Bean{
 	@JoinColumn(name = "utente")
 	private Utente utente;
 	
-	
-	
 	/*
-	
 	@NotNull(message = "Il peso non può essere vuoto")
 	private double peso;
 	
@@ -55,14 +52,8 @@ public class Treno implements Serializable,Bean{
     */
 	public Treno() {}
 	
-	
-	
-	
-	
 
-  public Treno(int id,
-			String nome) {
-		
+	public Treno(int id, String nome) {
 		this.idTreno = id;
 		this.nome = nome;
 		
