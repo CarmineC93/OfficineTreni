@@ -10,7 +10,11 @@
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <property name="connection.url">jdbc:mysql://localhost:3306/treni</property>
+=======
+    <property name="connection.url">jdbc:mysql://localhost:3306/idm15</property>
+>>>>>>> Stashed changes
 =======
     <property name="connection.url">jdbc:mysql://localhost:3306/idm15</property>
 >>>>>>> Stashed changes
