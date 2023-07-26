@@ -1,16 +1,20 @@
 package org.lessons.java.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 
 @Entity
 public class Treno implements Serializable,Bean{
@@ -47,32 +51,36 @@ public class Treno implements Serializable,Bean{
 	*/
 	
     //RELATIONS
-	/*
 	@ManyToMany
-    @JoinTable(
-            name = "composizione",
-            joinColumns = @JoinColumn(name = "treno_id", referencedColumnName="id"),
-            inverseJoinColumns = @JoinColumn(name = "vagone_id", referencedColumnName="id") 
-            )
+    @JoinTable(name = "composizione",
+            	joinColumns = @JoinColumn(name = "treno"),
+            	inverseJoinColumns = @JoinColumn(name = "vagone") 
+            	)
     private List<Vagone> composizione;
-    */
+   
+	
+	
 	public Treno() {}
 	
-
-	public Treno(int id, String nome) {
-		this.idTreno = id;
-		this.nome = nome;
-		
-		
-	}
-
-
 
 
 
 
 //GETTER & SETTER
     
+	public Treno(int idTreno,
+			@NotNull(message = "Il nome non può essere vuoto") @Size(min = 5, message = "minimo 5 caratteri") String nome,
+			Utente utente, String sigla, String compagnia, List<Vagone> composizione) {
+		super();
+		this.idTreno = idTreno;
+		this.nome = nome;
+		this.utente = utente;
+		this.sigla = sigla;
+		this.compagnia = compagnia;
+		this.composizione = composizione;
+	}
+
+
 	public int getIdTreno() {
 		return idTreno;
 	}
@@ -127,7 +135,14 @@ public class Treno implements Serializable,Bean{
 		this.compagnia = compagnia;
 	}
 	
-	
+	public List<Vagone> getComposizione() {
+		return composizione;
+	}
+
+
+	public void setComposizione(List<Vagone> composizione) {
+		this.composizione = composizione;
+	}
 
 	/*
 	public double getPeso() {
@@ -160,18 +175,11 @@ public class Treno implements Serializable,Bean{
 	}
 	*/
 
-	/*
-
-	public List<Vagone> getComposizione() {
-		return composizione;
-	}
-
-
-	public void setComposizione(List<Vagone> composizione) {
-		this.composizione = composizione;
-	}
 	
-	*/
+
+
+	
+	
 
 	
 }

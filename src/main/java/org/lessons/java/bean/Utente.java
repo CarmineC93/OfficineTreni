@@ -54,9 +54,6 @@ public class Utente implements Serializable, Bean{
 	)
     private Set<Ruolo> ruolo;
 
-	/*
-	@OneToMany(mappedBy = "utente")
-	private List<Treno> treno;*/
 	
 	//CONSTRUCTORS
 	

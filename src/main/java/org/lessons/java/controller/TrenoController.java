@@ -7,8 +7,7 @@ import javax.validation.Valid;
 
 import org.lessons.java.bean.Treno;
 import org.lessons.java.bean.Utente;
-import org.lessons.java.bilderConcreto.GenericBilder;
-import org.lessons.java.eccezzioni.TrenoException;
+
 import org.lessons.java.service.TrenoService;
 import org.lessons.java.service.UtenteService;
 import org.springframework.stereotype.Controller;
@@ -58,7 +57,7 @@ public class TrenoController {
 		
 
 		
-		GenericBilder italoBilder = new GenericBilder();
+		/*GenericBilder italoBilder = new GenericBilder();
 		
 		org.lessons.java.treno.Treno trenoItalo = null;
 		
@@ -89,7 +88,7 @@ public class TrenoController {
 		
 		treno.setUtente(utente);
 		
-		trenoService.crea(treno);
+		trenoService.crea(treno);*/
 		
 		
 		return "redirect:/treno/index";
