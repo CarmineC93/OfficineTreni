@@ -5,16 +5,17 @@ import org.lessons.java.bean.Utente;
 import org.lessons.java.dao.UtenteDao;
 import org.lessons.java.dao.UtenteDaoImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UtenteService {
 
 	
-	@Autowired
-    private UtenteDao dao;
+//	@Autowired
+//    private UtenteDao dao;
 	
-	private UtenteDao dao2 = new UtenteDaoImp();
+	private UtenteDao dao = new UtenteDaoImp();
 
 	public Utente findByEmail(String email) {
 		return dao.findByEmail(email);
@@ -31,8 +32,16 @@ public class UtenteService {
 	
 
     public boolean verificaCredenziali(String email, String password) {
-        Utente utente = dao.findByEmail(email);
-        return utente != null && utente.getPassword().equals(password);
+    	
+    	
+    	   Utente utente = dao.findByEmail(email);
+    	    if (utente == null) {
+    	        return false; // Utente non trovato
+    	    }
+    	 
+    	
+    	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    	    return passwordEncoder.matches(password, utente.getPassword());
     }
 	
     
@@ -47,6 +56,6 @@ public class UtenteService {
 	}
 	
 	public Utente find(int id) {
-		return dao2.find(id);
+		return dao.find(id);
 	} 
 }

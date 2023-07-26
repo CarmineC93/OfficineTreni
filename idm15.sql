@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 25, 2023 at 04:18 PM
+-- Generation Time: Jul 26, 2023 at 02:30 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.1.0
 
@@ -20,28 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `idm15`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cargo`
---
-
-CREATE TABLE `cargo` (
-  `idVagone` int(11) NOT NULL,
-  `scopo` varchar(45) DEFAULT NULL,
-  `spazio` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `cargo`
---
-
-INSERT INTO `cargo` (`idVagone`, `scopo`, `spazio`) VALUES
-(1, 'Posta', 5000),
-(5, 'Frigo', 5000),
-(11, 'Frigo', 7000),
-(16, 'Merce', 4000);
 
 -- --------------------------------------------------------
 
@@ -100,33 +78,7 @@ INSERT INTO `composizione` (`treno`, `vagone`, `posizione`, `tipologia`) VALUES
 -- (See below for the actual view)
 --
 CREATE TABLE `datitreno` (
-`idTreno` int(11)
-,`pesoTotale` double
-,`lunghezzaTotale` double
-,`costoComplessivo` double
 );
-
--- --------------------------------------------------------
-
---
--- Table structure for table `locomotiva`
---
-
-CREATE TABLE `locomotiva` (
-  `idVagone` int(11) NOT NULL,
-  `pesoTrainante` double NOT NULL,
-  `numTecnici` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `locomotiva`
---
-
-INSERT INTO `locomotiva` (`idVagone`, `pesoTrainante`, `numTecnici`) VALUES
-(4, 40000, 2),
-(6, 20000, 2),
-(10, 50000, 3),
-(15, 10000, 1);
 
 -- --------------------------------------------------------
 
@@ -152,51 +104,6 @@ INSERT INTO `ordine` (`idOrdine`, `treno`, `utente`, `data`, `stato`, `pagamento
 (1, 4, 10, '2023-07-19', 'Ordinato', 'Effettuato', 19900),
 (2, 1, 12, '2023-07-16', 'Costruzione', 'Effettuato', 13500),
 (3, 3, 11, '2022-12-26', 'Consegnato', 'Effettuato', 13300);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `passeggeri`
---
-
-CREATE TABLE `passeggeri` (
-  `idVagone` int(11) NOT NULL,
-  `postiDisponibili` int(11) DEFAULT NULL,
-  `prezzoPosto` double DEFAULT NULL,
-  `cuccetteDisponibili` int(11) DEFAULT NULL,
-  `prezzoCuccetta` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `passeggeri`
---
-
-INSERT INTO `passeggeri` (`idVagone`, `postiDisponibili`, `prezzoPosto`, `cuccetteDisponibili`, `prezzoCuccetta`) VALUES
-(7, 55, 40, 0, 0),
-(9, 40, 59, 3, 100),
-(12, 25, 69, 4, 120),
-(14, 65, 70, 0, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ristorante`
---
-
-CREATE TABLE `ristorante` (
-  `idVagone` int(11) NOT NULL,
-  `tavoli` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `ristorante`
---
-
-INSERT INTO `ristorante` (`idVagone`, `tavoli`) VALUES
-(2, 12),
-(3, 15),
-(8, 20),
-(13, 10);
 
 -- --------------------------------------------------------
 
@@ -303,36 +210,38 @@ INSERT INTO `utente_ruolo` (`id_utente`, `id_ruolo`) VALUES
 --
 
 CREATE TABLE `vagone` (
-  `idVagone` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `tipologia` char(1) NOT NULL,
   `peso` float NOT NULL,
   `lunghezza` float NOT NULL,
   `colore` varchar(45) DEFAULT NULL,
   `compagnia` varchar(45) DEFAULT NULL,
-  `costo` float NOT NULL
+  `costo` float NOT NULL,
+  `capienza` int(11) NOT NULL,
+  `pesoTrainante` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `vagone`
 --
 
-INSERT INTO `vagone` (`idVagone`, `tipologia`, `peso`, `lunghezza`, `colore`, `compagnia`, `costo`) VALUES
-(1, 'C', 5000, 20, 'Rosso', 'Trenitalia', 1500),
-(2, 'R', 4000, 15, 'Azzurro', 'Trenitalia', 2000),
-(3, 'R', 3000, 75, 'Verde', 'Italo', 1550),
-(4, 'H', 5500, 42, 'Verde', 'Trenitalia', 3000),
-(5, 'C', 5000, 50, 'Azzurro', 'Trenitalia', 2200),
-(6, 'H', 4000, 20, 'Rosso', 'Italo', 1400),
-(7, 'P', 2000, 15, 'Rosso', 'Trenitalia', 1200),
-(8, 'R', 3000, 12, 'Giallo', 'Italo', 1500),
-(9, 'P', 4000, 30, 'Bianco', 'Italo', 1500),
-(10, 'H', 2000, 10, 'Verde', 'Italo', 1900),
-(11, 'C', 4000, 35, 'Nero', 'Italo', 2500),
-(12, 'P', 7000, 50, 'Verde', 'Trenitalia', 1900),
-(13, 'R', 7000, 35, 'Bianco', 'Trenitalia', 1700),
-(14, 'P', 5000, 40, 'Nero', 'Italo', 2000),
-(15, 'H', 7000, 50, 'Verde', 'Trenitalia', 1900),
-(16, 'C', 7500, 50, 'Azzurro', 'Italo', 2000);
+INSERT INTO `vagone` (`id`, `tipologia`, `peso`, `lunghezza`, `colore`, `compagnia`, `costo`, `capienza`, `pesoTrainante`) VALUES
+(1, 'C', 5000, 20, 'Rosso', 'Trenitalia', 1500, 500, 0),
+(2, 'R', 4000, 15, 'Azzurro', 'Trenitalia', 2000, 20, 0),
+(3, 'R', 3000, 75, 'Verde', 'Italo', 1550, 40, 0),
+(4, 'H', 5500, 42, 'Verde', 'Trenitalia', 3000, 2, 40000),
+(5, 'C', 5000, 50, 'Azzurro', 'Trenitalia', 2200, 600, 0),
+(6, 'H', 4000, 20, 'Rosso', 'Italo', 1400, 2, 30000),
+(7, 'P', 2000, 15, 'Rosso', 'Trenitalia', 1200, 60, 0),
+(8, 'R', 3000, 12, 'Giallo', 'Italo', 1500, 15, 0),
+(9, 'P', 4000, 30, 'Bianco', 'Italo', 1500, 30, 0),
+(10, 'H', 2000, 10, 'Verde', 'Italo', 1900, 2, 15000),
+(11, 'C', 4000, 35, 'Nero', 'Italo', 2500, 450, 0),
+(12, 'P', 7000, 50, 'Verde', 'Trenitalia', 1900, 10, 0),
+(13, 'R', 7000, 35, 'Bianco', 'Trenitalia', 1700, 10, 0),
+(14, 'P', 5000, 40, 'Nero', 'Italo', 2000, 50, 0),
+(15, 'H', 7000, 50, 'Verde', 'Trenitalia', 1900, 2, 50000),
+(16, 'C', 7500, 50, 'Azzurro', 'Italo', 2000, 800, 0);
 
 -- --------------------------------------------------------
 
@@ -348,25 +257,11 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 
 --
--- Indexes for table `cargo`
---
-ALTER TABLE `cargo`
-  ADD PRIMARY KEY (`idVagone`),
-  ADD KEY `fk_Cargo_Vagone1_idx` (`idVagone`);
-
---
 -- Indexes for table `composizione`
 --
 ALTER TABLE `composizione`
   ADD KEY `fk_Composizione_Treno1_idx` (`treno`),
   ADD KEY `fk_Composizione_Vagone1_idx` (`vagone`);
-
---
--- Indexes for table `locomotiva`
---
-ALTER TABLE `locomotiva`
-  ADD PRIMARY KEY (`idVagone`),
-  ADD KEY `fk_Locomotiva_Vagone1_idx` (`idVagone`);
 
 --
 -- Indexes for table `ordine`
@@ -375,20 +270,6 @@ ALTER TABLE `ordine`
   ADD PRIMARY KEY (`idOrdine`),
   ADD KEY `fk_Ordine_Treno1_idx` (`treno`),
   ADD KEY `fk_Ordine_Utente1_idx` (`utente`);
-
---
--- Indexes for table `passeggeri`
---
-ALTER TABLE `passeggeri`
-  ADD PRIMARY KEY (`idVagone`),
-  ADD KEY `fk_Passeggeri_Vagone1_idx` (`idVagone`);
-
---
--- Indexes for table `ristorante`
---
-ALTER TABLE `ristorante`
-  ADD PRIMARY KEY (`idVagone`),
-  ADD KEY `fk_Ristorante_Vagone1_idx` (`idVagone`);
 
 --
 -- Indexes for table `ruolo`
@@ -420,7 +301,7 @@ ALTER TABLE `utente_ruolo`
 -- Indexes for table `vagone`
 --
 ALTER TABLE `vagone`
-  ADD PRIMARY KEY (`idVagone`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -442,36 +323,24 @@ ALTER TABLE `treno`
 -- AUTO_INCREMENT for table `utente`
 --
 ALTER TABLE `utente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `vagone`
 --
 ALTER TABLE `vagone`
-  MODIFY `idVagone` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `cargo`
---
-ALTER TABLE `cargo`
-  ADD CONSTRAINT `fk_Cargo_Vagone1` FOREIGN KEY (`idVagone`) REFERENCES `vagone` (`idVagone`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `composizione`
 --
 ALTER TABLE `composizione`
   ADD CONSTRAINT `fk_Composizione_Treno1` FOREIGN KEY (`treno`) REFERENCES `treno` (`idTreno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Composizione_Vagone1` FOREIGN KEY (`vagone`) REFERENCES `vagone` (`idVagone`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `locomotiva`
---
-ALTER TABLE `locomotiva`
-  ADD CONSTRAINT `fk_Locomotiva_Vagone1` FOREIGN KEY (`idVagone`) REFERENCES `vagone` (`idVagone`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_Composizione_Vagone1` FOREIGN KEY (`vagone`) REFERENCES `vagone` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `ordine`
@@ -479,18 +348,6 @@ ALTER TABLE `locomotiva`
 ALTER TABLE `ordine`
   ADD CONSTRAINT `fk_Ordine_Treno1` FOREIGN KEY (`treno`) REFERENCES `treno` (`idTreno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Ordine_Utente1` FOREIGN KEY (`utente`) REFERENCES `utente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `passeggeri`
---
-ALTER TABLE `passeggeri`
-  ADD CONSTRAINT `fk_Passeggeri_Vagone1` FOREIGN KEY (`idVagone`) REFERENCES `vagone` (`idVagone`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `ristorante`
---
-ALTER TABLE `ristorante`
-  ADD CONSTRAINT `fk_Ristorante_Vagone1` FOREIGN KEY (`idVagone`) REFERENCES `vagone` (`idVagone`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `treno`

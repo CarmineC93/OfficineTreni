@@ -8,7 +8,7 @@
 <hibernate-configuration>
   <session-factory>
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-    <property name="connection.url">jdbc:mysql://localhost:3306/officine_treni_db</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/treni</property>
     <property name="connection.username">root</property>
     <property name="connection.password">root</property>
     
@@ -22,6 +22,9 @@
    
    	<mapping class="org.lessons.java.bean.Utente" />
    	<mapping class="org.lessons.java.bean.Ruolo" />
+   	<mapping class="org.lessons.java.bean.Vagone" />
+
+		
     
     <!--  
     <property name="format_sql">true</property>
