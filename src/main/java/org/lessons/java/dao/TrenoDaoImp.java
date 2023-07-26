@@ -45,6 +45,11 @@ public class TrenoDaoImp extends BaseDao implements TrenoDao{
 	}
 	
 	@Override
+	public Treno find(Integer id) {
+		return (Treno) super.find(Treno.class, id);
+	}
+	
+	@Override
 	public List<Treno> findAll() {
         Session session = factory.openSession();
         Transaction tx = null; 

@@ -28,7 +28,9 @@ private TrenoDao dao = new TrenoDaoImp();
 //		System.out.println("eliminato l'utente con id: " + utente.getId());
 	}
 			
-	
+	public Treno find(int id) {
+		return dao.find(id);
+	}
 	
 	public List<Treno> findAll(){
 		return dao.findAll();

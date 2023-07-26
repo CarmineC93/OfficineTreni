@@ -11,6 +11,6 @@ public interface TrenoDao {
 	public void update(Treno bean );
 	public void delete(Treno bean );
 	public List<Treno> findAll();
-	
+	public Treno find(Integer id);
 	
 }

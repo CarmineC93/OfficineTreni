@@ -1,13 +1,15 @@
 package org.lessons.java.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.lessons.java.bean.Utente;
 import org.lessons.java.service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
@@ -25,7 +27,7 @@ public class LoginController {
     @PostMapping("/login")
     public String processaLogin(@RequestParam("username") String username, 
                                 @RequestParam("password") String password,
-                                HttpSession session) {
+                                HttpSession session, Model model) {
         if (utenteService.verificaCredenziali(username, password)) {
         	
             Utente utente = utenteService.findByEmail(username);
@@ -43,12 +45,20 @@ public class LoginController {
             //disconnessione automatica
             
 //             session.setMaxInactiveInterval(10);       
+            
+            int idUtente = utente.getIdUtente();
+            
+            session.setAttribute("userId", idUtente); 
+            
 
             return "redirect:home";
 
         } else {
             // Credenziali non valide, gestisci l'errore
-            return "redirect:/login?errore";
+        	
+        	model.addAttribute("errore","credenziali non valide");
+        	
+            return "login";
         }
     }
 
@@ -64,6 +74,9 @@ public class LoginController {
             session.getServletContext().setAttribute("contatore", contatore);
 
             System.out.println(contatore);
+            
+
+            session.removeAttribute("userId");
 	        
 	        session.invalidate();
 	        return "redirect:/login";

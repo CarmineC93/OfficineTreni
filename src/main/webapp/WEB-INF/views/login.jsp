@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>Login</h1>
+    <h2>${errore}</h2>
     <form action="login" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br>
