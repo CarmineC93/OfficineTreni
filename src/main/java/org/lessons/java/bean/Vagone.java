@@ -27,13 +27,13 @@ public class Vagone implements Serializable,Bean{
 	@NotNull(message = "Il prezzo non può essere vuoto")
 	private double prezzo;
 	
+	
     //RELATIONS
     @ManyToMany(mappedBy = "composizione")
     private List<Vagone> vagoni;
     
     
     public Vagone() {}
-
 
 	public Vagone(int id, double peso,
 			 double lunghezza,

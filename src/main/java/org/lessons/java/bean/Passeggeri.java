@@ -15,16 +15,16 @@ public class Passeggeri {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idVagone;
 	
-    @Column(nullable = false, unique = true)
+    @Column
 	private int postiDisponibili;
 
-    @Column(nullable = false, unique = true)
+    @Column
 	private double prezzoPosto;
     
-    @Column(nullable = false, unique = true)
-	private int cuccettaDisponibili;
+    @Column
+	private int cuccetteDisponibili;
 
-    @Column(nullable = false, unique = true)
+    @Column
 	private double prezzoCuccetta;
 
 	public Passeggeri() {
@@ -37,7 +37,7 @@ public class Passeggeri {
 		this.idVagone = idVagone;
 		this.postiDisponibili = postiDisponibili;
 		this.prezzoPosto = prezzoPosto;
-		this.cuccettaDisponibili = cuccettaDisponibili;
+		this.cuccetteDisponibili = cuccettaDisponibili;
 		this.prezzoCuccetta = prezzoCuccetta;
 	}
 
@@ -66,11 +66,11 @@ public class Passeggeri {
 	}
 
 	public int getCuccettaDisponibili() {
-		return cuccettaDisponibili;
+		return cuccetteDisponibili;
 	}
 
 	public void setCuccettaDisponibili(int cuccettaDisponibili) {
-		this.cuccettaDisponibili = cuccettaDisponibili;
+		this.cuccetteDisponibili = cuccettaDisponibili;
 	}
 
 	public double getPrezzoCuccetta() {

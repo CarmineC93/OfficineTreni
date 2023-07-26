@@ -15,10 +15,10 @@ public class Cargo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idVagone;
 	
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false )
 	private String scopo;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false )
 	private float spazio;
 
     public Cargo() {};

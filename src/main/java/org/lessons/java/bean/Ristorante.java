@@ -15,7 +15,7 @@ public class Ristorante {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idVagone;
 	
-    @Column(nullable = false, unique = true)
+    @Column 
 	private int tavoli;
 
 	public Ristorante() {
