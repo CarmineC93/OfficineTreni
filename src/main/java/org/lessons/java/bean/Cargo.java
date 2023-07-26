@@ -1,5 +1,7 @@
 package org.lessons.java.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="cargo")
-public class Cargo {
+public class Cargo extends Vagone implements Serializable,Bean{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

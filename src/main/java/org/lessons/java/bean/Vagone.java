@@ -2,16 +2,23 @@ package org.lessons.java.bean;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.InheritanceType;
 
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "vagone")
+@Inheritance(strategy = InheritanceType.JOINED) 
 public class Vagone implements Serializable,Bean{
 	
 	@Id
@@ -27,23 +34,37 @@ public class Vagone implements Serializable,Bean{
 	@NotNull(message = "Il prezzo non può essere vuoto")
 	private double prezzo;
 	
+	//RELAZIONE
 	
+    @OneToMany(mappedBy = "vagone", cascade = CascadeType.ALL)
+    private List<Locomotiva> locomotiva;
+
+    @OneToMany(mappedBy = "vagone", cascade = CascadeType.ALL)
+    private List<Cargo> cargo;
+
+    @OneToMany(mappedBy = "vagone", cascade = CascadeType.ALL)
+    private List<Ristorante> ristorante;
+    
+    @OneToMany(mappedBy = "vagone", cascade = CascadeType.ALL)
+    private List<Passeggeri> passeggiante;
+    
+    
     //RELATIONS
-    @ManyToMany(mappedBy = "composizione")
+    /*@ManyToMany(mappedBy = "composizione")
     private List<Vagone> vagoni;
-    
-    
+*/
+   
     public Vagone() {}
 
 	public Vagone(int id, double peso,
-			 double lunghezza,
-			 double prezzo, List<Vagone> vagoni) {
-		
+			 double lunghezza, double prezzo
+			 ) {
+		//, List<Vagone> vagoni
 		this.id = id;
 		this.peso = peso;
 		this.lunghezza = lunghezza;
 		this.prezzo = prezzo;
-		this.vagoni = vagoni;
+		//this.vagoni = vagoni;
 	}
 
 
@@ -87,7 +108,7 @@ public class Vagone implements Serializable,Bean{
 	}
 
 
-	public List<Vagone> getVagoni() {
+/*	public List<Vagone> getVagoni() {
 		return vagoni;
 	}
 
@@ -96,7 +117,7 @@ public class Vagone implements Serializable,Bean{
 		this.vagoni = vagoni;
 	}
     
-	
+	*/
     
     
     

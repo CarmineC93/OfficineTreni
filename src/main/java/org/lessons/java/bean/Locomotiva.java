@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name= "locomotiva")
-public class Locomotiva implements Serializable,Bean{
+public class Locomotiva extends Vagone implements Serializable,Bean{
 	
 	@Id
 	@JoinColumn(name = "vagone")
@@ -31,8 +31,7 @@ public class Locomotiva implements Serializable,Bean{
 	@JoinColumn
 	private Vagone vagone;*/
 	
-    
-    
+
     public Locomotiva() {}
 
 

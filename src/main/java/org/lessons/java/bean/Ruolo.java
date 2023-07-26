@@ -37,7 +37,6 @@ public class Ruolo implements Serializable,Bean{
 	}
 
 
-
 	public int getIdRuolo() {
 		return id;
 	}
