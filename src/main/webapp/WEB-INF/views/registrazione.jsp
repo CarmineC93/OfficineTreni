@@ -32,6 +32,9 @@
         <p>${errori.getFieldError('password').defaultMessage}</p>
 
 
+		
+			
+		
         <button type="submit">Registrati</button>
     </form>
     <p>Hai già un account? <a href="/login">Accedi</a></p>

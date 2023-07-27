@@ -4,7 +4,6 @@ package org.lessons.java.service;
 import org.lessons.java.bean.Utente;
 import org.lessons.java.dao.UtenteDao;
 import org.lessons.java.dao.UtenteDaoImp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +23,14 @@ public class UtenteService {
 	
     public void registraUtente(Utente utente) throws Exception {
         // Verifica se l'utente con la stessa email è già presente nel database
+    	/*
         if (findByEmail(utente.getEmail()) != null) {
             throw new Exception("Utente con questa email già registrato.");
+        }*/
+    	
+    	
+        	dao.create(utente);    
         }
-        
-        dao.create(utente);    }
 	
 
     public boolean verificaCredenziali(String email, String password) {

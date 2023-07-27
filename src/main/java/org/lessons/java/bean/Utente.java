@@ -1,7 +1,7 @@
 package org.lessons.java.bean;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -47,12 +45,12 @@ public class Utente implements Serializable, Bean{
 
 	//RELATIONS
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "utente_ruolo",
 			joinColumns = @JoinColumn(name = "id_utente"),
 			inverseJoinColumns = @JoinColumn(name = "id_ruolo")
 	)
-    private Set<Ruolo> ruolo;
+    private Set<Ruolo> ruolo = new HashSet<>();
 
 	
 	//CONSTRUCTORS
@@ -62,11 +60,11 @@ public class Utente implements Serializable, Bean{
     //GETTER & SETTER
 
 	
-	public int getIdUtente() {
+	public int getId() {
 		return id;
 	}
 
-	public void setIdUtente(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -109,5 +107,14 @@ public class Utente implements Serializable, Bean{
 	public void setRuolo(Set<Ruolo> ruolo) {
 		this.ruolo = ruolo;
 	}
+	
+	
+	public void setRuolo(Ruolo ruolo) {
+		
+		this.ruolo.add(ruolo);
+	}
+	
+	
+	
 }
 

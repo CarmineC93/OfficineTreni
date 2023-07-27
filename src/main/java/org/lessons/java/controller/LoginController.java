@@ -46,7 +46,7 @@ public class LoginController {
             
 //             session.setMaxInactiveInterval(10);       
             
-            int idUtente = utente.getIdUtente();
+            int idUtente = utente.getId();
             
             session.setAttribute("userId", idUtente); 
             
