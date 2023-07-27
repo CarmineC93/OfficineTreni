@@ -61,7 +61,7 @@ public class RegistrationController {
 //            
             Ruolo ruoloUser = ruoloService.find(0);
             
-            utente.setRuolo(ruoloUser);
+//            utente.setRuolo(ruoloUser);
             
             
             utenteService.registraUtente(utente);
