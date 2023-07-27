@@ -4,8 +4,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.management.relation.Role;
 import javax.validation.Valid;
 
+import org.hibernate.Hibernate;
 import org.lessons.java.bean.Ruolo;
 import org.lessons.java.bean.Utente;
 import org.lessons.java.service.RuoloService;
@@ -60,17 +62,16 @@ public class RegistrationController {
 //            utente.setCognome(utente.getCognome());
 //            
             Ruolo ruoloUser = ruoloService.find(0);
+//            utenteService.registraUtente(utente);
+//            ruoloUser.setUtente(utente);
             
-//            utente.setRuolo(ruoloUser);
-            
-            
-            utenteService.registraUtente(utente);
-			
-           
-            
-            
-           
-            
+        	 utenteService.registraUtente(utente);
+//        	 Hibernate.initialize(utente.getRuolo());
+//            
+//        	 Ruolo ruoloUser = ruoloService.find(0);
+//        	 ruoloUser.getUtente().add(utente);
+//           
+//        	 ruoloService.update(ruoloUser);
 //            utente.setRuolo(ruoloUser);
             
             

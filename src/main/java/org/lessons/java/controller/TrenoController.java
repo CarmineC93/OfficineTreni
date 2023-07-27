@@ -60,7 +60,10 @@ public class TrenoController {
 
 	@PostMapping("/crea")
 	public String creaTreno(@ModelAttribute Treno treno, @RequestParam(name = "selezioneVagone", required = false) List<Integer> selezioneVagone, Model model, HttpSession session) {
-
+		
+		
+		
+		
 	    // creo stringa sui vagoni selezionati dall'utente
         StringBuilder composedString = new StringBuilder();
         if (selezioneVagone != null) {
