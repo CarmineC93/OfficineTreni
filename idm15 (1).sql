@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 26, 2023 at 02:30 PM
+-- Generation Time: Jul 26, 2023 at 04:40 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.1.0
 
@@ -70,15 +70,6 @@ INSERT INTO `composizione` (`treno`, `vagone`, `posizione`, `tipologia`) VALUES
 (4, 16, 7, 'Cargo'),
 (4, 11, 8, 'Cargo'),
 (4, 16, 9, 'Cargo');
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `datitreno`
--- (See below for the actual view)
---
-CREATE TABLE `datitreno` (
-);
 
 -- --------------------------------------------------------
 
@@ -242,15 +233,6 @@ INSERT INTO `vagone` (`id`, `tipologia`, `peso`, `lunghezza`, `colore`, `compagn
 (14, 'P', 5000, 40, 'Nero', 'Italo', 2000, 50, 0),
 (15, 'H', 7000, 50, 'Verde', 'Trenitalia', 1900, 2, 50000),
 (16, 'C', 7500, 50, 'Azzurro', 'Italo', 2000, 800, 0);
-
--- --------------------------------------------------------
-
---
--- Structure for view `datitreno`
---
-DROP TABLE IF EXISTS `datitreno`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datitreno`  AS SELECT `treno`.`idTreno` AS `idTreno`, sum(`vagone`.`peso`) AS `pesoTotale`, sum(`vagone`.`lunghezza`) AS `lunghezzaTotale`, sum(`vagone`.`costo`) AS `costoComplessivo` FROM ((`treno` left join `composizione` on((`composizione`.`treno` = `treno`.`idTreno`))) left join `vagone` on((`composizione`.`vagone` = `vagone`.`idVagone`))) GROUP BY `treno`.`idTreno``idTreno`  ;
 
 --
 -- Indexes for dumped tables

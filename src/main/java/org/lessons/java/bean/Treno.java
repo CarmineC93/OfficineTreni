@@ -33,11 +33,11 @@ public class Treno implements Serializable,Bean{
 	@JoinColumn(name = "utente")
 	private Utente utente;
 	
-	@NotNull(message = "La sigla non può essere vuoto")
-	@Size(min = 2,message = "minimo 2 vagoni")
+	@NotNull(message = "La sigla non può essere vuota")
+	//@Size(min = 2,message = "minimo 2 vagoni")
 	private String sigla;
 	
-	@NotNull(message = "La compagnia non può essere vuoto")
+	@NotNull(message = "La compagnia non può essere vuota")
 	private String compagnia;
 	
 	

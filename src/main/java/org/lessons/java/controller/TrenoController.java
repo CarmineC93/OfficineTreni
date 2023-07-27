@@ -8,8 +8,7 @@ import javax.validation.Valid;
 import org.lessons.java.bean.Treno;
 import org.lessons.java.bean.Utente;
 import org.lessons.java.bean.Vagone;
-import org.lessons.java.bilderConcreto.GenericBilder;
-import org.lessons.java.eccezzioni.TrenoException;
+
 import org.lessons.java.service.TrenoService;
 import org.lessons.java.service.UtenteService;
 import org.lessons.java.service.VagoneService;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -46,34 +46,40 @@ public class TrenoController {
 		return "trenoIndex";
 	}
 	
+	
 	@GetMapping("/formCrea")
 	public String Crea(Model model) {
 		
-		
 		List<Vagone> listaVagoni = vagoneService.findAll();
 		
-		model.addAttribute("listaVagoni",listaVagoni);
+		model.addAttribute("listaVagoni", listaVagoni);
 		
 		return "formCreaTreno";
 	}
 	
-	
+
 	@PostMapping("/crea")
-	public String creaTreno(@ModelAttribute Treno treno,Model model,HttpSession session) {
-		
-		List<Vagone> listaVagoni = treno.getVagone();
-		String sigla = "";
-		
-		for(Vagone a : listaVagoni) {
-			
-			sigla += a.getTipologia();
-			
-		}
-		treno.setSigla(sigla);
-		
-		System.out.println(listaVagoni);
-		System.out.println(sigla);
-		
+	public String creaTreno(@ModelAttribute Treno treno, @RequestParam(name = "selezioneVagone", required = false) List<Integer> selezioneVagone, Model model, HttpSession session) {
+
+	    // creo stringa sui vagoni selezionati dall'utente
+        StringBuilder composedString = new StringBuilder();
+        if (selezioneVagone != null) {
+            for (Integer vagoneId : selezioneVagone) {
+                Vagone vagone = vagoneService.find(vagoneId);
+                if (vagone != null) {
+                    // compongo la stringa
+                    composedString.append(vagone.getTipologia());
+                }
+            }
+        }
+
+        System.out.println("sigla: " + composedString);
+        
+        treno.setSigla(composedString.toString());
+
+
+
+		/*	
 		GenericBilder italoBilder = new GenericBilder();
 		
 		org.lessons.java.treno.Treno trenoItalo = null;
@@ -90,21 +96,23 @@ public class TrenoController {
 		}
 		
 		
-		
-		
-		
-		 int idUtente = (int) session.getAttribute("userId");
+		*/
+        
+        
+
+		int idUtente = (int) session.getAttribute("userId");
 		
 		Utente utente = utenteService.find(idUtente);
 		
 		treno.setUtente(utente);
-		
+
 		trenoService.crea(treno);
 		
 		
 		return "redirect:/treno/index";
 	}
 	
+
 	
 	
 	@GetMapping("/show/{id}")
