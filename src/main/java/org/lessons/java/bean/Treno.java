@@ -1,6 +1,8 @@
 package org.lessons.java.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -15,6 +17,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.lessons.java.eccezioni.IncompatibleWagonTypologyException;
+import org.lessons.java.eccezioni.LocomotiveNotFoundException;
+import org.lessons.java.eccezioni.MaxWeightReachedException;
+import org.lessons.java.eccezioni.RestaurantAlreadyPresentException;
+import org.lessons.java.eccezioni.TrainAlreadyCompletedException;
+import org.lessons.java.eccezioni.WagonNeededException;
 
 
 @Entity
@@ -34,23 +43,12 @@ public class Treno implements Serializable,Bean{
 	private Utente utente;
 	
 	@NotNull(message = "La sigla non può essere vuota")
-	//@Size(min = 2,message = "minimo 2 vagoni")
 	private String sigla;
 	
 	@NotNull(message = "La compagnia non può essere vuota")
 	private String compagnia;
 	
-	
-	/*
-	@NotNull(message = "Il peso non può essere vuoto")
-	private double peso;
-	
-	@NotNull(message = "La lunghezza non può essere vuota")
-	private double lunghezza;
-	
-	@NotNull(message = "Il prezzo non può essere vuoto")
-	private double prezzo;
-	*/
+
 	
     //RELATIONS
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -59,19 +57,10 @@ public class Treno implements Serializable,Bean{
             	inverseJoinColumns = @JoinColumn(name = "vagone") 
             	)
 	private List<Vagone> vagone;
-	
-	
-//	@OneToMany(mappedBy = "treno",fetch = FetchType.EAGER)
-//    private List<Vagone> composizione;
-	
-	
-	
+		
+
 	public Treno() {}
 	
-
-
-
-
 //GETTER & SETTER
     
 	public Treno(int idTreno,
@@ -141,67 +130,14 @@ public class Treno implements Serializable,Bean{
 		this.compagnia = compagnia;
 	}
 
-
-
-
-
 	public List<Vagone> getVagone() {
 		return vagone;
 	}
-
-
-
 
 
 	public void setVagone(List<Vagone> vagone) {
 		this.vagone = vagone;
 	}
 	
-//	public List<Vagone> getComposizione() {
-//		return composizione;
-//	}
-//
-//
-//	public void setComposizione(List<Vagone> composizione) {
-//		this.composizione = composizione;
-//	}
 
-	/*
-	public double getPeso() {
-		return peso;
-	}
-
-
-	public void setPeso(double peso) {
-		this.peso = peso;
-	}
-
-
-	public double getLunghezza() {
-		return lunghezza;
-	}
-
-
-	public void setLunghezza(double lunghezza) {
-		this.lunghezza = lunghezza;
-	}
-
-
-	public double getPrezzo() {
-		return prezzo;
-	}
-
-
-	public void setPrezzo(double prezzo) {
-		this.prezzo = prezzo;
-	}
-	*/
-
-	
-
-
-	
-	
-
-	
 }
