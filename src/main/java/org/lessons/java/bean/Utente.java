@@ -1,7 +1,9 @@
 package org.lessons.java.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -45,12 +47,12 @@ public class Utente implements Serializable, Bean{
 
 	//RELATIONS
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany
 	@JoinTable(name = "utente_ruolo",
 			joinColumns = @JoinColumn(name = "id_utente"),
 			inverseJoinColumns = @JoinColumn(name = "id_ruolo")
 	)
-    private Set<Ruolo> ruolo = new HashSet<>();
+    private List<Ruolo> ruolo = new ArrayList<>();
 
 	
 	//CONSTRUCTORS
@@ -100,15 +102,16 @@ public class Utente implements Serializable, Bean{
 		this.password = password;
 	}
 
-	public Set<Ruolo> getRuolo() {
+	
+	
+	public List<Ruolo> getRuolo() {
 		return ruolo;
 	}
 
-	public void setRuolo(Set<Ruolo> ruolo) {
+	public void setRuolo(List<Ruolo> ruolo) {
 		this.ruolo = ruolo;
 	}
-	
-	
+
 	public void setRuolo(Ruolo ruolo) {
 		
 		this.ruolo.add(ruolo);

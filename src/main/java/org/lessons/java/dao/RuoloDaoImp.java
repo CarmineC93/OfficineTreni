@@ -10,4 +10,16 @@ public class RuoloDaoImp extends BaseDao implements RuoloDao{
 		return (Ruolo) super.find(Ruolo.class, id);
 	}
 
+	@Override
+	public void create(Ruolo bean) {
+		// TODO Auto-generated method stub
+		super.create(bean);
+	}
+
+	@Override
+	public void update(Ruolo bean) {
+		// TODO Auto-generated method stub
+		super.update(bean);
+	}
+
 }
