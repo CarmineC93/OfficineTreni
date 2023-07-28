@@ -38,10 +38,10 @@ public class RegistrationController {
 	
     @GetMapping("/registrazione")
     public String mostraPaginaRegistrazione(Model model) {
-    	Ruolo ruoloUser = ruoloService.find(0);
+    	
     	
         model.addAttribute("utente", new Utente());
-        model.addAttribute("ruolo",ruoloUser);
+       
         return "registrazione";
     }
     
@@ -68,10 +68,13 @@ public class RegistrationController {
             
 //        	 Ruolo ruoloUser = ruoloService.find(0);
         	 
+//        	 utente.setRuolo(ruoloUser);
+        	 
+//        	 Utente utente2 = new Utente(utente.getEmail(), utente.getNome(), utente.getCognome(), utente.getPassword(), ruoloUser);
+        	 
             
         	 utenteService.registraUtente(utente);
         	 
-//        	 utente.setRuolo(ruoloUser);
         	 
 //        	 utenteService.update(utente);
         	

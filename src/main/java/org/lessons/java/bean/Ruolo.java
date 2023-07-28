@@ -1,21 +1,15 @@
 package org.lessons.java.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-
-import lombok.Data;
 
 
 @Entity
@@ -29,9 +23,8 @@ public class Ruolo implements Serializable,Bean{
     @Column(nullable = false, unique = true)
 	private String nome;
 
-    @ManyToMany(mappedBy = "ruolo")
-    private List<Utente> utente = new ArrayList<>();
-
+    @OneToMany(mappedBy = "ruolo")
+    private List<Utente> utenti;
     // Add the default constructor
     public Ruolo() {
     }
@@ -61,17 +54,15 @@ public class Ruolo implements Serializable,Bean{
 		this.nome = nome;
 	}
 
-	public List<Utente> getUtente() {
-		return utente;
+	public List<Utente> getUtenti() {
+		return utenti;
 	}
 
-	public void setUtente(List<Utente> utente) {
-		this.utente = utente;
+	public void setUtenti(List<Utente> utenti) {
+		this.utenti = utenti;
 	}
-	
-	public void setUtente(Utente utente) {
-		this.utente.add(utente);
-	}
+
+
 	
 	
 	

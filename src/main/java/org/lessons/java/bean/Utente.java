@@ -1,20 +1,14 @@
 package org.lessons.java.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -47,19 +41,35 @@ public class Utente implements Serializable, Bean{
 
 	//RELATIONS
 	
-	@ManyToMany
-	@JoinTable(name = "utente_ruolo",
-			joinColumns = @JoinColumn(name = "id_utente"),
-			inverseJoinColumns = @JoinColumn(name = "id_ruolo")
-	)
-    private List<Ruolo> ruolo = new ArrayList<>();
-
+//	@ManyToOne
+//    @JoinColumn(name = "ruolo_id")
+//    private Ruolo ruolo;
+	
+	private String ruolo;
 	
 	//CONSTRUCTORS
 	
+	public Utente() {}
+	
+	
+
+    public Utente(
+			String email,
+		String nome,
+			String cognome,
+			 String password,
+			String ruolo) {
+		super();
+		this.email = email;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.password = password;
+		this.ruolo = ruolo;
+	}
 
 
-    //GETTER & SETTER
+
+	//GETTER & SETTER
 
 	
 	public int getId() {
@@ -102,21 +112,30 @@ public class Utente implements Serializable, Bean{
 		this.password = password;
 	}
 
-	
-	
-	public List<Ruolo> getRuolo() {
+
+
+	public String getRuolo() {
 		return ruolo;
 	}
 
-	public void setRuolo(List<Ruolo> ruolo) {
+
+
+	public void setRuolo(String ruolo) {
 		this.ruolo = ruolo;
 	}
 
-	public void setRuolo(Ruolo ruolo) {
-		
-		this.ruolo.add(ruolo);
-	}
+//	public Ruolo getRuolo() {
+//		return ruolo;
+//	}
+//
+//	public void setRuolo(Ruolo ruolo) {
+//		this.ruolo = ruolo;
+//	}
+
+
 	
+	
+
 	
 	
 }

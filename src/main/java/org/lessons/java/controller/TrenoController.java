@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.lessons.java.bean.Treno;
 import org.lessons.java.bean.Utente;
@@ -24,7 +23,6 @@ import org.lessons.java.service.VagoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,7 +43,12 @@ public class TrenoController {
     private BuilderTrain builder;
 	
 	@GetMapping("/index")
-	public String index(Model model) {
+	public String index(Model model,HttpSession session) {
+		
+		  Utente utente = (Utente) session.getAttribute("utente");
+	        if (utente == null) {
+	            return "redirect:/login";
+	        }
 		
 		List<Treno> treni = trenoService.findAll();
 		
@@ -56,7 +59,12 @@ public class TrenoController {
 	
 	
 	@GetMapping("/formCrea")
-	public String Crea(Model model) {
+	public String Crea(Model model,HttpSession session) {
+		  Utente utente = (Utente) session.getAttribute("utente");
+	        if (utente == null) {
+	            return "redirect:/login";
+	        }
+		
 		
 		List<Vagone> listaVagoni = vagoneService.findAll();
 		String compagniaSelezionata = "Nullo";
@@ -87,7 +95,11 @@ public class TrenoController {
 
 	@PostMapping("/crea")
 	public String creaTreno(@ModelAttribute Treno treno, @RequestParam(name = "selezioneVagone", required = false) List<Integer> selezioneVagone, Model model, HttpSession session) {
-
+		  Utente utente = (Utente) session.getAttribute("utente");
+	        if (utente == null) {
+	            return "redirect:/login";
+	        }
+		
 		
 		 if (selezioneVagone == null || selezioneVagone.isEmpty()) {
 	           
@@ -216,9 +228,9 @@ public class TrenoController {
 	        
 			int idUtente = (int) session.getAttribute("userId");
 			
-			Utente utente = utenteService.find(idUtente);
+			Utente utenteId = utenteService.find(idUtente);
 			
-			treno.setUtente(utente);
+			treno.setUtente(utenteId);
 	        
 	        // Salva il nuovo treno
 	        trenoService.crea(treno);
@@ -232,8 +244,12 @@ public class TrenoController {
 	@GetMapping("/show/{id}")
 	public String show(
 			Model model,
-			@PathVariable("id") int id) 
+			@PathVariable("id") int id,HttpSession session) 
 	{
+		  Utente utente = (Utente) session.getAttribute("utente");
+	        if (utente == null) {
+	            return "redirect:/login";
+	        }
 		
 		Treno treno = trenoService.find(id);
 	

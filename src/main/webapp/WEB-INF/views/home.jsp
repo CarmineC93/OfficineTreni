@@ -18,9 +18,9 @@
 	
 	<div>
 	<p>Benvenuto: ${utente.nome}</p>
-		<c:forEach items="${utente.ruolo}" var="ruolo">
-			<span>${ruolo.nome}</span>
-		</c:forEach>
+		
+			<span>${utente.ruolo}</span>
+		
 	</div>  
 	
 	
