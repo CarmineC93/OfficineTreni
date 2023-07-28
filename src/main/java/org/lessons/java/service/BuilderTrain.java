@@ -25,9 +25,6 @@ public class BuilderTrain {
 		
 	
 //////CONSTRUCTORS
-
-	
-///////METHODS
 	
 	
 	/*
@@ -39,6 +36,9 @@ public class BuilderTrain {
 			Vagone lastWagon = ((ArrayList<Vagone>) trainComposition).get(trainComposition.size() -1);
 			double totalWeight = this.getPesoTotale();	
 			
+			System.out.println("SUCCESSIVI VAGONI---------------------");
+
+			
 			//recupero il peso che la locomotiva può portare
 			double drivingWeight = trainComposition.stream()
 		            .filter(w -> w.getTipologia() == 'H')
@@ -46,7 +46,6 @@ public class BuilderTrain {
 		            .findFirst()
 		            .orElseThrow(() -> new LocomotiveNotFoundException(trainComposition, "No locomotive found in the train composition."));
 				
-		      
 			//se il peso massimo NON è stato raggiunto
 			if(totalWeight + wagon.getPeso() <= drivingWeight ) {
 					//SE CI SONO GIà DUE locomotive (= FINE TRENO)
@@ -72,7 +71,7 @@ public class BuilderTrain {
 									if(trainComposition.stream().anyMatch((w -> w.getTipologia() == 'R'))) {
 										throw new RestaurantAlreadyPresentException("There is already 1 restaurant wagon (the maximum is 1 for train). Remove the other restaurant to add a new one.");
 										
-									} else if (lastWagon.getTipologia()== 'P') {
+									} else if (lastWagon.getTipologia() == 'P') {
 										trainComposition.add(wagon);
 									} else {
 										throw new IllegalArgumentException("R wagon can go only between P wagons");
@@ -102,10 +101,12 @@ public class BuilderTrain {
 						}
 			//se è il primo inserimento
 		} else {
-			if(!(wagon.getTipologia()== 'H')) {
+			if(!(wagon.getTipologia() == 'H')) {
 				throw new LocomotiveNotFoundException(trainComposition, "There is no Locomotiv. Add a Locomotiv as first wagon");
 			} else {
 				trainComposition.add(wagon);
+				
+				System.out.println("PRIMO VAGONE---------------------");
 			}
 		}
 	}	
@@ -200,7 +201,7 @@ public class BuilderTrain {
 	
 		@Override
 		public String toString() {
-			return "ConcreteTrainBuilder " + " trainComposition=" + trainComposition+ "]";
+			return "trainComposition= " + trainComposition+ "]";
 		}
 	
 
