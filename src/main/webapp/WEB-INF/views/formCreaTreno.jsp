@@ -145,13 +145,13 @@
     
     if (nomeTrenoInput.value.trim() === '') {
         nomeTrenoInput.style.border = '1px solid red';
-        alert('Il campo Nome del treno non può essere vuoto.');
+        alert('Il campo Nome del treno non puï¿½ essere vuoto.');
         return false; // Blocca l'invio del form
       }
 
       if (siglaTrenoInput.value.trim() === '') {
         siglaTrenoInput.style.border = '1px solid red';
-        alert('Il campo Sigla del treno non può essere vuoto. Scegli i vagoni che compongono il treno.');
+        alert('Il campo Sigla del treno non puï¿½ essere vuoto. Scegli i vagoni che compongono il treno.');
         return false; // Blocca l'invio del form
       }
 

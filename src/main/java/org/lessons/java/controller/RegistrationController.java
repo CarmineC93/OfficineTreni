@@ -2,7 +2,9 @@ package org.lessons.java.controller;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.management.relation.Role;
 import javax.validation.Valid;
@@ -10,6 +12,7 @@ import javax.validation.Valid;
 import org.hibernate.Hibernate;
 import org.lessons.java.bean.Ruolo;
 import org.lessons.java.bean.Utente;
+import org.lessons.java.bean.Vagone;
 import org.lessons.java.service.RuoloService;
 import org.lessons.java.service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class RegistrationController {
@@ -34,7 +38,10 @@ public class RegistrationController {
 	
     @GetMapping("/registrazione")
     public String mostraPaginaRegistrazione(Model model) {
+    	Ruolo ruoloUser = ruoloService.find(0);
+    	
         model.addAttribute("utente", new Utente());
+        model.addAttribute("ruolo",ruoloUser);
         return "registrazione";
     }
     
@@ -57,29 +64,19 @@ public class RegistrationController {
         	 String passwordHashed = passwordEncoder.encode(passwordInChiaro);
         	 utente.setPassword(passwordHashed);
         	
-//        	 ??
-//        	utente.setNome(utente.getNome());
-//            utente.setCognome(utente.getCognome());
-//            
-            Ruolo ruoloUser = ruoloService.find(0);
-//            utenteService.registraUtente(utente);
-//            ruoloUser.setUtente(utente);
+
+            
+//        	 Ruolo ruoloUser = ruoloService.find(0);
+        	 
             
         	 utenteService.registraUtente(utente);
-//        	 Hibernate.initialize(utente.getRuolo());
-//            
-//        	 Ruolo ruoloUser = ruoloService.find(0);
-//        	 ruoloUser.getUtente().add(utente);
-//           
-//        	 ruoloService.update(ruoloUser);
-//            utente.setRuolo(ruoloUser);
+        	 
+//        	 utente.setRuolo(ruoloUser);
+        	 
+//        	 utenteService.update(utente);
+        	
             
-            
-//         Ruolo userRole = ruoloService.find(0); 
-         // Sostituisci "ruoloService" con il tuo servizio per i ruoli 
-         // Assegnare il ruolo "user" all'utente 
-         
-//         utenteService.registraUtente(utente);
+
            
             
             
