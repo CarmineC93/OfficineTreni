@@ -57,7 +57,7 @@
                 <c:forEach var="vagone" items="${listaVagoni}">
                     <tr>
                         <td>
-                            <input type="checkbox" name="selezioneVagone" value="${vagone.id}" onclick="updateSiglaField()" 
+                            <input type="checkbox" name="selezioneVagone" value="${vagone.id}"  
                           		<c:if test="${selezioneVagone.contains(vagone.id)}">checked</c:if>
                           	>
                         </td>
@@ -80,7 +80,6 @@
 			                    <c:when test="${tipologiaMap[vagone.tipologia] eq 'Vagone Cargo'}">
 			                        ${vagone.capienza} lt
 			                    </c:when>
-			
 			                </c:choose>
             			</td>
 	                    
@@ -102,6 +101,8 @@
         <input type="submit" value="Submit">
     </form>
 
+
+<!--  
 <script>
   // Ottieni il riferimento all'elemento select nel DOM
   const selectElement = document.getElementById('compagnia');
@@ -202,6 +203,6 @@
   document.addEventListener('DOMContentLoaded', filterVagoniByCompagnia);
 </script>
 
-
+--> 
 </body>
 </html>

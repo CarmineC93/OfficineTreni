@@ -60,22 +60,23 @@ public class TrenoController {
 		
 		List<Vagone> listaVagoni = vagoneService.findAll();
 		String compagniaSelezionata = "Nullo";
-		//map per la tipologia che non è lavorabile come char in jsp ma solo con String
-	    Map<Character, String> tipologiaMap = new HashMap<>();
+
 
 
 		model.addAttribute("listaVagoni", listaVagoni);
 		model.addAttribute("compagniaSelezionata", compagniaSelezionata);
 		
+		//map per la tipologia che non è lavorabile come char in jsp ma solo con String
+	    Map<Character, String> tipologiaMap = new HashMap<>();
 	    for (Vagone vagone : listaVagoni) {
 	        // Get the tipologia from your service or any other method
-	        char tipologia = vagone.getTipologia(); // Replace this with your actual method to get the tipologia value
+	        char tipologia = vagone.getTipologia();
 
 	        // Convert tipologia to a String using a utility method and store it in the map
 	        String tipologiaString = convertTipologiaToString(tipologia);
 	        tipologiaMap.put(tipologia, tipologiaString);
 	    }
-
+	    
 	    // Add the tipologiaMap to the model
 	    model.addAttribute("tipologiaMap", tipologiaMap);
  
@@ -118,30 +119,29 @@ public class TrenoController {
 
 	        List<Vagone> listaVagoni = vagoneService.findAll();
 	       
-   
+		    for (Vagone vagone : listaVagoni) {
+		        // Get the tipologia from your service or any other method
+		        char tipologia = vagone.getTipologia();
+
+		        // Convert tipologia to a String using a utility method and store it in the map
+		        String tipologiaString = convertTipologiaToString(tipologia);
+		        tipologiaMap.put(tipologia, tipologiaString);
+		    }
 	   
 	        // Costruisci la composizione del treno utilizzando il metodo aggiungiVagone
 	        for (Vagone vagone : vagoniSelezionati) {
 	            try {
-	            	
-	    	        // Get the tipologia from your service or any other method
-	    	        char tipologia = vagone.getTipologia(); // Replace this with your actual method to get the tipologia value
-
-	    	        // Convert tipologia to a String using a utility method and store it in the map
-	    	        String tipologiaString = convertTipologiaToString(tipologia);
-	    	        tipologiaMap.put(tipologia, tipologiaString);
-	            	
-	            	
+	          
 	            	builder.aggiungiVagone(vagone);
 	            	
 	            } catch (LocomotiveNotFoundException e) {
 					System.out.println("Error: " + e.getMessage());
 					model.addAttribute("errore",e.getMessage());
-					model.addAttribute("treno",treno);
-
-					model.addAttribute("listaVagoni",listaVagoni);
 					
-	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
+				    model.addAttribute("treno", treno);
+				    model.addAttribute("listaVagoni", listaVagoni);
+				    model.addAttribute("vagoniSelezionati", vagoniSelezionati);
+				    model.addAttribute("tipologiaMap", tipologiaMap);
 					 return "formCreaTreno";
 					 
 				} catch (IncompatibleWagonTypologyException e) {
@@ -150,7 +150,8 @@ public class TrenoController {
 					model.addAttribute("treno",treno);
 
 					model.addAttribute("listaVagoni",listaVagoni);
-					
+				    model.addAttribute("tipologiaMap", tipologiaMap);
+
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 					 return "formCreaTreno";
 					 
@@ -158,6 +159,7 @@ public class TrenoController {
 					System.out.println("Error: " + e.getMessage());
 					model.addAttribute("errore",e.getMessage());
 					model.addAttribute("treno",treno);
+				    model.addAttribute("tipologiaMap", tipologiaMap);
 
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
@@ -169,6 +171,7 @@ public class TrenoController {
 					System.out.println("Error: " + e.getMessage());
 					model.addAttribute("errore",e.getMessage());
 					model.addAttribute("treno",treno);
+				    model.addAttribute("tipologiaMap", tipologiaMap);
 
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
@@ -180,6 +183,7 @@ public class TrenoController {
 					System.out.println("Error: " + e.getMessage());
 					model.addAttribute("errore",e.getMessage());
 					model.addAttribute("treno",treno);
+				    model.addAttribute("tipologiaMap", tipologiaMap);
 
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
@@ -189,11 +193,11 @@ public class TrenoController {
 				} catch (WagonNeededException e) {
 					model.addAttribute("errore",e.getMessage());
 					model.addAttribute("treno",treno);
+				    model.addAttribute("tipologiaMap", tipologiaMap);
 
 					model.addAttribute("listaVagoni",listaVagoni);	                
 					model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 					
-					model.addAttribute("treno",treno);
 					 return "formCreaTreno";
 				}
 	        }
