@@ -12,6 +12,7 @@ import org.lessons.java.bean.Vagone;
 import org.lessons.java.eccezioni.IncompatibleWagonTypologyException;
 import org.lessons.java.eccezioni.LocomotiveNotFoundException;
 import org.lessons.java.eccezioni.MaxWeightReachedException;
+import org.lessons.java.eccezioni.RestaurantAlreadyPresentException;
 import org.lessons.java.eccezioni.TrainAlreadyCompletedException;
 import org.lessons.java.eccezioni.WagonNeededException;
 import org.lessons.java.service.BuilderTrain;
@@ -59,6 +60,7 @@ public class TrenoController {
 		
 		List<Vagone> listaVagoni = vagoneService.findAll();
 		
+		
 		model.addAttribute("listaVagoni", listaVagoni);
 		
 		return "formCreaTreno";
@@ -71,43 +73,82 @@ public class TrenoController {
 		
 		 if (selezioneVagone == null || selezioneVagone.isEmpty()) {
 	           
-	            return "paginaDiErrore";
+	            return "formCreaTreno";
 	        }
 		
 		
 		
 		
 	    // creo stringa sui vagoni selezionati dall'utente
-        StringBuilder composedString = new StringBuilder();
-        if (selezioneVagone != null) {
-            for (Integer vagoneId : selezioneVagone) {
-                Vagone vagone = vagoneService.find(vagoneId);
-                if (vagone != null) {
-                    // compongo la stringa
-                    composedString.append(vagone.getTipologia());
-                }
-            }
-        }
+//        StringBuilder composedString = new StringBuilder();
+//        if (selezioneVagone != null) {
+//            for (Integer vagoneId : selezioneVagone) {
+//                Vagone vagone = vagoneService.find(vagoneId);
+//                if (vagone != null) {
+//                    // compongo la stringa
+//                    composedString.append(vagone.getTipologia());
+//                }
+//            }
+//        }
 
 	        // Recupera i vagoni corrispondenti agli ID selezionati
 	        List<Vagone> vagoniSelezionati = selezioneVagone.stream()
 	                .map(vagoneService::find)
 	                .collect(Collectors.toList());
 
-	        
-	        treno.setVagone(vagoniSelezionati);
+	        List<Vagone> listaVagoni = vagoneService.findAll();
+	       
 	        // Costruisci la composizione del treno utilizzando il metodo aggiungiVagone
 	        for (Vagone vagone : vagoniSelezionati) {
 	            try {
 	            	
 	            	builder.aggiungiVagone(vagone);
 	            	
-	            } catch (LocomotiveNotFoundException | MaxWeightReachedException | TrainAlreadyCompletedException | IncompatibleWagonTypologyException | WagonNeededException e) {
-	                // Gestire l'eccezione come preferisci, ad esempio mostrando un messaggio di errore.
-	                return "paginaDiErrore";
-	            }
+	            } catch (LocomotiveNotFoundException e) {
+					System.out.println("Error: " + e.getMessage());
+					model.addAttribute("errore",e.getMessage());
+					model.addAttribute("listaVagoni",listaVagoni);
+					model.addAttribute("treno",treno);
+					 return "formCreaTreno";
+				} catch (TrainAlreadyCompletedException e) {
+					System.out.println("Error: " + e.getMessage());
+					model.addAttribute("errore",e.getMessage());
+					model.addAttribute("listaVagoni",listaVagoni);
+					model.addAttribute("treno",treno);
+					 return "formCreaTreno";
+				} catch (IncompatibleWagonTypologyException e) {
+					System.out.println("Error: " + e.getMessage());
+					model.addAttribute("errore",e.getMessage());
+					model.addAttribute("listaVagoni",listaVagoni);
+					model.addAttribute("treno",treno);
+					 return "formCreaTreno";
+				} catch (MaxWeightReachedException e) {
+					System.out.println("Error: " + e.getMessage());
+					model.addAttribute("errore",e.getMessage());
+					model.addAttribute("listaVagoni",listaVagoni);
+					model.addAttribute("treno",treno);
+					 return "formCreaTreno";
+				} catch (RestaurantAlreadyPresentException e) {
+					System.out.println("Error: " + e.getMessage());
+					model.addAttribute("errore",e.getMessage());
+					model.addAttribute("listaVagoni",listaVagoni);
+					model.addAttribute("treno",treno);
+					return "formCreaTreno";
+				} catch (WagonNeededException e) {
+					// TODO: handle exception
+					model.addAttribute("errore",e.getMessage());
+					model.addAttribute("listaVagoni",listaVagoni);
+					model.addAttribute("treno",treno);
+					 return "formCreaTreno";
+				}
+	            
+	            
+	            
+	            
 	        }
-
+	        
+	        treno.setVagone(vagoniSelezionati);
+	       
 	        // Imposta la sigla del treno utilizzando il campo 'sigla' del treno stesso
 	        StringBuilder siglaTreno = new StringBuilder();
 	        for (Vagone vagone : treno.getVagone()) {

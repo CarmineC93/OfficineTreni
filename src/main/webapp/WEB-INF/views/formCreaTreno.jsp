@@ -32,7 +32,7 @@
 	  
   
 	   <c:forEach var="vagone" items="${listaVagoni}">
-	           <input type="checkbox" id="${vagone.id}" name="selezioneVagone" value="${vagone.id}" onclick="updateSiglaField()" >
+	           <input type="checkbox" id="${vagone.id}" name="selezioneVagone" value="${vagone.id}"  onclick="updateSiglaField()" >
 				<label for="${vagone.id}"> ${vagone.tipologia}</label><br>
 	        </c:forEach>
 
