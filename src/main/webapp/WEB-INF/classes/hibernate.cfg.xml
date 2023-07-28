@@ -12,6 +12,7 @@
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <property name="connection.url">jdbc:mysql://localhost:3306/treni</property>
 =======
 =======
@@ -26,6 +27,9 @@
     <property name="connection.url">jdbc:mysql://localhost:3306/idm15</property>
 >>>>>>> Stashed changes
 =======
+>>>>>>> Stashed changes
+=======
+    <property name="connection.url">jdbc:mysql://localhost:3306/idm15</property>
 >>>>>>> Stashed changes
     <property name="connection.username">root</property>
     <property name="connection.password"></property>
