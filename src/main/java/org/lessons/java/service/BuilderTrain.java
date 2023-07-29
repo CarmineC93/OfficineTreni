@@ -11,6 +11,7 @@ import org.lessons.java.eccezioni.MaxWeightReachedException;
 import org.lessons.java.eccezioni.NotRemovableLocomotiveException;
 import org.lessons.java.eccezioni.NothingToRemoveException;
 import org.lessons.java.eccezioni.RestaurantAlreadyPresentException;
+import org.lessons.java.eccezioni.RestaurantNotBeetwenPassengersException;
 import org.lessons.java.eccezioni.TrainAlreadyCompletedException;
 import org.lessons.java.eccezioni.WagonNeededException;
 import org.lessons.java.eccezioni.WagonsNotFoundException;
@@ -74,7 +75,7 @@ public class BuilderTrain {
 									} else if (lastWagon.getTipologia() == 'P') {
 										trainComposition.add(wagon);
 									} else {
-										throw new IllegalArgumentException("R wagon can go only between P wagons");
+										throw new RestaurantNotBeetwenPassengersException("R wagon can go only between P wagons");
 									}
 								//SE W = P
 								} else if (wagon.getTipologia() == 'P') {

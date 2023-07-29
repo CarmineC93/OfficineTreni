@@ -25,7 +25,7 @@ public class DatabaseUserDetails implements UserDetails {
         //for (Ruolo r : user.getRuolo()) {
            // authorities.add(new SimpleGrantedAuthority(r.getNome()));
      //   }
-    }
+    }*/
 
     //USERDETAILS'S METHODS
 
@@ -63,4 +63,4 @@ public class DatabaseUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-}
+} 
