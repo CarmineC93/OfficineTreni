@@ -3,13 +3,20 @@ package org.lessons.java.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "vagone")
@@ -31,41 +38,53 @@ public class Vagone implements Serializable,Bean{
 	
 	private String compagnia;
 	
-	private int costo;
+	private double costo;
 	
 	private int capienza;
 	
-	private int pesoTrainante;
-	
-//	@NotNull(message = "Il prezzo non può essere vuoto")
-//	private double prezzo;
-	
+	private double pesoTrainante;
+	 
+    private byte[] imgBytes ;
+    
+	@Transient
+    private MultipartFile img;
+    
+	@Transient
+    private String base64Image;
+    
 	//RELAZIONE
-	
-    
-    
-    
-    //RELATIONS
-//    @OneToMany(mappedBy = "vagone")
-//	private List<Vagone> vagone;
-    
-    @ManyToMany(mappedBy = "vagone")
+
+
+
+	@ManyToMany(mappedBy = "vagone")
     private List<Treno> treno;
     
-    
-   
-    public Vagone() {}
 
-	public Vagone(int id, double peso,
-			 double lunghezza, double prezzo
-			 ) {
-		//, List<Vagone> vagoni
-		this.id = id;
+
+	public Vagone() {}
+
+
+
+
+
+	
+	public Vagone(@NotNull(message = "Il peso non può essere vuoto") double peso,
+			@NotNull(message = "La lunghezza non può essere vuota") double lunghezza, char tipologia, String colore,
+			String compagnia, double costo, int capienza, double pesoTrainante) {
+		super();
 		this.peso = peso;
 		this.lunghezza = lunghezza;
-//		this.prezzo = prezzo;
-		//this.vagoni = vagoni;
+		this.tipologia = tipologia;
+		this.colore = colore;
+		this.compagnia = compagnia;
+		this.costo = costo;
+		this.capienza = capienza;
+		this.pesoTrainante = pesoTrainante;
 	}
+
+
+
+
 
 
 	public int getId() {
@@ -97,15 +116,15 @@ public class Vagone implements Serializable,Bean{
 		this.lunghezza = lunghezza;
 	}
 
+    public void setImg(MultipartFile img) {
+		this.img = img;
+	}
+    
+	   
+    public MultipartFile getImg() {
+		return img;
+	}
 
-//	public double getPrezzo() {
-//		return prezzo;
-//	}
-//
-//
-//	public void setPrezzo(double prezzo) {
-//		this.prezzo = prezzo;
-//	}
 
 	
 
@@ -141,11 +160,11 @@ public class Vagone implements Serializable,Bean{
 		this.compagnia = compagnia;
 	}
 
-	public int getCosto() {
+	public double getCosto() {
 		return costo;
 	}
 
-	public void setCosto(int costo) {
+	public void setCosto(double costo) {
 		this.costo = costo;
 	}
 
@@ -157,28 +176,33 @@ public class Vagone implements Serializable,Bean{
 		this.capienza = capienza;
 	}
 
-	public int getPesoTrainante() {
+	public double getPesoTrainante() {
 		return pesoTrainante;
 	}
 
-	public void setPesoTrainante(int pesoTrainante) {
+	public void setPesoTrainante(double pesoTrainante) {
 		this.pesoTrainante = pesoTrainante;
+	}
+
+	public byte[] getImgBytes() {
+		return imgBytes;
+	}
+
+	public void setImgBytes(byte[] imgBytes) {
+		this.imgBytes = imgBytes;
 	}
 
 	
 	
-	
-//
-//	public List<Vagone> getVagoni() {
-//		return vagone;
-//	}
-//
-//
-//	public void setVagoni(List<Vagone> vagone) {
-//		this.vagone = vagone;
-//	}
-    
+	public String getBase64Image() {
+		return base64Image;
+	}
 
+
+
+	public void setBase64Image(String base64Image) {
+		this.base64Image = base64Image;
+	}
     
     
     

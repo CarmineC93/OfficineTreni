@@ -10,7 +10,7 @@
 <body>
 
  
- 
+ 	<a href="${pageContext.request.contextPath}/admin/crea-vagone">Crea Vagone</a>
 
 	<h1>${errore}</h1>
 
@@ -50,6 +50,8 @@
                     <th>Compagnia</th>
                     <th>Capienza</th>
                     <th>pesoTrainante</th>
+                    <th>foto</th>
+                    
  
                 </tr>
             </thead>
@@ -88,6 +90,9 @@
 						       	${vagone.pesoTrainante} t
 						    </c:if>
 						</td> 	                    
+                        
+                       <td>     <img src="data:image/png;base64,${vagone.base64Image}" alt="Immagine da Bytes">  </td>
+                        	
                         
                     </tr>
                 </c:forEach>

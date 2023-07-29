@@ -38,10 +38,7 @@ public class RegistrationController {
 	
     @GetMapping("/registrazione")
     public String mostraPaginaRegistrazione(Model model) {
-    	
-    	
         model.addAttribute("utente", new Utente());
-       
         return "registrazione";
     }
     

@@ -5,14 +5,15 @@ import java.util.List;
 import org.lessons.java.bean.Vagone;
 import org.lessons.java.dao.VagoneDao;
 import org.lessons.java.dao.VagoneDaoImp;
+import org.springframework.stereotype.Service;
 
+@Service
 public class VagoneService {
 
 	private VagoneDao dao = new VagoneDaoImp();
 	
-	public void crea (Vagone vagone) {
+	public void crea (Vagone vagone){
 		dao.create(vagone); 
-//		System.out.println("creato l'utente con id: " + id);
 	} 
 	
 	public void update (Vagone vagone) {

@@ -23,15 +23,13 @@
 		
 	</div>  
 	
-	
-	<a href="" >sezione per tutti</a>
-	<div>
-		<a href="${pageContext.request.contextPath}/admin" >sezione esclusiva per admin</a>
-	</div>
-	
-	
+		
 	<h2>Numero visitatori connessi: ${contatore}</h2>
 	
+	
+
+	
+	<a href="${pageContext.request.contextPath}/treno/formCrea">Crea Treno</a>
 	
 
 <a href="${pageContext.request.contextPath}/logout">Logout</a>

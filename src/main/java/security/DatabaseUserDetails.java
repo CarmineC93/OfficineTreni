@@ -18,14 +18,14 @@ public class DatabaseUserDetails implements UserDetails {
     private Set<GrantedAuthority> authorities;
 
     //CONSTRUCTOR in which to insert the attributes
-    public DatabaseUserDetails(Utente user) {
+   /* public DatabaseUserDetails(Utente user) {
         this.username = user.getEmail();
         this.password = user.getPassword();
         this.authorities = new HashSet<>();
         for (Ruolo r : user.getRuolo()) {
             authorities.add(new SimpleGrantedAuthority(r.getNome()));
         }
-    }
+    }*/
 
     //USERDETAILS'S METHODS
 

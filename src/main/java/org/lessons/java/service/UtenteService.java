@@ -27,21 +27,18 @@ public class UtenteService {
         if (findByEmail(utente.getEmail()) != null) {
             throw new Exception("Utente con questa email già registrato.");
         }*/
-    	
-    	
+
         	dao.create(utente);    
         }
 	
 
     public boolean verificaCredenziali(String email, String password) {
-    	
-    	
+    		
     	   Utente utente = dao.findByEmail(email);
     	    if (utente == null) {
     	        return false; // Utente non trovato
     	    }
     	 
-    	
     	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     	    return passwordEncoder.matches(password, utente.getPassword());
     }

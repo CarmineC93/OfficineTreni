@@ -23,6 +23,12 @@
 			<version>8.0.33</version>
 		</dependency>
 
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.4</version>
+</dependency>
+
 		<!--
 		https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api 
 <dependency>
@@ -73,6 +79,8 @@
     		<artifactId>commons-dbcp2</artifactId>
     		<version>2.9.0</version> <!-- Sostituisci con l'ultima versione disponibile -->
 		</dependency>
+
+
 
 		<!--
 		https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->

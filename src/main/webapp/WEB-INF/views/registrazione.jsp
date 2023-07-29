@@ -32,7 +32,7 @@
         <p>${errori.getFieldError('password').defaultMessage}</p>
 
 
-		<input type="text" value="user" name="ruolo">
+		<!--  <input type="text" value="user" name="ruolo"> -->
 			
 		
         <button type="submit">Registrati</button>

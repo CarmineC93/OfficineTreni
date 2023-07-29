@@ -1,5 +1,6 @@
 package org.lessons.java.controller;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,12 +55,13 @@ public class TrenoController {
 		
 		model.addAttribute("listaTreni",treni);
 		
+
 		return "trenoIndex";
 	}
 	
 	
 	@GetMapping("/formCrea")
-	public String Crea(Model model,HttpSession session) {
+	public String Crea(Model model, HttpSession session) {
 		  Utente utente = (Utente) session.getAttribute("utente");
 	        if (utente == null) {
 	            return "redirect:/login";
@@ -68,8 +70,6 @@ public class TrenoController {
 		
 		List<Vagone> listaVagoni = vagoneService.findAll();
 		String compagniaSelezionata = "Nullo";
-
-
 
 		model.addAttribute("listaVagoni", listaVagoni);
 		model.addAttribute("compagniaSelezionata", compagniaSelezionata);
@@ -80,6 +80,14 @@ public class TrenoController {
 	        // Get the tipologia from your service or any other method
 	        char tipologia = vagone.getTipologia();
 
+	        byte[] imageBytes = vagone.getImgBytes();
+	        if (imageBytes != null) {
+	            // Converti l'array di byte in una stringa Base64
+	            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+	            // Salva la stringa Base64 nel model del singolo vagone
+	            vagone.setBase64Image(base64Image);
+	        }
+	        
 	        // Convert tipologia to a String using a utility method and store it in the map
 	        String tipologiaString = convertTipologiaToString(tipologia);
 	        tipologiaMap.put(tipologia, tipologiaString);
