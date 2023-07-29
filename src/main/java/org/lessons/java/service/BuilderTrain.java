@@ -203,7 +203,11 @@ public class BuilderTrain {
 		public String toString() {
 			return "trainComposition= " + trainComposition+ "]";
 		}
-	
+		
+		
+		public void removeAll() {
+			this.trainComposition.removeAll(trainComposition);
+		}
 
 
 }

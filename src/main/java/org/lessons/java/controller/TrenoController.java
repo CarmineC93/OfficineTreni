@@ -108,7 +108,7 @@ public class TrenoController {
 	            return "redirect:/login";
 	        }
 		
-		
+	        builder.removeAll();
 		 if (selezioneVagone == null || selezioneVagone.isEmpty()) {
 	           
 	            return "formCreaTreno";
@@ -162,6 +162,8 @@ public class TrenoController {
 				    model.addAttribute("listaVagoni", listaVagoni);
 				    model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 				    model.addAttribute("tipologiaMap", tipologiaMap);
+				    model.addAttribute("selezioneVagone",selezioneVagone);
+				    builder.removeAll();
 					 return "formCreaTreno";
 					 
 				} catch (IncompatibleWagonTypologyException e) {
@@ -173,6 +175,8 @@ public class TrenoController {
 				    model.addAttribute("tipologiaMap", tipologiaMap);
 
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
+	                model.addAttribute("selezioneVagone",selezioneVagone);
+	                builder.removeAll();
 					 return "formCreaTreno";
 					 
 				} catch (MaxWeightReachedException e) {
@@ -183,6 +187,8 @@ public class TrenoController {
 
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
+	                model.addAttribute("selezioneVagone",selezioneVagone);
+	                builder.removeAll();
 	                
 
 					 return "formCreaTreno";
@@ -195,6 +201,7 @@ public class TrenoController {
 
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
+	                builder.removeAll();
 	                
 
  					return "formCreaTreno";
@@ -207,6 +214,8 @@ public class TrenoController {
 
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
+	                model.addAttribute("selezioneVagone",selezioneVagone);
+	                builder.removeAll();
 	                
 					 return "formCreaTreno";
 					 
@@ -217,6 +226,8 @@ public class TrenoController {
 
 					model.addAttribute("listaVagoni",listaVagoni);	                
 					model.addAttribute("vagoniSelezionati", vagoniSelezionati);
+					  model.addAttribute("selezioneVagone",selezioneVagone);
+					  builder.removeAll();
 					
 					 return "formCreaTreno";
 				}
@@ -274,11 +285,11 @@ public class TrenoController {
 	            case 'H':
 	                return "Locomotiva";
 	            case 'P':
-	                return "Vagone Passeggeri";
+	                return "Passeggeri";
 	            case 'R':
-	                return "Vagone Ristorante";
+	                return "Ristorante";
 	            case 'C':
-	                return "Vagone Cargo";
+	                return "Cargo";
 	            default:
 	                return "Tipo non riconosciuto";
 	        }
