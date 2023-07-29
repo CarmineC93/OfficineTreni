@@ -100,7 +100,7 @@ public class TrenoController {
 	            return "redirect:/login";
 	        }
 		
-		
+	        builder.removeAll();
 		 if (selezioneVagone == null || selezioneVagone.isEmpty()) {
 	           
 	            return "formCreaTreno";
@@ -155,6 +155,7 @@ public class TrenoController {
 				    model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 				    model.addAttribute("tipologiaMap", tipologiaMap);
 				    model.addAttribute("selezioneVagone",selezioneVagone);
+				    builder.removeAll();
 					 return "formCreaTreno";
 					 
 				} catch (IncompatibleWagonTypologyException e) {
@@ -167,6 +168,7 @@ public class TrenoController {
 
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 	                model.addAttribute("selezioneVagone",selezioneVagone);
+	                builder.removeAll();
 					 return "formCreaTreno";
 					 
 				} catch (MaxWeightReachedException e) {
@@ -178,6 +180,7 @@ public class TrenoController {
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 	                model.addAttribute("selezioneVagone",selezioneVagone);
+	                builder.removeAll();
 	                
 
 					 return "formCreaTreno";
@@ -190,6 +193,7 @@ public class TrenoController {
 
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
+	                builder.removeAll();
 	                
 
  					return "formCreaTreno";
@@ -203,6 +207,7 @@ public class TrenoController {
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 	                model.addAttribute("selezioneVagone",selezioneVagone);
+	                builder.removeAll();
 	                
 					 return "formCreaTreno";
 					 
@@ -214,6 +219,7 @@ public class TrenoController {
 					model.addAttribute("listaVagoni",listaVagoni);	                
 					model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 					  model.addAttribute("selezioneVagone",selezioneVagone);
+					  builder.removeAll();
 					
 					 return "formCreaTreno";
 				}
