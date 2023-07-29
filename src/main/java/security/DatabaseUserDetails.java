@@ -22,9 +22,9 @@ public class DatabaseUserDetails implements UserDetails {
         this.username = user.getEmail();
         this.password = user.getPassword();
         this.authorities = new HashSet<>();
-        for (Ruolo r : user.getRuolo()) {
-            authorities.add(new SimpleGrantedAuthority(r.getNome()));
-        }
+        //for (Ruolo r : user.getRuolo()) {
+           // authorities.add(new SimpleGrantedAuthority(r.getNome()));
+     //   }
     }
 
     //USERDETAILS'S METHODS
