@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,101 +9,145 @@
 </head>
 <body>
 
- 
- 
+
+
 
 	<h1>${errore}</h1>
 
 
- <form action="crea" method="post" onsubmit="return validateForm()">
-        <label for="nome">Nome treno:</label><br>
-        <input type="text" id="nome" name="nome" value="${treno.nome}"><br>
-        <p>${errori.getFieldError('nome').defaultMessage}</p>
-        
-        
-        
-        <label for="compagnia">compagnia treno:</label> 
-		<select	name="compagnia" id="compagnia"  onchange="clearSiglaField()">
-		<option value="Nullo"
-				${compagniaSelezionata == 'Nullo' ? 'selected' : ''}>scegli tra...</option>
+	<form action="crea" method="post" onsubmit="return validateForm()">
+		<label for="nome">Nome treno:</label><br> <input type="text"
+			id="nome" name="nome" placeholder="My Train" value="${treno.nome}"><br>
+		<p>${errori.getFieldError('nome').defaultMessage}</p>
+
+
+
+		<label for="compagnia">compagnia treno:</label> <select
+			name="compagnia" id="compagnia"
+			onchange="clearSiglaField(); filterByCompagnia()">
+			<option value="Nullo"
+				${compagniaSelezionata == 'Nullo' ? 'selected' : ''}>scegli
+				tra...</option>
 			<option value="Italo"
 				${compagniaSelezionata == 'Italo' ? 'selected' : ''}>Italo</option>
 			<option value="Trenitalia"
 				${compagniaSelezionata == 'Trenitalia' ? 'selected' : ''}>Trenitalia</option>
 		</select>
 		<p>${errori.getFieldError('compagnia').defaultMessage}</p>
-		
-		
 
-        <label for="sigla">Sigla treno:</label><br>
-        <input type="text" id="sigla" name="sigla" value="${treno.sigla}" placeholder="My Composition" disabled readonly><br>
-        <p>${errori.getFieldError('sigla').defaultMessage}</p>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Seleziona</th>
-                    <th>Tipologia</th>
-                    <th>Peso</th>
-                    <th>Lunghezza</th>
-                    <th>Costo</th>
-                    <th>Compagnia</th>
-                    <th>Capienza</th>
-                    <th>pesoTrainante</th>
- 
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="vagone" items="${listaVagoni}">
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="selezioneVagone" value="${vagone.id}"  
-                          		<c:if test="${selezioneVagone.contains(vagone.id)}">checked</c:if>
-                          	>
-                        </td>
+
+		<label for="sigla">Sigla treno:</label><br> <input type="text"
+			id="sigla" name="sigla" value="${treno.sigla}"
+			placeholder="My Composition" disabled readonly><br>
+		<p>${errori.getFieldError('sigla').defaultMessage}</p>
+
+
+		<label for="selezione">Selezione vagoni:</label><br>
+		<input type="text" id="selezione" name="selezione"
+			placeholder="My Selection" disabled readonly><br>
+
+
+		<table id="vagoniTable">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Seleziona</th>
+					<th>Tipologia</th>
+					<th>Peso</th>
+					<th>Lunghezza</th>
+					<th>Costo</th>
+					<th>Compagnia</th>
+					<th>Capienza</th>
+					<th>pesoTrainante</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="vagone" items="${listaVagoni}">
+					<tr selectcompagnia="${vagone.compagnia}">
+						<td>${vagone.id}</td>
+						<td><input type="checkbox" name="selezioneVagone"
+							value="${vagone.id}"
+							onchange="aggiungiComposizione(this, '${vagone.id}')"
+							<c:if test="${selezioneVagone.contains(vagone.id)}">checked</c:if>>
+						</td>
 						<td>${tipologiaMap[vagone.tipologia]}</td>
-                        <td>${vagone.peso} t</td>
-                        <td>${vagone.lunghezza} m</td>
-	                    <td>${vagone.costo} $</td>
-	                    <td>${vagone.compagnia}</td>
-	                    <td>
-			                <c:choose>
-			                    <c:when test="${tipologiaMap[vagone.tipologia] eq 'Vagone Passeggeri'}">
+						<td>${vagone.peso}t</td>
+						<td>${vagone.lunghezza}m</td>
+						<td>${vagone.costo}$</td>
+						<td>${vagone.compagnia}</td>
+						<td><c:choose>
+								<c:when
+									test="${tipologiaMap[vagone.tipologia] eq 'Vagone Passeggeri'}">
 			                        ${vagone.capienza} passeggeri
 			                    </c:when>
-			                    <c:when test="${tipologiaMap[vagone.tipologia] eq 'Vagone Ristorante'}">
+								<c:when
+									test="${tipologiaMap[vagone.tipologia] eq 'Vagone Ristorante'}">
 			                        ${vagone.capienza} clienti
 			                    </c:when>
-			                    <c:when test="${tipologiaMap[vagone.tipologia] eq 'Locomotiva'}">
+								<c:when test="${tipologiaMap[vagone.tipologia] eq 'Locomotiva'}">
 			                        ${vagone.capienza} conducenti
 			                    </c:when>
-			                    <c:when test="${tipologiaMap[vagone.tipologia] eq 'Vagone Cargo'}">
+								<c:when
+									test="${tipologiaMap[vagone.tipologia] eq 'Vagone Cargo'}">
 			                        ${vagone.capienza} lt
 			                    </c:when>
-			                </c:choose>
-            			</td>
-	                    
-						<td>
-						    <c:if test="${tipologiaMap[vagone.tipologia] eq 'Locomotiva'}">
+							</c:choose></td>
+
+						<td><c:if
+								test="${tipologiaMap[vagone.tipologia] eq 'Locomotiva'}">
 						       	${vagone.pesoTrainante} t
-						    </c:if>
-						</td> 	                    
-                        
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+						    </c:if></td>
 
-        <div id="dettagliVagone">
-            <!-- Qui verranno visualizzati i dettagli del vagone selezionato -->
-        </div>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 
-        <input type="submit" value="Submit">
-    </form>
+		<div id="dettagliVagone">
+			<!-- Qui verranno visualizzati i dettagli del vagone selezionato -->
+		</div>
+
+		<input type="submit" value="Submit">
+	</form>
 
 
-<!--  
-<script>
+
+
+	<script>
+    function filterByCompagnia() {
+        const selectElement = document.getElementById("compagnia");
+        const compagniaSelezionata = selectElement.value;
+        
+
+        const tableRows = document.querySelectorAll("tbody tr");
+        const table = document.getElementById("vagoniTable");
+        
+        tableRows.forEach(row => {
+            const compagniaVagone = row.getAttribute("selectcompagnia");
+            if (compagniaSelezionata === "Nullo") {
+            	table.style.display = "none";
+                row.style.display = "none";
+            }
+            if (compagniaSelezionata === compagniaVagone) {
+            	 table.style.display = "table";
+                row.style.display = "table-row";
+            } else {
+                 row.style.display = "none";
+            }
+        });
+    }
+
+    // Chiamata iniziale per applicare il filtro all'avvio della pagina
+    filterByCompagnia();
+</script>
+
+
+
+
+
+	<script>
   // Ottieni il riferimento all'elemento select nel DOM
   const selectElement = document.getElementById('compagnia');
 
@@ -128,7 +172,8 @@
   });
 </script>
 
-<script>
+
+	<script>
   function validateForm() {
     const nomeTrenoInput = document.getElementById('nome');
     const siglaTrenoInput = document.getElementById('sigla');
@@ -162,13 +207,15 @@
   }
 </script>
 
-<script>
+	<script>
   function clearSiglaField() {
     // Trova l'elemento del campo SiglaTreno per ID
     const siglaTrenoElement = document.getElementById('sigla');
-
+    const selezione = document.getElementById('selezione');
+    idSelezionati.length = 0; // Azzeriamo l'array
     // Azzerare il valore del campo SiglaTreno
     siglaTrenoElement.value = '';
+    selezione.value = "";
     
     const checkboxes = document.querySelectorAll('input[name="selezioneVagone"]');
 
@@ -179,30 +226,65 @@
   }
 </script>
 
-<script>
-  // Funzione per filtrare i vagoni in base alla compagnia selezionata
-  function filterVagoniByCompagnia() {
-    // Ottieni il valore dell'opzione selezionata nel menu a discesa
-    const selectedCompagnia = document.getElementById('compagnia').value;
 
-    // Trova tutti gli elementi del DOM con la classe "vagone-item"
-    const vagoniItems = document.getElementsByClassName('vagone-item');
 
-    // Nascondi tutti i vagoni
-    for (const item of vagoniItems) {
-      item.style.display = 'none';
+	<script>
+	
+	let idSelezionati = [];
+    function aggiungiComposizione(checkbox, vagoneID) {
+        
+
+        if (checkbox.checked) {
+        	const composizioneField = document.getElementById("sigla");
+        	const composizioneAttuale = composizioneField.value;
+        	const tipologia = checkbox.parentNode.nextElementSibling.textContent.trim();
+            composizioneField.value = composizioneAttuale ? composizioneAttuale + getIniziale(tipologia) : getIniziale(tipologia);
+			idSelezionati.push(vagoneID);
+        } else {
+        	const composizioneField = document.getElementById("sigla");
+        	const composizioneAttuale = composizioneField.value;
+        	const tipologia = checkbox.parentNode.nextElementSibling.textContent.trim();
+        	const index = idSelezionati.indexOf(vagoneID);
+        	console.log("id da Cancellare:", index);
+        	if (index !== -1) {
+        		idSelezionati.splice(index, 1);
+        		composizioneField.value = composizioneAttuale.replace(composizioneAttuale.charAt(index), "");
+            }
+        }
+        
+        console.log("vagoniSelezionati:", idSelezionati);
+        console.log("idvagone:", ${vagone.id});
+        const composizioneField = document.getElementById("sigla");
+        console.log("Composizione aggiornata:", composizioneField.value);
+        
+        const vagoniSelezionatiOutput = document.getElementById("selezione");
+        vagoniSelezionatiOutput.value = idSelezionati.join(", ");
     }
-
-    // Mostra solo i vagoni della compagnia selezionata
-    const vagoniCompagniaSelezionata = document.getElementsByClassName(selectedCompagnia);
-    for (const item of vagoniCompagniaSelezionata) {
-      item.style.display = 'block';
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', filterVagoniByCompagnia);
 </script>
 
---> 
+
+
+	<script>
+function getIniziale(tipologia) {
+        if (tipologia.includes("Ristorante")) {
+            return "R";
+        } else if (tipologia.includes("Cargo")) {
+            return "C";
+        } else if (tipologia.includes("Passeggeri")) {
+            return "P";
+        } else if (tipologia.includes("Locomotiva")) {
+            return "H";
+        } else {
+            return "";
+        }
+    }
+</script>
+
+
+
+
+
+
+
 </body>
 </html>

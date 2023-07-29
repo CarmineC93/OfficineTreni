@@ -266,11 +266,11 @@ public class TrenoController {
 	            case 'H':
 	                return "Locomotiva";
 	            case 'P':
-	                return "Vagone Passeggeri";
+	                return "Passeggeri";
 	            case 'R':
-	                return "Vagone Ristorante";
+	                return "Ristorante";
 	            case 'C':
-	                return "Vagone Cargo";
+	                return "Cargo";
 	            default:
 	                return "Tipo non riconosciuto";
 	        }
