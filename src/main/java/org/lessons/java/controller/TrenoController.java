@@ -154,6 +154,7 @@ public class TrenoController {
 				    model.addAttribute("listaVagoni", listaVagoni);
 				    model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 				    model.addAttribute("tipologiaMap", tipologiaMap);
+				    model.addAttribute("selezioneVagone",selezioneVagone);
 					 return "formCreaTreno";
 					 
 				} catch (IncompatibleWagonTypologyException e) {
@@ -165,6 +166,7 @@ public class TrenoController {
 				    model.addAttribute("tipologiaMap", tipologiaMap);
 
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
+	                model.addAttribute("selezioneVagone",selezioneVagone);
 					 return "formCreaTreno";
 					 
 				} catch (MaxWeightReachedException e) {
@@ -175,6 +177,7 @@ public class TrenoController {
 
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
+	                model.addAttribute("selezioneVagone",selezioneVagone);
 	                
 
 					 return "formCreaTreno";
@@ -199,6 +202,7 @@ public class TrenoController {
 
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
+	                model.addAttribute("selezioneVagone",selezioneVagone);
 	                
 					 return "formCreaTreno";
 					 
@@ -209,6 +213,7 @@ public class TrenoController {
 
 					model.addAttribute("listaVagoni",listaVagoni);	                
 					model.addAttribute("vagoniSelezionati", vagoniSelezionati);
+					  model.addAttribute("selezioneVagone",selezioneVagone);
 					
 					 return "formCreaTreno";
 				}
