@@ -68,8 +68,8 @@ public class RegistrationController {
 //        	 utente.setRuolo(ruoloUser);
         	 
 //        	 Utente utente2 = new Utente(utente.getEmail(), utente.getNome(), utente.getCognome(), utente.getPassword(), ruoloUser);
+        	 utente.setRuolo("user");
         	 
-            
         	 utenteService.registraUtente(utente);
         	 
         	 
