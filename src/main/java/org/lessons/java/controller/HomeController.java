@@ -23,13 +23,13 @@ public class HomeController {
 	}
 	
 	
-    // Questo metodo è accessibile solo dagli utenti con il ruolo "ADMIN"
+   /* // Questo metodo è accessibile solo dagli utenti con il ruolo "ADMIN"
     @GetMapping("/admin")
     @PreAuthorize("hasAuthority('Admin')")
     public String adminSection() {
          return "admin"; 
     }
-	
+	*/
     
   
 }

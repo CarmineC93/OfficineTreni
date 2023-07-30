@@ -5,8 +5,9 @@ import java.util.List;
 import org.lessons.java.bean.Treno;
 import org.lessons.java.dao.TrenoDao;
 import org.lessons.java.dao.TrenoDaoImp;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class TrenoService {
 
 

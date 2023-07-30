@@ -23,22 +23,13 @@
 			<version>8.0.33</version>
 		</dependency>
 
-<dependency>
-    <groupId>commons-fileupload</groupId>
-    <artifactId>commons-fileupload</artifactId>
-    <version>1.4</version>
-</dependency>
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.4</version>
+		</dependency>
 
-		<!--
-		https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api 
-<dependency>
-    <groupId>jakarta.validation</groupId>
-    <artifactId>jakarta.validation-api</artifactId>
-    <version>3.0.2</version>
-</dependency>
-
--->
-
+ 
 		<!--
 		https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
 		<dependency>
@@ -48,14 +39,19 @@
 		</dependency>
 
 
-		<!--
-		https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api 
-<dependency>
-    <groupId>org.hibernate.javax.persistence</groupId>
-    <artifactId>hibernate-jpa-2.1-api</artifactId>
-    <version>1.0.0.Final</version>
-</dependency>
--->
+	     <!-- Dipendenza per Bootstrap -->
+	    <dependency>
+	        <groupId>org.webjars</groupId>
+	        <artifactId>bootstrap</artifactId>
+	        <version>5.3.0</version>
+	    </dependency>
+	
+	    <!-- Dipendenza per Font Awesome -->
+	    <dependency>
+	        <groupId>org.webjars</groupId>
+	        <artifactId>font-awesome</artifactId>
+	        <version>5.15.4</version>
+	    </dependency>
 
 		<!--
 		https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
@@ -106,8 +102,6 @@
 			<version>5.7.5</version>
 		</dependency>
 		
-
-
 
 		<!--
 		https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
@@ -176,10 +170,10 @@
 		</dependency>
 
 		<dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>jstl</artifactId>
-    <version>1.2</version>
-</dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
 
 
 	</dependencies>

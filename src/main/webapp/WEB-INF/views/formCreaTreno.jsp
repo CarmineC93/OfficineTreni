@@ -5,15 +5,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Crea un nuovo treno</title>
 </head>
 	<body>
 	
+	<!-- Inclusione della dashboard sopra la pagina -->
+<jsp:include page="dashboard.jsp" />
 	 
 	 	<a href="${pageContext.request.contextPath}/admin/crea-vagone">Crea Vagone</a>
 	
-		<h1>${errore}</h1>
-	
+		<h4>${errore}</h4>
+			
 	
 		<form action="crea" method="post" onsubmit="return validateForm()">
 			<label for="nome">Nome treno:</label><br> <input type="text"
@@ -61,18 +63,22 @@
 						<th>Capienza</th>
 						<th>pesoTrainante</th>
 	                    <th>foto</th>
+	                    <th>azioni</th>
 	                    
 	
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="vagone" items="${listaVagoni}">
-						<tr selectcompagnia="${vagone.compagnia}">
+					
+	     <!-- ????????-->   <tr selectcompagnia="${vagone.compagnia}">
+						
 							<td>${vagone.id}</td>
 							<td><input type="checkbox" name="selezioneVagone"
 								value="${vagone.id}"
-								onchange="aggiungiComposizione(this, '${vagone.id}')"
-								<c:if test="${selezioneVagone.contains(vagone.id)}">checked</c:if>>
+								onchange="aggiungiComposizione(this, '${vagone.id}', ${vagone.peso}, ${vagone.lunghezza}, ${vagone.costo}); highlightRow(this)"
+									<c:if test="${selezioneVagone.contains(vagone.id)}">checked</c:if>
+								>
 							</td>
 							<td>${tipologiaMap[vagone.tipologia]}</td>
 							<td>${vagone.peso}t</td>
@@ -107,18 +113,43 @@
 		                       	<img src="data:image/png;base64,${vagone.base64Image}" alt="Immagine Vagone"> 
 		                    </td>
 	            
+	            			<td>    <a href="${pageContext.request.contextPath}/admin/modifica-vagone/${vagone.id}">Modifica</a>
+	            					<a href="${pageContext.request.contextPath}/admin/eliminaVagone/${vagone.id}" onclick="return confirm('Sei sicuro di voler eliminare questo vagone?')">Elimina</a>
+	            			
+	            			</td>
+	            			
 	                    </tr>
 	                </c:forEach>
 	            </tbody>
 	        </table>
 	
-			<div id="dettagliVagone">
-				<!-- Qui verranno visualizzati i dettagli del vagone selezionato -->
-			</div>
+			<br>
+			<div id="dettagliTreno" style="display: none;">
+			<!-- Qui verranno visualizzati i dettagli del treno realizzato -->
+			<h3>Totale Vagoni:</h3>
+			<h3 id="numvag">0</h3>
+			<br>
+			<h3>Peso Totale (in t):</h3>
+			<h3 id="pestot">0</h3>
+			<br>
+			<h3>Lunghezza Totale (in m):</h3>
+			<h3 id="luntot">0</h3>
+			<br>
+			<h2>Prezzo Complessivo (in $):</h2>
+			<h2 id="pretot">0</h2>
+
+
+		</div>
+		<br> 
 	
-			<input type="submit" value="Submit">
+ 
+	
+			<input type="submit" value="Realizza Treno">
+			
+			
 		</form>
 	
+		<a class="btn btn-light" href="javascript:history.back()">Torna Indietro</a>
 	
 	
 	
@@ -149,8 +180,8 @@
 		    // Chiamata iniziale per applicare il filtro all'avvio della pagina
 		    filterByCompagnia();
 		</script>
-	
-		<script>
+
+	<script>
 		  // Ottieni il riferimento all'elemento select nel DOM
 		  const selectElement = document.getElementById('compagnia');
 		
@@ -174,9 +205,9 @@
 		    }
 		  });
 		</script>
-	
-	
-		<script>
+
+
+	<script>
 		  	function validateForm() {
 		    const nomeTrenoInput = document.getElementById('nome');
 		    const siglaTrenoInput = document.getElementById('sigla');
@@ -193,13 +224,13 @@
 		    
 		    if (nomeTrenoInput.value.trim() === '') {
 		        nomeTrenoInput.style.border = '1px solid red';
-		        alert('Il campo Nome del treno non puï¿½ essere vuoto.');
+		        alert('Il campo Nome del treno non può essere vuoto.');
 		        return false; // Blocca l'invio del form
 		      }
 		
 		      if (siglaTrenoInput.value.trim() === '') {
 			        siglaTrenoInput.style.border = '1px solid red';
-			        alert('Il campo Sigla del treno non puï¿½ essere vuoto. Scegli i vagoni che compongono il treno.');
+			        alert('Il campo Sigla del treno non può essere vuoto. Scegli i vagoni che compongono il treno.');
 			        return false; // Blocca l'invio del form
 		      	}
 		
@@ -209,8 +240,8 @@
 		    	return true; // Permetti l'invio del form
 		  	}
 		</script>
-	
-		<script>
+
+	<script>
 		  	function clearSiglaField() {
 		    // Trova l'elemento del campo SiglaTreno per ID
 		    const siglaTrenoElement = document.getElementById('sigla');
@@ -228,46 +259,89 @@
 		    });
 		  }
 		</script>
-	
-	
-	
-		<script>
+
+
+
+	<script>
 		
 		let idSelezionati = [];
-	    function aggiungiComposizione(checkbox, vagoneID) {
+	    function aggiungiComposizione(checkbox, vagID, vagPeso, vagLunghezza, vagCosto) {
+	    	
+	    	const vagone = {
+	    	        id: vagID,
+	    	        peso: vagPeso,
+	    	        lunghezza: vagLunghezza,
+	    	        costo: vagCosto
+	    	    };
 	        
+	    	const composizioneField = document.getElementById("sigla");
+        	const pesoTotale = document.getElementById("pestot");
+        	const numeroVagoni = document.getElementById("numvag");
+        	const lunghezzaTotale = document.getElementById("luntot");
+        	const prezzoComplessivo = document.getElementById("pretot");
+        	
+        	const composizioneAttuale = composizioneField.value;
+            const peso = parseInt(pesoTotale.textContent);
+            const vagoni = parseInt(numeroVagoni.textContent);
+            const lunghezza = parseInt(lunghezzaTotale.textContent);
+            const prezzo = parseInt(prezzoComplessivo.textContent);
+        	const dettagliTrenoDiv = document.getElementById('dettagliTreno');
 	
 	        if (checkbox.checked) {
-	        	const composizioneField = document.getElementById("sigla");
-	        	const composizioneAttuale = composizioneField.value;
+	        	
+	        	// Aggiorna i dettagli del treno con i valori corretti
+	            const numVagoni = idSelezionati.length;
+
+	            dettagliTrenoDiv.style.display = 'block';
+	          
+	        	pesoTotale.textContent = peso + vagone.peso;
+	        	numeroVagoni.textContent = idSelezionati.length + 1;
+	        	lunghezzaTotale.textContent = lunghezza + vagone.lunghezza;
+	        	prezzoComplessivo.textContent = prezzo + vagone.costo;
+	        	
+	        	console.log(pesoTotale.textContent + ' ' + numeroVagoni.textContent + ' ' +
+	        	lunghezzaTotale.textContent  + ' ' +	prezzoComplessivo.textContent);
+	        	
+	        	
 	        	const tipologia = checkbox.parentNode.nextElementSibling.textContent.trim();
 	            composizioneField.value = composizioneAttuale ? composizioneAttuale + getIniziale(tipologia) : getIniziale(tipologia);
-				idSelezionati.push(vagoneID);
+	           
+	        	
+				idSelezionati.push(vagone.id);
 	        } else {
-	        	const composizioneField = document.getElementById("sigla");
-	        	const composizioneAttuale = composizioneField.value;
+	        	
+	        	
 	        	const tipologia = checkbox.parentNode.nextElementSibling.textContent.trim();
-	        	const index = idSelezionati.indexOf(vagoneID);
-	        	console.log("id da Cancellare:", index);
+	        	const index = idSelezionati.indexOf(vagone.id);
 	        	if (index !== -1) {
 	        		idSelezionati.splice(index, 1);
 	        		composizioneField.value = composizioneAttuale.replace(composizioneAttuale.charAt(index), "");
 	            }
+	        	
+	        	if(idSelezionati.length === 0) {
+	        		dettagliTrenoDiv.style.display = 'none';
+	        	}
+	        
+	        	
+	        	pesoTotale.textContent = peso - vagone.peso;
+	        	numeroVagoni.textContent = idSelezionati.length;
+	        	lunghezzaTotale.textContent = lunghezza - vagone.lunghezza;
+	        	prezzoComplessivo.textContent = prezzo - vagone.costo;
+	        	
+	        	console.log(pesoTotale.textContent + ' ' + numeroVagoni.textContent + ' ' +
+	    	        	lunghezzaTotale.textContent  + ' ' +	prezzoComplessivo.textContent);
 	        }
 	        
-	        console.log("vagoniSelezionati:", idSelezionati);
-	        console.log("idvagone:", ${vagone.id});
-	        const composizioneField = document.getElementById("sigla");
-	        console.log("Composizione aggiornata:", composizioneField.value);
+	     
 	        
 	        const vagoniSelezionatiOutput = document.getElementById("selezione");
 	        vagoniSelezionatiOutput.value = idSelezionati.join(", ");
 		    }
 		</script>
-	
-	
-	
-		<script>
+
+
+
+	<script>
 			function getIniziale(tipologia) {
 			        if (tipologia.includes("Ristorante")) {
 			            return "R";
@@ -282,6 +356,25 @@
 			        }
 			    }
 		</script>
+
+
+
+	<script>
+		function highlightRow(checkbox) {
+		    const row = checkbox.closest('tr'); // Ottieni la riga genitore della checkbox
+
+		    // Aggiungi o rimuovi gli stili direttamente nell'attributo 'style' della riga
+		    if (checkbox.checked) {
+		        row.style.backgroundColor = '#f2f2f2'; // Imposta il colore di sfondo desiderato
+		    } else {
+		    	 row.style.backgroundColor = '#FFC0CB'
+		    	 setTimeout(function() {
+		             row.style.backgroundColor = '#ffffff'; // Dopo 2 secondi, reimposta il colore di sfondo a bianco
+		         }, 2000); // 2000 millisecondi = 2 secondi
+		    }
+		}
+		</script>
+
 	
 	
 	</body>

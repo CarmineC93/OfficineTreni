@@ -12,11 +12,14 @@ import org.springframework.core.io.Resource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({"org.lessons.java.dao", "org.lessons.java.service", "org.lessons.java.controller" })
+ @ComponentScan({"org.lessons.java.dao", "org.lessons.java.service", "org.lessons.java.controller" })
 public class AppConfig {
 	
 	
@@ -36,6 +39,7 @@ public class AppConfig {
         return dataSource;
     }
 	
+  
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -59,10 +63,9 @@ public class AppConfig {
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
     }
-    
-    //SEZIONE VAGONI
-    
-    
+
+
+
     
     
 	

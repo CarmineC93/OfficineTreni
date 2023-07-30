@@ -15,6 +15,7 @@ import org.lessons.java.eccezioni.IncompatibleWagonTypologyException;
 import org.lessons.java.eccezioni.LocomotiveNotFoundException;
 import org.lessons.java.eccezioni.MaxWeightReachedException;
 import org.lessons.java.eccezioni.RestaurantAlreadyPresentException;
+import org.lessons.java.eccezioni.RestaurantNotBeetwenPassengersException;
 import org.lessons.java.eccezioni.TrainAlreadyCompletedException;
 import org.lessons.java.eccezioni.WagonNeededException;
 import org.lessons.java.service.BuilderTrain;
@@ -36,9 +37,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/treno")
 public class TrenoController {
 
-	TrenoService trenoService = new TrenoService();
+	/*TrenoService trenoService = new TrenoService();
 	UtenteService utenteService = new UtenteService();
-	VagoneService vagoneService = new VagoneService();
+	VagoneService vagoneService = new VagoneService();*/
+	
+    @Autowired
+    private VagoneService vagoneService;
+    @Autowired
+    private UtenteService utenteService;
+    @Autowired
+    private TrenoService trenoService;
 	
 	@Autowired
     private BuilderTrain builder;
@@ -157,23 +165,20 @@ public class TrenoController {
 	            } catch (LocomotiveNotFoundException e) {
 					System.out.println("Error: " + e.getMessage());
 					model.addAttribute("errore",e.getMessage());
-					
 				    model.addAttribute("treno", treno);
 				    model.addAttribute("listaVagoni", listaVagoni);
 				    model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 				    model.addAttribute("tipologiaMap", tipologiaMap);
 				    model.addAttribute("selezioneVagone",selezioneVagone);
 				    builder.removeAll();
-					 return "formCreaTreno";
+					return "formCreaTreno";
 					 
 				} catch (IncompatibleWagonTypologyException e) {
 					System.out.println("Error: " + e.getMessage());
 					model.addAttribute("errore",e.getMessage());
 					model.addAttribute("treno",treno);
-
 					model.addAttribute("listaVagoni",listaVagoni);
 				    model.addAttribute("tipologiaMap", tipologiaMap);
-
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 	                model.addAttribute("selezioneVagone",selezioneVagone);
 	                builder.removeAll();
@@ -184,52 +189,53 @@ public class TrenoController {
 					model.addAttribute("errore",e.getMessage());
 					model.addAttribute("treno",treno);
 				    model.addAttribute("tipologiaMap", tipologiaMap);
-
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 	                model.addAttribute("selezioneVagone",selezioneVagone);
 	                builder.removeAll();
-	                
-
-					 return "formCreaTreno";
+					return "formCreaTreno";
 					 
 				} catch (RestaurantAlreadyPresentException e) {
 					System.out.println("Error: " + e.getMessage());
 					model.addAttribute("errore",e.getMessage());
 					model.addAttribute("treno",treno);
 				    model.addAttribute("tipologiaMap", tipologiaMap);
-
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 	                builder.removeAll();
-	                
-
- 					return "formCreaTreno";
+	                return "formCreaTreno";
 					
 				} catch (TrainAlreadyCompletedException e) {
 					System.out.println("Error: " + e.getMessage());
 					model.addAttribute("errore",e.getMessage());
 					model.addAttribute("treno",treno);
 				    model.addAttribute("tipologiaMap", tipologiaMap);
-
 					model.addAttribute("listaVagoni",listaVagoni);
 	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 	                model.addAttribute("selezioneVagone",selezioneVagone);
 	                builder.removeAll();
-	                
-					 return "formCreaTreno";
+					return "formCreaTreno";
 					 
 				} catch (WagonNeededException e) {
 					model.addAttribute("errore",e.getMessage());
 					model.addAttribute("treno",treno);
 				    model.addAttribute("tipologiaMap", tipologiaMap);
-
 					model.addAttribute("listaVagoni",listaVagoni);	                
 					model.addAttribute("vagoniSelezionati", vagoniSelezionati);
-					  model.addAttribute("selezioneVagone",selezioneVagone);
-					  builder.removeAll();
+					model.addAttribute("selezioneVagone",selezioneVagone);
+					builder.removeAll();
 					
 					 return "formCreaTreno";
+				} catch (RestaurantNotBeetwenPassengersException e) {
+					System.out.println("Error: " + e.getMessage());
+					model.addAttribute("errore",e.getMessage());
+					model.addAttribute("treno",treno);
+				    model.addAttribute("tipologiaMap", tipologiaMap);
+					model.addAttribute("listaVagoni",listaVagoni);
+	                model.addAttribute("vagoniSelezionati", vagoniSelezionati);
+	                model.addAttribute("selezioneVagone",selezioneVagone);
+	                builder.removeAll();
+	                return "formCreaTreno";
 				}
 	        }
 	        
@@ -262,8 +268,7 @@ public class TrenoController {
 
 	@GetMapping("/show/{id}")
 	public String show(
-			Model model,
-			@PathVariable("id") int id,HttpSession session) 
+			Model model, @PathVariable("id") int id, HttpSession session) 
 	{
 		  Utente utente = (Utente) session.getAttribute("utente");
 	        if (utente == null) {
