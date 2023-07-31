@@ -9,30 +9,36 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Home</title>
 </head>
-<body>
+<body class="text-light bg-dark " >
+
+<!-- Inclusione della dashboard sopra la pagina -->
+<jsp:include page="dashboard.jsp" />
+
+
+<div class="container">
+
+	 <div class="py-2">
+   		<img class="py-2" src="${pageContext.request.contextPath}/resources/logoscritta.png" alt="Logo" style="max-width:150px; display:block;">
+	    <h1 class="py-2" style="display:inline">Welcome Home</h1>     	    	
+	 </div>
 	
-	<h1>Welcome to Home</h1>
- 
-	
+ 	
 	<div>
-	<p>Benvenuto: ${utente.nome}</p>
+	<p>Benvenuto ${utente.nome}, componiamo qualche treno!</p>
+	</div>
 		
-			<span>${utente.ruolo}</span>
-		
-	</div>  
-	
-		
-	<h2>Numero visitatori connessi: ${contatore}</h2>
-	
-	
 
 	
-	<a href="${pageContext.request.contextPath}/treno/formCrea">Crea Treno</a>
+	<footer class="py-4" style="position: fixed; bottom: 0; width: 100%;">
+	<div >
+		<h6>Numero visitatori connessi: ${contatore}</h6>
+	</div>
+	</footer>	
 	
 
-<a href="${pageContext.request.contextPath}/logout">Logout</a>
+</div>
 
 
 </body>

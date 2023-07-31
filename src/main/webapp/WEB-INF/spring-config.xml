@@ -43,7 +43,6 @@
      <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
      
       
-     
      <bean class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler" />    
 
      <mvc:resources mapping="/resources/**" 

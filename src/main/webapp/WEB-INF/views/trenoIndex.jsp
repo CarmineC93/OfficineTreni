@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!-- Inclusione della dashboard sopra la pagina -->
+<jsp:include page="dashboard.jsp" />
+
 	<h1>Treni</h1>
 	
 	<table>
