@@ -23,13 +23,15 @@ public class HomeController {
 	}
 	
 	
-   /* // Questo metodo è accessibile solo dagli utenti con il ruolo "ADMIN"
-    @GetMapping("/admin")
-    @PreAuthorize("hasAuthority('Admin')")
-    public String adminSection() {
-         return "admin"; 
+    @GetMapping("/chisiamo")
+        public String chisiamo(HttpSession session) {
+
+        Utente utente = (Utente) session.getAttribute("utente");
+        if (utente != null) {
+            session.setAttribute("utente", utente);
+        }
+         return "chisiamo"; 
     }
-	*/
     
   
 }

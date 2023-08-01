@@ -45,13 +45,13 @@ public class BuilderTrain {
 		            .filter(w -> w.getTipologia() == 'H')
 		            .mapToDouble(Vagone::getPesoTrainante)
 		            .findFirst()
-		            .orElseThrow(() -> new LocomotiveNotFoundException(trainComposition, "No locomotive found in the train composition."));
+		            .orElseThrow(() -> new LocomotiveNotFoundException(trainComposition, "Nessuna locomotiva trovata. Aggiungine una come primo vagone."));
 				
 			//se il peso massimo NON è stato raggiunto
 			if(totalWeight + wagon.getPeso() <= drivingWeight ) {
 					//SE CI SONO GIà DUE locomotive (= FINE TRENO)
 					if(quanteLocomotive() == 2) {
-						throw new TrainAlreadyCompletedException(trainComposition, "You have already finish your train. Remove the last Locomotiv to add new wagon");
+						throw new TrainAlreadyCompletedException(trainComposition, "Hai già una locomotiva finale. Rimuovila per aggiungere altri vagoni al treno");
 					//se c'è solo una locomotiva
 					} else {
 						//SE W = P, R, C
@@ -59,23 +59,23 @@ public class BuilderTrain {
 							//SE W = C
 							if (wagon.getTipologia() == 'C') {
 								if (trainComposition.size() > 1 && !trainComposition.stream().anyMatch(w -> w.getTipologia() == 'C')) {
-								throw new IncompatibleWagonTypologyException(trainComposition, "Cargo wagons are incompatible with passenger wagon and/or restaurant wagon ", wagon.getTipologia());
+								throw new IncompatibleWagonTypologyException(trainComposition, "I vagoni Cargo sono incompatibili con i vagoni Passeggeri/Ristorante", wagon.getTipologia());
 								} else {
 								trainComposition.add(wagon);	
 								}
 								//SE W = P, R
 							} else if(!(wagon.getTipologia() == 'C')) {
 								if(trainComposition.stream().anyMatch((w -> w.getTipologia() == 'C')) ) {
-									throw new IncompatibleWagonTypologyException(trainComposition , "Passenger wagon and/or Restaurant wagon are incompatible with Cargo wagon" , wagon.getTipologia());
+									throw new IncompatibleWagonTypologyException(trainComposition , "I vagoni Passeggeri/Ristorante sono incompatibili con i vagoni Cargo " , wagon.getTipologia());
 								//SE W = R
 								} else if (wagon.getTipologia() == 'R') {
 									if(trainComposition.stream().anyMatch((w -> w.getTipologia() == 'R'))) {
-										throw new RestaurantAlreadyPresentException("There is already 1 restaurant wagon (the maximum is 1 for train). Remove the other restaurant to add a new one.");
+										throw new RestaurantAlreadyPresentException("C'è già un vagone ristorante (il massimo è 1 per treno). Rimuovi quello presente per aggiungerne un altro.");
 										
 									} else if (lastWagon.getTipologia() == 'P') {
 										trainComposition.add(wagon);
 									} else {
-										throw new RestaurantNotBeetwenPassengersException("R wagon can go only between P wagons");
+										throw new RestaurantNotBeetwenPassengersException("Un vagone ristorante può essere aggiunto solo tra due vagoni passeggeri.");
 									}
 								//SE W = P
 								} else if (wagon.getTipologia() == 'P') {
@@ -103,7 +103,7 @@ public class BuilderTrain {
 			//se è il primo inserimento
 		} else {
 			if(!(wagon.getTipologia() == 'H')) {
-				throw new LocomotiveNotFoundException(trainComposition, "There is no Locomotiv. Add a Locomotiv as first wagon");
+				throw new LocomotiveNotFoundException(trainComposition, "Non c'è nessuna Locomotiva. Aggiungine una come primo vagone");
 			} else {
 				trainComposition.add(wagon);
 				

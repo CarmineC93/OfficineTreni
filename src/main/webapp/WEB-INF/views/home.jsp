@@ -11,7 +11,7 @@
 <meta charset="ISO-8859-1">
 <title>Home</title>
 </head>
-<body class="text-light bg-dark " >
+<body class="text-light bg-dark pt-5" >
 
 <!-- Inclusione della dashboard sopra la pagina -->
 <jsp:include page="dashboard.jsp" />
@@ -26,7 +26,7 @@
 	
  	
 	<div>
-	<p>Benvenuto ${utente.nome}, componiamo qualche treno!</p>
+	<p>Benvenuto ${utente.nome}, costruiamo qualche treno!</p>
 	</div>
 		
 

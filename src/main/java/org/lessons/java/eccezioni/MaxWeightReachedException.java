@@ -4,7 +4,7 @@ package org.lessons.java.eccezioni;
 public class MaxWeightReachedException extends Exception{
 	
 	public MaxWeightReachedException() {
-		super("The train has reached the maximum weight that the locomotive can carry. "); 
+		super("Il treno ha già raggiunto il massimo peso che la locomotiva può portare. "); 
 	}
 
 }

@@ -61,11 +61,54 @@ public class TrenoController {
 		
 		List<Treno> treni = trenoService.findAll();
 		
+		for (Treno treno : treni) {
+		    for (Vagone vagone : treno.getVagone()) {
+		        byte[] imgBytes = vagone.getImgBytes();
+		        if (imgBytes != null) {
+		            String base64Image = Base64.getEncoder().encodeToString(imgBytes);
+		            vagone.setBase64Image(base64Image);
+		        } else {
+		            vagone.setBase64Image(null); // Imposta base64Image a null se l'immagine è assente o vuota
+		        }
+		    }
+		}
+		
 		model.addAttribute("listaTreni",treni);
 		
 
 		return "trenoIndex";
 	}
+	
+	
+
+	@GetMapping("/show/{id}")
+	public String show(
+			@PathVariable("id") int id, HttpSession session, Model model) 
+	{
+		  Utente utente = (Utente) session.getAttribute("utente");
+	        if (utente == null) {
+	            return "redirect:/login";
+	        }
+		
+		Treno treno = trenoService.find(id);
+		    for (Vagone vagone : treno.getVagone()) {
+		        byte[] imgBytes = vagone.getImgBytes();
+		        if (imgBytes != null) {
+		            String base64Image = Base64.getEncoder().encodeToString(imgBytes);
+		            vagone.setBase64Image(base64Image);
+		        } else {
+		            vagone.setBase64Image(null); // Imposta base64Image a null se l'immagine è assente o vuota
+		        }
+		    }
+		    
+		    
+		model.addAttribute("treno", treno);
+		
+		model.addAttribute("vagoni", treno.getVagone());
+		
+		return "trenoShow";
+	}
+	
 	
 	
 	@GetMapping("/formCrea")
@@ -150,18 +193,28 @@ public class TrenoController {
 		    for (Vagone vagone : listaVagoni) {
 		        // Get the tipologia from your service or any other method
 		        char tipologia = vagone.getTipologia();
-
 		        // Convert tipologia to a String using a utility method and store it in the map
 		        String tipologiaString = convertTipologiaToString(tipologia);
 		        tipologiaMap.put(tipologia, tipologiaString);
+		        
+		        
+    	        byte[] imageBytes = vagone.getImgBytes();
+    	        if (imageBytes != null) {
+    	            // Converti l'array di byte in una stringa Base64
+    	            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+    	            // Salva la stringa Base64 nel model del singolo vagone
+    	            vagone.setBase64Image(base64Image);
+    	        }
+		        
 		    }
 	   
 	        // Costruisci la composizione del treno utilizzando il metodo aggiungiVagone
 	        for (Vagone vagone : vagoniSelezionati) {
+
 	            try {
 	          
 	            	builder.aggiungiVagone(vagone);
-	            	
+	            	            	
 	            } catch (LocomotiveNotFoundException e) {
 					System.out.println("Error: " + e.getMessage());
 					model.addAttribute("errore",e.getMessage());
@@ -170,6 +223,7 @@ public class TrenoController {
 				    model.addAttribute("vagoniSelezionati", vagoniSelezionati);
 				    model.addAttribute("tipologiaMap", tipologiaMap);
 				    model.addAttribute("selezioneVagone",selezioneVagone);
+				    
 				    builder.removeAll();
 					return "formCreaTreno";
 					 
@@ -266,23 +320,6 @@ public class TrenoController {
 	
 
 
-	@GetMapping("/show/{id}")
-	public String show(
-			Model model, @PathVariable("id") int id, HttpSession session) 
-	{
-		  Utente utente = (Utente) session.getAttribute("utente");
-	        if (utente == null) {
-	            return "redirect:/login";
-	        }
-		
-		Treno treno = trenoService.find(id);
-	
-		model.addAttribute("treno", treno);
-		
-		model.addAttribute("vagoni",treno.getVagone());
-		
-		return "trenoShow";
-	}
 
 	
 	 private String convertTipologiaToString(char tipologia) {
