@@ -74,7 +74,7 @@ public class TrenoController {
 	        if (utente == null) {
 	            return "redirect:/login";
 	        }
-		
+		model.addAttribute("utente",utente);
 		
 		List<Vagone> listaVagoni = vagoneService.findAll();
 		String compagniaSelezionata = "Nullo";

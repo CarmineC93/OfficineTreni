@@ -6,6 +6,7 @@ import java.util.Base64;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.lessons.java.bean.Utente;
 import org.lessons.java.bean.Vagone;
 import org.lessons.java.service.VagoneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,14 @@ public class VagoneController {
 //CREATE	    
 	    // Metodo per la visualizzazione del form di creazione del vagone
 	    @GetMapping("/crea-vagone")
-	    public String showCreateVagoneForm(Model model) {
+	    public String showCreateVagoneForm(Model model,HttpSession session) {
+	    	 Utente utente = (Utente) session.getAttribute("utente");
+		        if (!utente.getRuolo().equals("admin")) {
+		        	
+		        	
+		            return "redirect:/treno/index";
+		        }
+	    	
 	        model.addAttribute("vagone", new Vagone());
 	        return "/admin/formCreaVagone"; 
 	    }
@@ -40,7 +48,12 @@ public class VagoneController {
 	    
 	    // Metodo per gestire il submit del form di creazione del vagone
 	    @PostMapping("/salvaVagone")
-	    public String saveVagone(@Valid @ModelAttribute("vagone") Vagone vagone, BindingResult bindingResult, Model model) {
+	    public String saveVagone(@Valid @ModelAttribute("vagone") Vagone vagone, BindingResult bindingResult, Model model,HttpSession session) {
+	    	 Utente utente = (Utente) session.getAttribute("utente");
+		        if (utente.getRuolo().equals("admin")) {
+		        	
+		            return "redirect:/OfficineTreni/treno/index";
+		        }
 	    	// Ottieni l'immagine come MultipartFile
 	        MultipartFile file = vagone.getImg();        
 	        // Controlla se l'utente ha caricato effettivamente un'immagine
@@ -71,7 +84,12 @@ public class VagoneController {
 	    
 //UPDATE	    
 	    @GetMapping("/modifica-vagone/{id}")
-	    public String showEditVagoneForm(@PathVariable int id, Model model) {
+	    public String showEditVagoneForm(@PathVariable int id, Model model,HttpSession session) {
+	    	Utente utente = (Utente) session.getAttribute("utente");
+	        if (utente.getRuolo().equals("admin")) {
+	        	
+	            return "redirect:/OfficineTreni/treno/index";
+	        }
 	        Vagone vagone = vagoneService.find(id);
 	        if (vagone == null) {
 	            // Se il vagone con l'id specificato non esiste, puoi gestire l'errore come preferisci
@@ -91,8 +109,12 @@ public class VagoneController {
 	    
 	    
 	    @PostMapping("/modificaVagone")
-	    public String saveModificheVagone(@Valid @ModelAttribute("vagone") Vagone vagone, BindingResult bindingResult, Model model) {
-	    	
+	    public String saveModificheVagone(@Valid @ModelAttribute("vagone") Vagone vagone, BindingResult bindingResult, Model model,HttpSession session) {
+	    	Utente utente = (Utente) session.getAttribute("utente");
+	        if (utente.getRuolo().equals("admin")) {
+	        	
+	            return "redirect:/OfficineTreni/treno/index";
+	        }
 	    	// Ottieni l'immagine come MultipartFile
 	        MultipartFile file = vagone.getImg();        
 	        // Controlla se l'utente ha caricato effettivamente un'immagine
@@ -126,7 +148,12 @@ public class VagoneController {
 	    
 //DELETE
 	    @GetMapping("/eliminaVagone/{id}")
-	    public String eliminaVagone(@PathVariable int id, RedirectAttributes redirectAttributes) {
+	    public String eliminaVagone(@PathVariable int id, RedirectAttributes redirectAttributes,HttpSession session) {
+	    	Utente utente = (Utente) session.getAttribute("utente");
+	        if (utente.getRuolo().equals("admin")) {
+	        	
+	            return "redirect:/OfficineTreni/treno/index";
+	        }
 	    	
 	        Vagone vagone = vagoneService.find(id);
 	        if (vagone == null) {

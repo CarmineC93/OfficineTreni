@@ -11,8 +11,11 @@
 	
 	<!-- Inclusione della dashboard sopra la pagina -->
 <jsp:include page="dashboard.jsp" />
-	 
+	 	
+	 	
+	 	<c:if test="${utente.ruolo.equals('admin')}">
 	 	<a href="${pageContext.request.contextPath}/admin/crea-vagone">Crea Vagone</a>
+	 	</c:if>
 	
 		<h4>${errore}</h4>
 			
@@ -113,9 +116,11 @@
 		                       	<img src="data:image/png;base64,${vagone.base64Image}" alt="Immagine Vagone"> 
 		                    </td>
 	            
-	            			<td>    <a href="${pageContext.request.contextPath}/admin/modifica-vagone/${vagone.id}">Modifica</a>
+	            			<td>   
+	            						<c:if test="${utente.ruolo.equals('admin')}">
+	            					 <a href="${pageContext.request.contextPath}/admin/modifica-vagone/${vagone.id}">Modifica</a>
 	            					<a href="${pageContext.request.contextPath}/admin/eliminaVagone/${vagone.id}" onclick="return confirm('Sei sicuro di voler eliminare questo vagone?')">Elimina</a>
-	            			
+	            				</c:if>
 	            			</td>
 	            			
 	                    </tr>
