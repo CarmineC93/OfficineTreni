@@ -174,10 +174,14 @@
 			                    </td>
 		            
 		            			<td class="text-center align-middle">    
-			            			<a style="color:light-blue;" href="${pageContext.request.contextPath}/admin/show/${vagone.id}" class="px-1"><i class="fa-solid fa-eye"></i></a>
+		            			<a style="color:light-blue;" href="${pageContext.request.contextPath}/admin/show/${vagone.id}" class="px-1"><i class="fa-solid fa-eye"></i></a>
+		            			<c:if test="${utente.ruolo.equals('admin')}">
+
+	            				
+			            			
 			            			<a style="color:orange;" href="${pageContext.request.contextPath}/admin/modifica-vagone/${vagone.id}"><i class="fa-solid fa-pen-to-square"></i></a>
 			            			<a style="color:red;" href="${pageContext.request.contextPath}/admin/eliminaVagone/${vagone.id}" class="px-1" onclick="return confirm('Sei sicuro di voler eliminare questo vagone?')"><i class="fa-solid fa-trash"></i></a>
-		            			</td>
+		            			</c:if></td>
 		            			
 		                    </tr>
 		                </c:forEach>

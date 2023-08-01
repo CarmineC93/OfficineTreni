@@ -38,7 +38,6 @@ public class VagoneController {
 	    	 Utente utente = (Utente) session.getAttribute("utente");
 		        if (!utente.getRuolo().equals("admin")) {
 		        	
-		        	
 		            return "redirect:/treno/index";
 		        }
 	    	
