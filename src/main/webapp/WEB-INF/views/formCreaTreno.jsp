@@ -6,154 +6,196 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Crea un nuovo treno</title>
+<!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+<!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
-	<body>
+	<body class="text-light bg-dark ">
 	
 	<!-- Inclusione della dashboard sopra la pagina -->
 <jsp:include page="dashboard.jsp" />
 	 
-	 	<a href="${pageContext.request.contextPath}/admin/crea-vagone">Crea Vagone</a>
+	 <div class="containe px-4" style="padding:5rem 0 0 3rem">
+	 
+	 
 	
-		<h4>${errore}</h4>
+	
+		<div class="d-flex justify-content-between align-items-center">
+   			<img class="py-2" src="${pageContext.request.contextPath}/resources/logoscritta.png" alt="Logo" style="max-width:100px; display:block;">
+	    	<h1 class="py-2" style="display:inline">Componi un nuovo treno</h1>    
+	    	<div class="py-5">
+				<a class="btn btn-warning" href="javascript:history.back()">Torna Indietro</a>
+			</div> 
+		</div>
+			 					    	
+	 	<c:if test="${utente.ruolo.equals('admin')}">
+			<a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/crea-vagone">Crea Nuovo Vagone</a>	
+		</c:if>
+	
+		<h4 style="color:red;">${errore}</h4>
 			
 	
 		<form action="crea" method="post" onsubmit="return validateForm()">
-			<label for="nome">Nome treno:</label><br> <input type="text"
-				id="nome" name="nome" placeholder="My Train" value="${treno.nome}"><br>
-			<p>${errori.getFieldError('nome').defaultMessage}</p>
+			
+			<div class="row row-cols-2">
+			<div class="col" style="max-width:500px;">
+			
+						<label class="form-label" for="nome">Nome treno:</label><br> 
+						<input type="text" class="form-control"
+							id="nome" name="nome" placeholder="Nome del treno..." value="${treno.nome}"><br>
+						<p>${errori.getFieldError('nome').defaultMessage}</p>
+				
 	
-	
-	
-			<label for="compagnia">compagnia treno:</label> <select
-				name="compagnia" id="compagnia"
-				onchange="clearSiglaField(); filterByCompagnia()">
-				<option value="Nullo"
-					${compagniaSelezionata == 'Nullo' ? 'selected' : ''}>scegli
-					tra...</option>
-				<option value="Italo"
-					${compagniaSelezionata == 'Italo' ? 'selected' : ''}>Italo</option>
-				<option value="Trenitalia"
-					${compagniaSelezionata == 'Trenitalia' ? 'selected' : ''}>Trenitalia</option>
-			</select>
-			<p>${errori.getFieldError('compagnia').defaultMessage}</p>
-	
-	
-	
-			<label for="sigla">Sigla treno:</label><br> <input type="text"
-				id="sigla" name="sigla" value="${treno.sigla}"
-				placeholder="My Composition" disabled readonly><br>
-			<p>${errori.getFieldError('sigla').defaultMessage}</p>
-	
-	
-			<label for="selezione">Selezione vagoni:</label><br>
-			<input type="text" id="selezione" name="selezione"
-				placeholder="My Selection" disabled readonly><br>
-	
-	
-			<table id="vagoniTable">
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Seleziona</th>
-						<th>Tipologia</th>
-						<th>Peso</th>
-						<th>Lunghezza</th>
-						<th>Costo</th>
-						<th>Compagnia</th>
-						<th>Capienza</th>
-						<th>pesoTrainante</th>
-	                    <th>foto</th>
-	                    <th>azioni</th>
-	                    
-	
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="vagone" items="${listaVagoni}">
-					
-	     <!-- ????????-->   <tr selectcompagnia="${vagone.compagnia}">
-						
-							<td>${vagone.id}</td>
-							<td><input type="checkbox" name="selezioneVagone"
-								value="${vagone.id}"
-								onchange="aggiungiComposizione(this, '${vagone.id}', ${vagone.peso}, ${vagone.lunghezza}, ${vagone.costo}); highlightRow(this)"
-									<c:if test="${selezioneVagone.contains(vagone.id)}">checked</c:if>
-								>
-							</td>
-							<td>${tipologiaMap[vagone.tipologia]}</td>
-							<td>${vagone.peso}t</td>
-							<td>${vagone.lunghezza}m</td>
-							<td>${vagone.costo}$</td>
-							<td>${vagone.compagnia}</td>
-							<td><c:choose>
-									<c:when
-										test="${tipologiaMap[vagone.tipologia] eq 'Passeggeri'}">
-				                        ${vagone.capienza} passeggeri
-				                    </c:when>
-									<c:when
-										test="${tipologiaMap[vagone.tipologia] eq 'Ristorante'}">
-				                        ${vagone.capienza} clienti
-				                    </c:when>
-									<c:when test="${tipologiaMap[vagone.tipologia] eq 'Locomotiva'}">
-				                        ${vagone.capienza} conducenti
-				                    </c:when>
-									<c:when
-										test="${tipologiaMap[vagone.tipologia] eq 'Cargo'}">
-				                        ${vagone.capienza} lt
-				                    </c:when>
-								</c:choose>
-							</td>
-							<td>
-								<c:if
-									test="${tipologiaMap[vagone.tipologia] eq 'Locomotiva'}">
-							       	${vagone.pesoTrainante} t
-							    </c:if>
-							</td> 	                    
-		                    <td> 
-		                       	<img src="data:image/png;base64,${vagone.base64Image}" alt="Immagine Vagone"> 
-		                    </td>
-	            
-	            			<td>    <a href="${pageContext.request.contextPath}/admin/modifica-vagone/${vagone.id}">Modifica</a>
-	            					<a href="${pageContext.request.contextPath}/admin/eliminaVagone/${vagone.id}" onclick="return confirm('Sei sicuro di voler eliminare questo vagone?')">Elimina</a>
-	            			
-	            			</td>
-	            			
-	                    </tr>
-	                </c:forEach>
-	            </tbody>
-	        </table>
-	
-			<br>
-			<div id="dettagliTreno" style="display: none;">
-			<!-- Qui verranno visualizzati i dettagli del treno realizzato -->
-			<h3>Totale Vagoni:</h3>
-			<h3 id="numvag">0</h3>
-			<br>
-			<h3>Peso Totale (in t):</h3>
-			<h3 id="pestot">0</h3>
-			<br>
-			<h3>Lunghezza Totale (in m):</h3>
-			<h3 id="luntot">0</h3>
-			<br>
-			<h2>Prezzo Complessivo (in $):</h2>
-			<h2 id="pretot">0</h2>
+				
+						<div class="input-group mb-3">
+								<label class="input-group-text" for="compagnia">Compagnia treno:</label> 
+								<select  class="form-select"
+									name="compagnia" id="compagnia"
+									onchange="clearSiglaField(); filterByCompagnia()">
+									<option value="Nullo"
+										${compagniaSelezionata == 'Nullo' ? 'selected' : ''}>Scegli
+										tra...</option>
+									<option value="Italo"
+										${compagniaSelezionata == 'Italo' ? 'selected' : ''}>Italo</option>
+									<option value="Trenitalia"
+										${compagniaSelezionata == 'Trenitalia' ? 'selected' : ''}>Trenitalia</option>
+								</select>
+								<p>${errori.getFieldError('compagnia').defaultMessage}</p>
+						</div>
+				
+				
+				
+						<label class="form-label" for="sigla">Sigla treno:</label><br> 
+						<input type="text" class="form-control"
+							id="sigla" name="sigla" value="${treno.sigla}"
+							placeholder="Composizione treno" disabled readonly><br>
+						<p>${errori.getFieldError('sigla').defaultMessage}</p>
+				
+				  
+						<label class="form-label" for="selezione">Selezione vagoni:</label><br>
+						<input class="form-control" type="text" id="selezione" name="selezione"
+							placeholder="My Selection" disabled readonly><br> 
+				
+				
+	  
+		    	
+						<div class="py-4">
+							<input class="btn btn-success" type="submit" value="Realizza Treno">
+						</div> 				
+				</div> 
+				
+				
 
-
-		</div>
-		<br> 
+				
+				
+				<div class="col" id="dettagliTreno" style="display: none;">
+					<!-- Qui verranno visualizzati i dettagli del treno realizzato -->
+					<h5>Totale Vagoni:</h5>
+					<span id="numvag">0</span>
+					<h5>Peso Totale (t):</h5>
+					<span id="pestot">0</span>
+					<h5>Lunghezza Totale (m):</h5>
+					<span id="luntot">0</span>
+					<h5>Prezzo Complessivo (Euro):</h5>
+					<span id="pretot">0</span>
+				</div>
 	
  
 	
-			<input type="submit" value="Realizza Treno">
-			
-			
+				
+				
+				<table  class="table" id="vagoniTable">
+					<thead>
+						<tr>
+							<!--<th>Id</th>-->
+							<th class="text-center">Aggiungi</th>
+							<th class="text-center">Tipologia</th>
+							<th class="text-center">Peso</th>
+							<th class="text-center">Lunghezza</th>
+							<th class="text-center">Costo (i.i.)</th>
+							<th class="text-center">Compagnia</th>
+							<th class="text-center">Capienza</th>
+							<th class="text-center">Forza motrice</th>
+		                    <th class="text-center">Foto</th>
+		                    <th class="text-center">Azioni</th>
+		                    
+		
+						</tr>
+					</thead>
+					
+					<tbody>
+						<c:forEach var="vagone" items="${listaVagoni}">
+						
+		     <!-- ????????-->   <tr selectcompagnia="${vagone.compagnia}">
+							
+								 <!-- <td>${vagone.id}</td>-->
+								<td class="text-center align-middle">
+							 	<input type="checkbox" name="selezioneVagone"
+								value="${vagone.id}"
+								onchange="aggiungiComposizione(this, '${vagone.id}', ${vagone.peso}, ${vagone.lunghezza}, ${vagone.costo}); highlightRow(this)"
+									<c:if test="${selezioneVagone.contains(vagone.id)}">checked</c:if>
+									>
+								</td>
+								<td class="text-center align-middle">${tipologiaMap[vagone.tipologia]}</td>
+								<td class="text-center align-middle">${vagone.peso}t</td>
+								<td class="text-center align-middle">${vagone.lunghezza}m</td>
+								<td class="text-center align-middle">${vagone.costo}$</td>
+								<td class="text-center align-middle">${vagone.compagnia}</td>
+								<td class="text-center align-middle">
+									<c:choose>
+										<c:when
+											test="${tipologiaMap[vagone.tipologia] eq 'Passeggeri'}">
+					                        ${vagone.capienza} passeggeri
+					                    </c:when>
+										<c:when
+											test="${tipologiaMap[vagone.tipologia] eq 'Ristorante'}">
+					                        ${vagone.capienza} clienti
+					                    </c:when>
+										<c:when test="${tipologiaMap[vagone.tipologia] eq 'Locomotiva'}">
+					                        ${vagone.capienza} conducenti
+					                    </c:when>
+										<c:when
+											test="${tipologiaMap[vagone.tipologia] eq 'Cargo'}">
+					                        ${vagone.capienza} litri
+					                    </c:when>
+									</c:choose>
+								</td>
+								<td class="text-center align-middle">
+									<c:if
+										test="${tipologiaMap[vagone.tipologia] eq 'Locomotiva'}">
+								       	${vagone.pesoTrainante} t
+								    </c:if>
+								</td> 	                    
+			                    <td> 
+			                       	<img src="data:image/png;base64,${vagone.base64Image}" alt="Immagine Vagone" style="max-width:250px;"> 
+			                    </td>
+		            
+		            			<td class="text-center align-middle">    
+			            			<a style="color:light-blue;" href="${pageContext.request.contextPath}/admin/show/${vagone.id}" class="px-1"><i class="fa-solid fa-eye"></i></a>
+			            			<a style="color:orange;" href="${pageContext.request.contextPath}/admin/modifica-vagone/${vagone.id}"><i class="fa-solid fa-pen-to-square"></i></a>
+			            			<a style="color:red;" href="${pageContext.request.contextPath}/admin/eliminaVagone/${vagone.id}" class="px-1" onclick="return confirm('Sei sicuro di voler eliminare questo vagone?')"><i class="fa-solid fa-trash"></i></a>
+		            			</td>
+		            			
+		                    </tr>
+		                </c:forEach>
+		            </tbody>
+		        </table>
+	
+			</div>
+	
 		</form>
 	
-		<a class="btn btn-light" href="javascript:history.back()">Torna Indietro</a>
+ 
+
+		</div>
 	
 	
+	</body>
 	
-		<script>
+			<script>
 	    function filterByCompagnia() {
 	        const selectElement = document.getElementById("compagnia");
 	        const compagniaSelezionata = selectElement.value;
@@ -374,8 +416,5 @@
 		    }
 		}
 		</script>
-
 	
-	
-	</body>
 </html>

@@ -6,6 +6,8 @@ import java.util.Base64;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.lessons.java.bean.Treno;
+import org.lessons.java.bean.Utente;
 import org.lessons.java.bean.Vagone;
 import org.lessons.java.service.VagoneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,6 +142,37 @@ public class VagoneController {
 
 	        return "redirect:/treno/formCrea";
 	    }
+	    
+	    
+//SHOW
+		@GetMapping("/show/{id}")
+		public String show(
+				Model model, @PathVariable("id") int id, HttpSession session) 
+		{
+			  Utente utente = (Utente) session.getAttribute("utente");
+		        if (utente == null) {
+		            return "redirect:/login";
+		        }
+			
+			Vagone vagone = vagoneService.find(id);
+		
+			
+			
+			byte[] imgBytes = vagone.getImgBytes();
+			if (imgBytes != null) {
+				String base64Image = Base64.getEncoder().encodeToString(imgBytes);
+				vagone.setBase64Image(base64Image);
+			} else {
+				vagone.setBase64Image(null);
+			}
+			   
+			    
+			
+			
+			model.addAttribute("vagone", vagone);
+						
+			return "/admin/vagoneShow";
+		}
 	    
 	    
 	}

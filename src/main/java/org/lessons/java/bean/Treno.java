@@ -64,7 +64,6 @@ public class Treno implements Serializable,Bean{
             	)
 	private List<Vagone> vagone;
 		
-
 	public Treno() {}
 	
 //GETTER & SETTER
