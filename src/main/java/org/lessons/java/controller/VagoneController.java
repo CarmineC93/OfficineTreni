@@ -52,7 +52,7 @@ public class VagoneController {
 	    	 Utente utente = (Utente) session.getAttribute("utente");
 		        if (utente.getRuolo().equals("admin")) {
 		        	
-		            return "redirect:/OfficineTreni/treno/index";
+		            return "redirect:/treno/index";
 		        }
 	    	// Ottieni l'immagine come MultipartFile
 	        MultipartFile file = vagone.getImg();        
@@ -88,7 +88,7 @@ public class VagoneController {
 	    	Utente utente = (Utente) session.getAttribute("utente");
 	        if (utente.getRuolo().equals("admin")) {
 	        	
-	            return "redirect:/OfficineTreni/treno/index";
+	            return "redirect:/treno/index";
 	        }
 	        Vagone vagone = vagoneService.find(id);
 	        if (vagone == null) {
@@ -113,7 +113,7 @@ public class VagoneController {
 	    	Utente utente = (Utente) session.getAttribute("utente");
 	        if (utente.getRuolo().equals("admin")) {
 	        	
-	            return "redirect:/OfficineTreni/treno/index";
+	            return "redirect:/treno/index";
 	        }
 	    	// Ottieni l'immagine come MultipartFile
 	        MultipartFile file = vagone.getImg();        
@@ -152,7 +152,7 @@ public class VagoneController {
 	    	Utente utente = (Utente) session.getAttribute("utente");
 	        if (utente.getRuolo().equals("admin")) {
 	        	
-	            return "redirect:/OfficineTreni/treno/index";
+	            return "redirect:/treno/index";
 	        }
 	    	
 	        Vagone vagone = vagoneService.find(id);
