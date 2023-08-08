@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <title>Registrazione</title>
     
     <!-- bootstrap -->

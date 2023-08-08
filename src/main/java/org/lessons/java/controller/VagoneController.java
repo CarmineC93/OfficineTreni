@@ -51,7 +51,7 @@ public class VagoneController {
 	    public String saveVagone(@Valid @ModelAttribute("vagone") Vagone vagone, BindingResult bindingResult, Model model,HttpSession session) {
 	    	 Utente utente = (Utente) session.getAttribute("utente");
 		     
-	    	 /*  if (utente.getRuolo().equals("admin")) {
+	    	  if (utente.getRuolo().equals("admin")) {
 		        	
 		            return "redirect:/treno/index";
 		        }
