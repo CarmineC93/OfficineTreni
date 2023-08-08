@@ -36,10 +36,10 @@ public class VagoneController {
 	    @GetMapping("/crea-vagone")
 	    public String showCreateVagoneForm(Model model,HttpSession session) {
 	    	 Utente utente = (Utente) session.getAttribute("utente");
-		        if (!utente.getRuolo().equals("admin")) {
-		        	
-		            return "redirect:/treno/index";
-		        }
+	    	 
+		    	/*if (utente.getRuolo().equals("admin")) {
+	            return "redirect:/treno/index";
+	        }*/
 	    	
 	        model.addAttribute("vagone", new Vagone());
 	        return "/admin/formCreaVagone"; 
@@ -50,7 +50,8 @@ public class VagoneController {
 	    @PostMapping("/salvaVagone")
 	    public String saveVagone(@Valid @ModelAttribute("vagone") Vagone vagone, BindingResult bindingResult, Model model,HttpSession session) {
 	    	 Utente utente = (Utente) session.getAttribute("utente");
-		        if (utente.getRuolo().equals("admin")) {
+		     
+	    	 /*  if (utente.getRuolo().equals("admin")) {
 		        	
 		            return "redirect:/treno/index";
 		        }

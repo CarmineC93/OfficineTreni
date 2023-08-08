@@ -66,6 +66,8 @@
 	            	</td>
 	            	<td class="text-center align-middle">    
 			         	<a style="color:light-blue;" href="${pageContext.request.contextPath}/treno/show/${treno.idTreno}" class="px-1"><i class="fa-solid fa-eye"></i></a>
+			         	<a style="color:green;" href=" "><i class="fa-solid fa-cart-shopping"></i></a>
+			         	
 			    		<!--  <a style="color:orange;" href="${pageContext.request.contextPath}/admin/modifica-vagone/${vagone.id}"><i class="fa-solid fa-pen-to-square"></i></a>
 			            <a style="color:red;" href="${pageContext.request.contextPath}/admin/eliminaVagone/${vagone.id}" class="px-1" onclick="return confirm('Sei sicuro di voler eliminare questo vagone?')"><i class="fa-solid fa-trash"></i></a>
 		           		-->

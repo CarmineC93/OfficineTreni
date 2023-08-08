@@ -34,6 +34,10 @@
 	          			<li class="nav-item">
 	            			<a class="nav-link" href="${pageContext.request.contextPath}/chisiamo">Chi Siamo</a>
 	          			</li>
+	          			
+	          			<li class="nav-item">
+	            			<a class="nav-link" href="${pageContext.request.contextPath}/chisiamo">Ordini</a>
+	          			</li>
 		       	 	</ul>
 		        
 		        	<span class="px-4" style="color:green;" >Utente: ${utente.email}</span>

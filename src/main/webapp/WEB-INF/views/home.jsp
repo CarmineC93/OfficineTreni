@@ -31,12 +31,12 @@
 		
 
 	
-	<footer class="py-4" style="position: fixed; bottom: 0; width: 100%;">
+	<!-- <footer class="py-4" style="position: fixed; bottom: 0; width: 100%;">
 	<div >
 		<h6>Numero visitatori connessi: ${contatore}</h6>
 	</div>
 	</footer>	
-	
+	  -->
 
 </div>
 

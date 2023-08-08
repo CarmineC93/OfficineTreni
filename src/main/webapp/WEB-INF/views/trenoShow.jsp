@@ -77,13 +77,13 @@
 		                </c:choose>
 		               </div>
 					  <div class="card-body">
-					    <h5 class="card-title">${vag.tipologia}</h5>
+					    <h5 class="card-title">Tipologia: ${vag.tipologia}</h5>
 			 
 					  <ul class="list-group list-group-flush">
-					    <li class="list-group-item">${vag.compagnia}</li>
-					    <li class="list-group-item">${vag.costo} Euro</li>
-					    <li class="list-group-item">${vag.capienza}</li>
-					    <li class="list-group-item">${vag.pesoTrainante} t</li>
+					    <li class="list-group-item">Compagnia: ${vag.compagnia}</li>
+					    <li class="list-group-item">Costo: ${vag.costo} Euro</li>
+					    <li class="list-group-item">Capacità: ${vag.capienza}</li>
+					    <li class="list-group-item">Forza Motrice: ${vag.pesoTrainante} t</li>
 					  </ul>
 					</div>	
 				</div>    	
