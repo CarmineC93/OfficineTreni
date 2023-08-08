@@ -36,10 +36,10 @@ public class VagoneController {
 	    @GetMapping("/crea-vagone")
 	    public String showCreateVagoneForm(Model model,HttpSession session) {
 	    	 Utente utente = (Utente) session.getAttribute("utente");
-		        if (!utente.getRuolo().equals("admin")) {
-		        	
-		            return "redirect:/treno/index";
-		        }
+	    	 
+		    	/*if (utente.getRuolo().equals("admin")) {
+	            return "redirect:/treno/index";
+	        }*/
 	    	
 	        model.addAttribute("vagone", new Vagone());
 	        return "/admin/formCreaVagone"; 
@@ -50,10 +50,12 @@ public class VagoneController {
 	    @PostMapping("/salvaVagone")
 	    public String saveVagone(@Valid @ModelAttribute("vagone") Vagone vagone, BindingResult bindingResult, Model model,HttpSession session) {
 	    	 Utente utente = (Utente) session.getAttribute("utente");
-		        if (utente.getRuolo().equals("admin")) {
+		     
+	    	 /*  if (utente.getRuolo().equals("admin")) {
 		        	
 		            return "redirect:/OfficineTreni/treno/index";
-		        }
+		        }*/
+	    	 
 	    	// Ottieni l'immagine come MultipartFile
 	        MultipartFile file = vagone.getImg();        
 	        // Controlla se l'utente ha caricato effettivamente un'immagine
@@ -86,10 +88,11 @@ public class VagoneController {
 	    @GetMapping("/modifica-vagone/{id}")
 	    public String showEditVagoneForm(@PathVariable int id, Model model,HttpSession session) {
 	    	Utente utente = (Utente) session.getAttribute("utente");
-	        if (utente.getRuolo().equals("admin")) {
-	        	
-	            return "redirect:/OfficineTreni/treno/index";
-	        }
+	    	
+	    	/* if (utente.getRuolo().equals("admin")) {
+            return "redirect:/treno/index";
+        	} */
+	    	
 	        Vagone vagone = vagoneService.find(id);
 	        if (vagone == null) {
 	            // Se il vagone con l'id specificato non esiste, puoi gestire l'errore come preferisci
@@ -111,10 +114,13 @@ public class VagoneController {
 	    @PostMapping("/modificaVagone")
 	    public String saveModificheVagone(@Valid @ModelAttribute("vagone") Vagone vagone, BindingResult bindingResult, Model model,HttpSession session) {
 	    	Utente utente = (Utente) session.getAttribute("utente");
-	        if (utente.getRuolo().equals("admin")) {
-	        	
-	            return "redirect:/OfficineTreni/treno/index";
-	        }
+	    	
+	    	
+	    	/* if (utente.getRuolo().equals("admin")) {
+            return "redirect:/treno/index";
+        	} */
+	    	
+	    	
 	    	// Ottieni l'immagine come MultipartFile
 	        MultipartFile file = vagone.getImg();        
 	        // Controlla se l'utente ha caricato effettivamente un'immagine
@@ -150,10 +156,10 @@ public class VagoneController {
 	    @GetMapping("/eliminaVagone/{id}")
 	    public String eliminaVagone(@PathVariable int id, RedirectAttributes redirectAttributes,HttpSession session) {
 	    	Utente utente = (Utente) session.getAttribute("utente");
-	        if (utente.getRuolo().equals("admin")) {
-	        	
-	            return "redirect:/OfficineTreni/treno/index";
-	        }
+	     
+	    	/*if (utente.getRuolo().equals("admin")) {
+	            return "redirect:/treno/index";
+	        }*/
 	    	
 	        Vagone vagone = vagoneService.find(id);
 	        if (vagone == null) {

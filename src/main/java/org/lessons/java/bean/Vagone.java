@@ -44,7 +44,7 @@ public class Vagone implements Serializable,Bean{
 	
 	private double pesoTrainante;
 	 
-    private byte[] imgBytes ;
+    private byte[] imgBytes;
     
 	@Transient
     private MultipartFile img;

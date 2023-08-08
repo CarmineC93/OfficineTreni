@@ -51,6 +51,7 @@ public class TrenoController {
 	@Autowired
     private BuilderTrain builder;
 	
+//SHOW
 	@GetMapping("/index")
 	public String index(Model model,HttpSession session) {
 		
@@ -82,9 +83,7 @@ public class TrenoController {
 	
 
 	@GetMapping("/show/{id}")
-	public String show(
-			@PathVariable("id") int id, HttpSession session, Model model) 
-	{
+	public String show(@PathVariable("id") int id, HttpSession session, Model model) {
 		  Utente utente = (Utente) session.getAttribute("utente");
 	        if (utente == null) {
 	            return "redirect:/login";
@@ -110,7 +109,7 @@ public class TrenoController {
 	}
 	
 	
-	
+//CREATE	
 	@GetMapping("/formCrea")
 	public String Crea(Model model, HttpSession session) {
 		  Utente utente = (Utente) session.getAttribute("utente");
@@ -181,7 +180,6 @@ public class TrenoController {
 		    Map<Character, String> tipologiaMap = new HashMap<>();
 
 
-		 
 		 
 	        // Recupera i vagoni corrispondenti agli ID selezionati
 	        List<Vagone> vagoniSelezionati = selezioneVagone.stream()

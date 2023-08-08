@@ -81,7 +81,6 @@ public class BuilderTrain {
 								} else if (wagon.getTipologia() == 'P') {
 									trainComposition.add(wagon);
 								}
-								
 							} else {
 								trainComposition.add(wagon);
 							}
