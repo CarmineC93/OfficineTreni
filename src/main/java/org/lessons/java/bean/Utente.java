@@ -1,15 +1,17 @@
 package org.lessons.java.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -39,20 +41,20 @@ public class Utente implements Serializable, Bean{
 	@Size(min = 8,message = "minimo 8 caratteri")
 	private String password;
 
+	private String ruolo;
+	
 	//RELATIONS
 	
-//	@ManyToOne
-//    @JoinColumn(name = "ruolo_id")
-//    private Ruolo ruolo;
-	
-	private String ruolo;
+	@Transient
+	@OneToMany(mappedBy = "utente" )
+    private List<Ordine> ordini = new ArrayList<>();
+
 	
 	//CONSTRUCTORS
 	
 	public Utente() {}
 	
 	
-
     public Utente(
 			String email,
 		String nome,
@@ -71,7 +73,6 @@ public class Utente implements Serializable, Bean{
 
 	//GETTER & SETTER
 
-	
 	public int getId() {
 		return id;
 	}

@@ -2,10 +2,8 @@ package org.lessons.java.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,19 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.lessons.java.eccezioni.IncompatibleWagonTypologyException;
-import org.lessons.java.eccezioni.LocomotiveNotFoundException;
-import org.lessons.java.eccezioni.MaxWeightReachedException;
-import org.lessons.java.eccezioni.RestaurantAlreadyPresentException;
-import org.lessons.java.eccezioni.TrainAlreadyCompletedException;
-import org.lessons.java.eccezioni.WagonNeededException;
 
 
 @Entity
@@ -50,11 +42,9 @@ public class Treno implements Serializable,Bean{
 	@NotNull(message = "La compagnia non può essere vuota")
 	private String compagnia;
 	
-    /* 
-    @Lob
-    @Column(length = 16777215)
-    private byte[] content; 
-    */
+	@Transient
+	@OneToMany(mappedBy = "treno")
+    private List<Ordine> ordini = new ArrayList<>();
 	
     //RELATIONS
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -64,10 +54,10 @@ public class Treno implements Serializable,Bean{
             	)
 	private List<Vagone> vagone;
 		
+	//CONSTRUCTORS 
 	public Treno() {}
 	
-//GETTER & SETTER
-    
+
 	public Treno(int idTreno,
 			String nome,
 			Utente utente, String sigla, String compagnia) {
@@ -80,7 +70,8 @@ public class Treno implements Serializable,Bean{
 
 	}
 
-
+	//GETTERS & SETTERS
+    
 	public int getIdTreno() {
 		return idTreno;
 	}

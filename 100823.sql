@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 29, 2023 at 06:17 PM
+-- Generation Time: Aug 10, 2023 at 10:03 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.1.0
 
@@ -76,12 +76,11 @@ INSERT INTO `composizione` (`treno`, `vagone`) VALUES
 --
 
 CREATE TABLE `ordine` (
-  `idOrdine` int(11) NOT NULL,
-  `treno` int(11) NOT NULL,
-  `utente` int(11) NOT NULL,
-  `data` date NOT NULL,
+  `id` int(11) NOT NULL,
+  `treno_id` int(11) NOT NULL,
+  `utente_id` int(11) NOT NULL,
+  `data` datetime NOT NULL,
   `stato` varchar(45) NOT NULL,
-  `pagamento` varchar(45) NOT NULL,
   `importo` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -89,10 +88,10 @@ CREATE TABLE `ordine` (
 -- Dumping data for table `ordine`
 --
 
-INSERT INTO `ordine` (`idOrdine`, `treno`, `utente`, `data`, `stato`, `pagamento`, `importo`) VALUES
-(1, 4, 10, '2023-07-19', 'Ordinato', 'Effettuato', 19900),
-(2, 1, 12, '2023-07-16', 'Costruzione', 'Effettuato', 13500),
-(3, 3, 11, '2022-12-26', 'Consegnato', 'Effettuato', 13300);
+INSERT INTO `ordine` (`id`, `treno_id`, `utente_id`, `data`, `stato`, `importo`) VALUES
+(1, 4, 10, '2023-07-19 00:00:00', 'Ordinato', 19900),
+(2, 1, 12, '2023-07-16 00:00:00', 'Costruzione', 13500),
+(3, 3, 11, '2022-12-26 00:00:00', 'Consegnato', 13300);
 
 -- --------------------------------------------------------
 
@@ -204,9 +203,9 @@ ALTER TABLE `composizione`
 -- Indexes for table `ordine`
 --
 ALTER TABLE `ordine`
-  ADD PRIMARY KEY (`idOrdine`),
-  ADD KEY `fk_Ordine_Treno1_idx` (`treno`),
-  ADD KEY `fk_Ordine_Utente1_idx` (`utente`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_Ordine_Treno1_idx` (`treno_id`),
+  ADD KEY `fk_Ordine_Utente1_idx` (`utente_id`);
 
 --
 -- Indexes for table `treno`
@@ -235,7 +234,7 @@ ALTER TABLE `vagone`
 -- AUTO_INCREMENT for table `ordine`
 --
 ALTER TABLE `ordine`
-  MODIFY `idOrdine` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `treno`
@@ -270,8 +269,8 @@ ALTER TABLE `composizione`
 -- Constraints for table `ordine`
 --
 ALTER TABLE `ordine`
-  ADD CONSTRAINT `fk_Ordine_Treno1` FOREIGN KEY (`treno`) REFERENCES `treno` (`idTreno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Ordine_Utente1` FOREIGN KEY (`utente`) REFERENCES `utente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Ordine_Treno1` FOREIGN KEY (`treno_id`) REFERENCES `treno` (`idTreno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Ordine_Utente1` FOREIGN KEY (`utente_id`) REFERENCES `utente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `treno`

@@ -43,6 +43,7 @@
 	            <th class="text-center">Compagnia:</th>
 	            <th class="text-center">Foto:</th> 
 	            <th class="text-center">Dettagli</th>
+	            <th class="text-center">Ordina</th>
 	            
 	            
 	        </tr>
@@ -67,13 +68,20 @@
 	            	</td>
 	            	<td class="text-center align-middle">    
 			         	<a style="color:light-blue;" href="${pageContext.request.contextPath}/treno/show/${treno.idTreno}" class="px-1"><i class="fa-solid fa-eye"></i></a>
-			         	<a style="color:green;" href=" "><i class="fa-solid fa-cart-shopping"></i></a>
-			         	
+			         
 			    		<!--  <a style="color:orange;" href="${pageContext.request.contextPath}/admin/modifica-vagone/${vagone.id}"><i class="fa-solid fa-pen-to-square"></i></a>
 			            <a style="color:red;" href="${pageContext.request.contextPath}/admin/eliminaVagone/${vagone.id}" class="px-1" onclick="return confirm('Sei sicuro di voler eliminare questo vagone?')"><i class="fa-solid fa-trash"></i></a>
 		           		-->
+		           		
 		            </td>
-            	                
+            	       
+            	    <td class="text-center align-middle">    
+  						<form action="${pageContext.request.contextPath}/ordine/aggiungi-ordine" method="post" onsubmit="return confirmOrder();">
+							<input type="hidden" name="idTreno" value="${treno.idTreno}" />
+				            <input type="hidden" name="idUtente" value="${utente.id}" />
+				            <button class="btn " style="color:green;" type="submit"><i class="fa-solid fa-cart-shopping"></i></button>
+				        </form>
+				   </td>     
 	            </tr>
 	        </c:forEach>
 	    </table>
@@ -81,4 +89,12 @@
 
 
 </body>
+<script>
+
+	function confirmOrder() {
+    	return confirm("Sei sicuro di voler fare quest'ordine?");
+	}
+</script>
+
+
 </html>

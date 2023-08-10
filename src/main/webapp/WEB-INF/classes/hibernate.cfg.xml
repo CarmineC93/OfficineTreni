@@ -19,10 +19,11 @@
     <property name="show_sql">true</property>
     
    	<mapping class="org.lessons.java.bean.Treno" />
-   
    	<mapping class="org.lessons.java.bean.Utente" />
    	<mapping class="org.lessons.java.bean.Ruolo" />
    	<mapping class="org.lessons.java.bean.Vagone" />
+   	<mapping class="org.lessons.java.bean.Ordine"/>
+   	
 
 		
     

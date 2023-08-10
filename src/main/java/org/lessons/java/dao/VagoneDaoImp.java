@@ -104,7 +104,6 @@ public class VagoneDaoImp extends BaseDao implements VagoneDao{
 
 	@Override
 	public Vagone find(Integer id) {
-		// TODO Auto-generated method stub
 		return (Vagone) super.find(Vagone.class, id);
 	}
 	

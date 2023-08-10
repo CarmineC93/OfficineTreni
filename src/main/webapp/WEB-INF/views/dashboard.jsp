@@ -37,7 +37,7 @@
 	          			</li>
 	          			
 	          			<li class="nav-item">
-	            			<a class="nav-link" href="${pageContext.request.contextPath}/chisiamo">Ordini</a>
+	            			<a class="nav-link" href="${pageContext.request.contextPath}/ordine/index">Ordini</a>
 	          			</li>
 		       	 	</ul>
 		        

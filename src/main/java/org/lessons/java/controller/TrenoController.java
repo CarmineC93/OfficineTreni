@@ -37,10 +37,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/treno")
 public class TrenoController {
 
-	/*TrenoService trenoService = new TrenoService();
-	UtenteService utenteService = new UtenteService();
-	VagoneService vagoneService = new VagoneService();*/
-	
     @Autowired
     private VagoneService vagoneService;
     @Autowired

@@ -31,11 +31,7 @@ public class RegistrationController {
 	@Autowired
     private UtenteService utenteService;
 	
-	@Autowired
-	private RuoloService ruoloService;
-	
-	
-	
+ 
     @GetMapping("/registrazione")
     public String mostraPaginaRegistrazione(Model model) {
         model.addAttribute("utente", new Utente());
@@ -45,8 +41,9 @@ public class RegistrationController {
     
     @PostMapping("/registrazione")
     public String processaRegistrazione(@Valid @ModelAttribute("utente") Utente utente,BindingResult bindingResult, Model model) throws Exception {
-        if (utenteService.findByEmail(utente.getEmail()) == null) {
-            
+       
+    	if (utenteService.findByEmail(utente.getEmail()) == null) {
+    		
         	if(bindingResult.hasErrors()) {
         		
         		model.addAttribute("errori",bindingResult);
@@ -62,23 +59,11 @@ public class RegistrationController {
         	 utente.setPassword(passwordHashed);
         	
 
-            
-//        	 Ruolo ruoloUser = ruoloService.find(0);
         	 
-//        	 utente.setRuolo(ruoloUser);
-        	 
-//        	 Utente utente2 = new Utente(utente.getEmail(), utente.getNome(), utente.getCognome(), utente.getPassword(), ruoloUser);
         	 utente.setRuolo("user");
         	 
         	 utenteService.registraUtente(utente);
         	 
-        	 
-//        	 utenteService.update(utente);
-        	
-            
-
-           
-            
             
             return "redirect:/login";
         } else {

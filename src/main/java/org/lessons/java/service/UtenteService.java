@@ -23,8 +23,7 @@ public class UtenteService {
 	
     public void registraUtente(Utente utente) throws Exception {
         // Verifica se l'utente con la stessa email è già presente nel database
-    	/*
-        if (findByEmail(utente.getEmail()) != null) {
+       /* if (findByEmail(utente.getEmail()) != null) {
             throw new Exception("Utente con questa email già registrato.");
         }*/
 

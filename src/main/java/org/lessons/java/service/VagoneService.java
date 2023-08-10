@@ -35,9 +35,7 @@ public class VagoneService {
 	}
 	
 	public List<Vagone> findAllByCompany(String nomeCompagnia){
-		
 		return dao.findAllByCompany(nomeCompagnia);
-		
 	}
 	
 	
