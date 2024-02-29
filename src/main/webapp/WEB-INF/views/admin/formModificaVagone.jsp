@@ -46,9 +46,10 @@
 			    <label  class="form-label" for="lunghezza">Lunghezza (metri):</label>
 			    <form:input class="form-control" path="lunghezza" type="number" step="0.01" required="true" /><br>
 			
-			    <label  class="form-label" for="costo">Costo (Euero i.i.):</label>
+			    <label  class="form-label" for="costo">Costo (Euro i.i.):</label>
 			    <form:input class="form-control"   path="costo" type="number" /><br>
 			</div>
+			
 			<div class="col">
 			    <label class="form-label" >Compagnia:</label>
 			    <form:radiobutton path="compagnia"   value="Trenitalia" />Trenitalia
@@ -81,20 +82,20 @@
 
 </body>
 
-<!-- -->
 <script>
-function showPreviewImage(inputElement) {
-  if (inputElement.files && inputElement.files[0]) {
-    var reader = new FileReader();
-
-    reader.onload = function(e) {
-      var imgPreviewElement = document.getElementById('imgPreview');
-      imgPreviewElement.src = e.target.result;
-    };
-
-    reader.readAsDataURL(inputElement.files[0]);
-  }
-}
+	//funzione che gestisce l'anteprima dell'immagine caricata
+	function showPreviewImage(inputElement) {
+	  if (inputElement.files && inputElement.files[0]) {
+	    var reader = new FileReader();
+	
+	    reader.onload = function(e) {
+	      var imgPreviewElement = document.getElementById('imgPreview');
+	      imgPreviewElement.src = e.target.result;
+	    };
+	
+	    reader.readAsDataURL(inputElement.files[0]);
+	  }
+	}
 </script>
 
 

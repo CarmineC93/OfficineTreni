@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
      
 <!DOCTYPE html>
 <html>
@@ -40,7 +40,7 @@
 	            <th class="text-center">Nome Utente: </th>
 	            <th class="text-center">Treno Ordinato:</th>
 	            <th class="text-center">Data Ordine: </th>
-	            <th class="text-center">Importo: </th> 
+	            <th class="text-center">Importo (i.i.): </th> 
 	            <th class="text-center">Stato Ordine: </th> 
 	            <c:if test="${utente.ruolo.equals('admin')}">
 	              <th class="text-center">Aggiorna stato ordine: </th> 
@@ -54,7 +54,7 @@
 	              	<td class="text-center">${ordine.utente.nome}</td>
 	                <td class="text-center">${ordine.treno.nome}</td>
         			<td class="text-center">${ordine.formattedDateTime}</td>
-		            <td class="text-center">${ordine.importo}</td> 
+		            <td class="text-center">${ordine.getFormattedImporto()}</td> 
 		            <td class="text-center">${ordine.stato}</td> 
 		            
 		       	    <c:if test="${utente.ruolo.equals('admin')}">
@@ -77,6 +77,8 @@
 					     		
 					     		 <div class="col">
 					     			<button class="btn btn-warning" type="submit"><i class="fa-solid fa-pen-to-square"></i>Aggiorna</button>
+					     			<button class="btn btn-success" type="submit"><i class="fa-solid fa-cart-shopping"></i>Paga</button>
+					     			
 					     		</div>
 					     	</div>	
 					    </form>

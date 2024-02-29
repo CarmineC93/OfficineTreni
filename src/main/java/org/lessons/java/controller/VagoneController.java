@@ -2,6 +2,8 @@ package org.lessons.java.controller;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -34,13 +36,12 @@ public class VagoneController {
 //CREATE	    
 	    // Metodo per la visualizzazione del form di creazione del vagone
 	    @GetMapping("/crea-vagone")
-	    public String showCreateVagoneForm(Model model,HttpSession session) {
+	    public String showCreateVagoneForm(Model model, HttpSession session) {
 	    	 Utente utente = (Utente) session.getAttribute("utente");
 	    	 
 	    	 if (!utente.getRuolo().equals("admin")) {
 	            return "redirect:/treno/index";
 	        }
-	    	
 	        model.addAttribute("vagone", new Vagone());
 	        return "/admin/formCreaVagone"; 
 	    }
@@ -48,7 +49,7 @@ public class VagoneController {
 	    
 	    // Metodo per gestire il submit del form di creazione del vagone
 	    @PostMapping("/salvaVagone")
-	    public String saveVagone(@Valid @ModelAttribute("vagone") Vagone vagone, BindingResult bindingResult, Model model,HttpSession session) {
+	    public String saveVagone(@Valid @ModelAttribute("vagone") Vagone vagone, BindingResult bindingResult, Model model, HttpSession session) {
 	    	 Utente utente = (Utente) session.getAttribute("utente");
 		     
 	       if (!utente.getRuolo().equals("admin")) {		        	  
@@ -86,7 +87,7 @@ public class VagoneController {
 	    
 //UPDATE	    
 	    @GetMapping("/modifica-vagone/{id}")
-	    public String showEditVagoneForm(@PathVariable int id, Model model,HttpSession session) {
+	    public String showEditVagoneForm(@PathVariable int id, Model model, HttpSession session) {
 	    	Utente utente = (Utente) session.getAttribute("utente");
 	    	
 	        if (!utente.getRuolo().equals("admin")) {
@@ -113,7 +114,7 @@ public class VagoneController {
 	    
 	    
 	    @PostMapping("/modificaVagone")
-	    public String saveModificheVagone(@Valid @ModelAttribute("vagone") Vagone vagone, BindingResult bindingResult, Model model,HttpSession session) {
+	    public String saveModificheVagone(@Valid @ModelAttribute("vagone") Vagone vagone, BindingResult bindingResult, Model model, HttpSession session) {
 	    	Utente utente = (Utente) session.getAttribute("utente");
 	    	
 	        if (!utente.getRuolo().equals("admin")) {
@@ -162,8 +163,7 @@ public class VagoneController {
 	    	
 	        Vagone vagone = vagoneService.find(id);
 	        if (vagone == null) {
-	            // Il vagone con l'id specificato non esiste, puoi gestire l'errore come preferisci
-	            // Ad esempio, puoi reindirizzare a una pagina di errore o mostrare un messaggio
+	            // Se Il vagone con l'id specificato non esiste, gestire l'errore (Ad esempio reindirizzare a una pagina di errore o mostrare un messaggio)
 	            return "redirect:/treno/formCrea";
 	        }
 	        
@@ -198,12 +198,43 @@ public class VagoneController {
 			   
 			    
 			
-			
 			model.addAttribute("vagone", vagone);
+			
+			
+			//map per la tipologia che non è lavorabile come char in jsp ma solo con String
+			Map<Character, String> tipologiaMap = new HashMap<>();
+			
+			// Get the tipologia from your service or any other method
+			char tipologia = vagone.getTipologia();
+			
+			// Convert tipologia to a String using a utility method and store it in the map
+			String tipologiaString = convertTipologiaToString(tipologia);
+			tipologiaMap.put(tipologia, tipologiaString);
+			
+			// Add the tipologiaMap to the model
+			model.addAttribute("tipologiaMap", tipologiaMap); 
 						
 			return "/admin/vagoneShow";
 		}
 	    
+		
+//FUNZIONI AUSILIARIE	    
+	    
+	    //Funzione per convertire char in String
+		 private String convertTipologiaToString(char tipologia) {
+		        switch (tipologia) {
+		            case 'H':
+		                return "Locomotiva";
+		            case 'P':
+		                return "Passeggeri";
+		            case 'R':
+		                return "Ristorante";
+		            case 'C':
+		                return "Cargo";
+		            default:
+		                return "Tipo non riconosciuto";
+		        }
+		    }
 	    
 	}
 

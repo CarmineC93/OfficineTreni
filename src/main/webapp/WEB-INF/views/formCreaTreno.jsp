@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 
 <head>
+
 <meta charset="ISO-8859-1">
 <title>Crea un nuovo treno</title>
 <!-- bootstrap -->
@@ -21,8 +22,6 @@
 	 
 	 <div class="containe px-4" style="padding:5rem 0 0 3rem">
 	 
-	 
-	
 	
 		<div class="d-flex justify-content-between align-items-center">
    			<img class="py-2" src="${pageContext.request.contextPath}/resources/logoscritta.png" alt="Logo" style="max-width:100px; display:block;">
@@ -43,7 +42,6 @@
 			
 			<div class="row row-cols-2">
 			<div class="col" style="max-width:500px;">
-			
 						<label class="form-label" for="nome">Nome treno:</label><br> 
 						<input type="text" class="form-control"
 							id="nome" name="nome" placeholder="Nome del treno..." value="${treno.nome}"><br>
@@ -52,47 +50,42 @@
 	
 				
 						<div class="input-group mb-3">
-								<label class="input-group-text" for="compagnia">Compagnia treno:</label> 
-								<select  class="form-select"
+							<label class="input-group-text" for="compagnia">Compagnia treno:</label> 
+							<select  class="form-select"
 									name="compagnia" id="compagnia"
 									onchange="clearSiglaField(); filterByCompagnia()">
-									<option value="Nullo"
-										${compagniaSelezionata == 'Nullo' ? 'selected' : ''}>Scegli
-										tra...</option>
-									<option value="Italo"
+								<option value="Nullo"
+										${compagniaSelezionata == 'Nullo' ? 'selected' : ''}>Scegli tra...</option>
+								<option value="Italo"
 										${compagniaSelezionata == 'Italo' ? 'selected' : ''}>Italo</option>
-									<option value="Trenitalia"
+								<option value="Trenitalia"
 										${compagniaSelezionata == 'Trenitalia' ? 'selected' : ''}>Trenitalia</option>
-								</select>
-								<p>${errori.getFieldError('compagnia').defaultMessage}</p>
-						</div>
+							</select>
+							<p>${errori.getFieldError('compagnia').defaultMessage}</p>
+					</div>
 				
 				
 				
-						<label class="form-label" for="sigla">Sigla treno:</label><br> 
-						<input type="text" class="form-control"
+					<label class="form-label" for="sigla">Sigla treno:</label><br> 
+					<input type="text" class="form-control"
 							id="sigla" name="sigla" value="${treno.sigla}"
 							placeholder="Composizione treno" disabled readonly><br>
-						<p>${errori.getFieldError('sigla').defaultMessage}</p>
+					<p>${errori.getFieldError('sigla').defaultMessage}</p>
 				
-				  <div style="display: none;">
-				  						<label class="form-label" for="selezione">Selezione vagoni:</label><br>
+					
+					<div style="display: none;">
+					  	<label class="form-label" for="selezione">Selezione vagoni:</label><br>
 						<input class="form-control" type="text" id="selezione" name="selezione"
-							placeholder="My Selection" disabled readonly><br> 
-				  </div>
+								placeholder="My Selection" disabled readonly><br> 
+					</div>
 
-				
-				
-	  
-		    	
-						<div class="py-4">
-							<input class="btn btn-success" type="submit" value="Realizza Treno">
-						</div> 				
+
+					<div class="py-4">
+						<input class="btn btn-success" type="submit" value="Realizza Treno">
+					</div> 				
 				</div> 
 				
-				
 
-				
 				
 				<div class="col" id="dettagliTreno" style="display: none;">
 					<!-- Qui verranno visualizzati i dettagli del treno realizzato -->
@@ -107,9 +100,7 @@
 				</div>
 	
  
-	
-				
-				
+
 				<table  class="table" id="vagoniTable">
 					<thead>
 						<tr>
@@ -122,7 +113,7 @@
 							<th class="text-center">Compagnia</th>
 							<th class="text-center">Capienza</th>
 							<th class="text-center">Forza motrice</th>
-		                    <th class="text-center">Foto</th>
+		                    <th class="text-center">Anteprima</th>
 		                    <th class="text-center">Azioni</th>
 		                    
 		
@@ -143,9 +134,9 @@
 									>
 								</td>
 								<td class="text-center align-middle">${tipologiaMap[vagone.tipologia]}</td>
-								<td class="text-center align-middle">${vagone.peso}t</td>
-								<td class="text-center align-middle">${vagone.lunghezza}m</td>
-								<td class="text-center align-middle">${vagone.costo}$</td>
+								<td class="text-center align-middle">${vagone.getFormattedPeso()}</td>
+								<td class="text-center align-middle">${vagone.getFormattedLunghezza()}</td>
+								<td class="text-center align-middle">${vagone.getFormattedCosto()}</td>
 								<td class="text-center align-middle">${vagone.compagnia}</td>
 								<td class="text-center align-middle">
 									<c:choose>
@@ -169,7 +160,7 @@
 								<td class="text-center align-middle">
 									<c:if
 										test="${tipologiaMap[vagone.tipologia] eq 'Locomotiva'}">
-								       	${vagone.pesoTrainante} t
+								       	${vagone.getFormattedForzaTrainante()}
 								    </c:if>
 								</td> 	                    
 			                    <td> 
@@ -177,7 +168,7 @@
 			                    </td>
 		            
 		            			<td class="text-center align-middle">    
-		            			<a style="color:light-blue;" href="${pageContext.request.contextPath}/admin/show/${vagone.id}" class="px-1"><i class="fa-solid fa-eye"></i></a>
+		            				<a style="color:light-blue;" href="${pageContext.request.contextPath}/admin/show/${vagone.id}" class="px-1"><i class="fa-solid fa-eye"></i></a>
 			            			
 			            			<c:if test="${utente.ruolo.equals('admin')}">
 				            			<a style="color:orange;" href="${pageContext.request.contextPath}/admin/modifica-vagone/${vagone.id}"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -272,13 +263,13 @@
 		    
 		    if (nomeTrenoInput.value.trim() === '') {
 		        nomeTrenoInput.style.border = '1px solid red';
-		        alert('Il campo Nome del treno non pu� essere vuoto.');
+		        alert('Il campo Nome del treno non puï¿½ essere vuoto.');
 		        return false; // Blocca l'invio del form
 		      }
 		
 		      if (siglaTrenoInput.value.trim() === '') {
 			        siglaTrenoInput.style.border = '1px solid red';
-			        alert('Il campo Sigla del treno non pu� essere vuoto. Scegli i vagoni che compongono il treno.');
+			        alert('Il campo Sigla del treno non puï¿½ essere vuoto. Scegli i vagoni che compongono il treno.');
 			        return false; // Blocca l'invio del form
 		      	}
 		

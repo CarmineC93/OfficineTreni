@@ -1,8 +1,11 @@
 package org.lessons.java.bean;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,6 +33,7 @@ public class Ordine implements Serializable, Bean {
 
     @Transient
     private String formattedDateTime; 
+    
 	//RELATIONS
     
     @ManyToOne
@@ -105,7 +109,7 @@ public class Ordine implements Serializable, Bean {
 	}
 
 	public String getFormattedDateTime() {
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 	    return data.format(formatter);
 	}
 
@@ -113,6 +117,10 @@ public class Ordine implements Serializable, Bean {
 		this.formattedDateTime = formattedDateTime;
 	}
     
- 
+    public String getFormattedImporto() {
+        Locale locale = new Locale("it", "IT");
+        NumberFormat currencyFormatter = DecimalFormat.getCurrencyInstance(locale);
+        return currencyFormatter.format(importo);
+    }
 	
 }

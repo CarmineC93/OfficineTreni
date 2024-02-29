@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+//ENTITA' NON PIù USATA
 
 @Entity
 @Table(name = "ruolo")

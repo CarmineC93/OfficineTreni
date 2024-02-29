@@ -1,5 +1,6 @@
 package org.lessons.java.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -18,23 +19,42 @@ public class TrenoDaoImp extends BaseDao implements TrenoDao{
 	private static SessionFactory factory; 
 	 
 	 static {
-	 try {
-     factory = new Configuration().configure().buildSessionFactory();
-  } catch (Throwable ex) { 
-     System.err.println("Failed to create sessionFactory object." + ex);
-     throw new ExceptionInInitializerError(ex); 
-  }
+			 try {
+		     factory = new Configuration().configure().buildSessionFactory();
+		  } catch (Throwable ex) {
+		     System.err.println("Failed to create sessionFactory object." + ex);
+		     throw new ExceptionInInitializerError(ex); 
+		  }
 	 }
 	
 	@Override
 	public void create(Treno bean) {
-		// TODO Auto-generated method stub
+		// aggiorno peso, lunghezza e prezzo totale
+        bean.calcolaEAggiornaPesoTotale();
+        bean.calcolaEAggiornaPrezzoTotale();
+        bean.calcolaEAggiornaLunghezza();
+        bean.calcolaEAggiornaNumVagoni();
+        
+        // Imposta la data di creazione sulla data corrente
+        bean.setDataCreaz(LocalDate.now());
+
+        
 		super.create(bean);
 	}
 
 	@Override
 	public void update(Treno bean) {
-		// TODO Auto-generated method stub
+		// aggiorno peso, lunghezza e prezzo totale
+        bean.calcolaEAggiornaPesoTotale();
+        bean.calcolaEAggiornaPrezzoTotale();
+        bean.calcolaEAggiornaLunghezza();
+        bean.calcolaEAggiornaNumVagoni();
+
+        
+        // Imposta la data di creazione sulla data corrente
+        bean.setDataCreaz(LocalDate.now());
+
+		
 		super.update(bean);
 	}
 

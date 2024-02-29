@@ -1,7 +1,10 @@
 package org.lessons.java.bean;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,20 +58,11 @@ public class Vagone implements Serializable,Bean{
     
 	//RELAZIONE
 
-
-
 	@ManyToMany(mappedBy = "vagone")
     private List<Treno> treno;
     
-
-
 	public Vagone() {}
 
-
-
-
-
-	
 	public Vagone(@NotNull(message = "Il peso non può essere vuoto") double peso,
 			@NotNull(message = "La lunghezza non può essere vuota") double lunghezza, char tipologia, String colore,
 			String compagnia, double costo, int capienza, double pesoTrainante) {
@@ -82,10 +76,6 @@ public class Vagone implements Serializable,Bean{
 		this.capienza = capienza;
 		this.pesoTrainante = pesoTrainante;
 	}
-
-
-
-
 
 
 	public int getId() {
@@ -120,14 +110,10 @@ public class Vagone implements Serializable,Bean{
     public void setImg(MultipartFile img) {
 		this.img = img;
 	}
-    
-	   
+       
     public MultipartFile getImg() {
 		return img;
 	}
-
-
-	
 
 	public List<Treno> getTreno() {
 		return treno;
@@ -192,23 +178,37 @@ public class Vagone implements Serializable,Bean{
 	public void setImgBytes(byte[] imgBytes) {
 		this.imgBytes = imgBytes;
 	}
-
-	
 	
 	public String getBase64Image() {
 		return base64Image;
 	}
 
-
-
 	public void setBase64Image(String base64Image) {
 		this.base64Image = base64Image;
 	}
     
+
+	//Metodi per formattazione
     
+    public String getFormattedCosto() {
+        Locale locale = new Locale("it", "IT");
+        NumberFormat currencyFormatter = DecimalFormat.getCurrencyInstance(locale);
+        return currencyFormatter.format(costo);
+    }
     
+    public String getFormattedPeso() {
+        DecimalFormat pesoFormatter = new DecimalFormat("0.00");
+        return pesoFormatter.format(peso) + " t";
+    }
     
+    public String getFormattedLunghezza() {
+        DecimalFormat lunghezzaFormatter = new DecimalFormat("0.00");
+        return lunghezzaFormatter.format(lunghezza) + " m";
+    }
     
-    
+	  public String getFormattedForzaTrainante() {
+		  DecimalFormat motriceFormatter = new DecimalFormat("0");
+		  return motriceFormatter.format(pesoTrainante) + " t";
+	  }
 	
 }

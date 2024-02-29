@@ -56,7 +56,7 @@
 			    	<label class="form-label"  for="lunghezza">Lunghezza (metri):</label>
 			    	<form:input  class="form-control" path="lunghezza" type="number" step="0.10" required="true" /><br>
 			
-			    	<label class="form-label"  for="costo">Costo (Euero i.i.):</label>
+			    	<label class="form-label"  for="costo">Costo (Euro i.i.):</label>
 			    	<form:input  class="form-control"  path="costo" type="number" /><br>
 				</div>
 			    <div class="col">
@@ -90,24 +90,24 @@
 	</div>	
 </body>
 
- <!--per anteprima immagine--> 
 <script>
-function showPreviewImage(inputElement) {
-    var imgPreviewElement = document.getElementById('imgPreview');
-    if (inputElement.files && inputElement.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-            imgPreviewElement.src = e.target.result;
-            imgPreviewElement.style.display = 'block';
-        };
-
-        reader.readAsDataURL(inputElement.files[0]);
-    } else {
-        imgPreviewElement.src = '#';
-        imgPreviewElement.style.display = 'none';
-    }
-}
+	//funzione che gestisce l'anteprima dell'immagine caricata
+	function showPreviewImage(inputElement) {
+	    var imgPreviewElement = document.getElementById('imgPreview');
+	    if (inputElement.files && inputElement.files[0]) {
+	        var reader = new FileReader();
+	
+	        reader.onload = function(e) {
+	            imgPreviewElement.src = e.target.result;
+	            imgPreviewElement.style.display = 'block';
+	        };
+	
+	        reader.readAsDataURL(inputElement.files[0]);
+	    } else {
+	        imgPreviewElement.src = '#';
+	        imgPreviewElement.style.display = 'none';
+	    }
+	}
 </script>
 
 </html>

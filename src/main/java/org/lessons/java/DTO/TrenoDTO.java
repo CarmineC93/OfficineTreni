@@ -1,5 +1,6 @@
 package org.lessons.java.DTO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class TrenoDTO {
@@ -8,18 +9,15 @@ public class TrenoDTO {
 	    private String sigla;
 	    private String compagnia;
 	    private List<VagoneDTO> vagoneDTOs;
+	    private double pesoTotale;
+	    private double prezzoTotale;
+	    private double lunghezzaTotale;
+	    private int numVagoni; 
+	    private LocalDate dataCreaz;
 
 	    // Costruttori, getter e setter
 	    public TrenoDTO( ) {}
 
-	    public TrenoDTO(int idTreno, String nome, String sigla, String compagnia, List<VagoneDTO> vagoneDTOs) {
-	    	super();
-	    	this.idTreno = idTreno;
-	    	this.nome = nome;
-	    	this.sigla = sigla;
-	    	this.compagnia = compagnia;
-	    	this.vagoneDTOs = vagoneDTOs;
-	    }
 
 		public int getIdTreno() {
 			return idTreno;
@@ -59,6 +57,46 @@ public class TrenoDTO {
 
 		public void setVagoneDTOs(List<VagoneDTO> vagoneDTOs) {
 			this.vagoneDTOs = vagoneDTOs;
+		}
+
+		public double getPesoTotale() {
+			return pesoTotale;
+		}
+
+		public void setPesoTotale(double pesoTotale) {
+			this.pesoTotale = pesoTotale;
+		}
+
+		public double getPrezzoTotale() {
+			return prezzoTotale;
+		}
+
+		public void setPrezzoTotale(double prezzoTotale) {
+			this.prezzoTotale = prezzoTotale;
+		}
+
+		public double getLunghezzaTotale() {
+			return lunghezzaTotale;
+		}
+
+		public void setLunghezzaTotale(double lunghezzaTotale) {
+			this.lunghezzaTotale = lunghezzaTotale;
+		}
+
+		public int getNumVagoni() {
+			return numVagoni;
+		}
+
+		public void setNumVagoni(int numVagoni) {
+			this.numVagoni = numVagoni;
+		}
+
+		public LocalDate getDataCreaz() {
+			return dataCreaz;
+		}
+
+		public void setDataCreaz(LocalDate dataCreaz) {
+			this.dataCreaz = dataCreaz;
 		}
 	    
 	    

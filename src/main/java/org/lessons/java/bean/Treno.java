@@ -1,8 +1,13 @@
 package org.lessons.java.bean;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,9 +47,20 @@ public class Treno implements Serializable,Bean{
 	@NotNull(message = "La compagnia non può essere vuota")
 	private String compagnia;
 	
+	private double pesoTotale;
+	
+	private double prezzoTotale;
+	
+	private double lunghezzaTotale;
+	
+	private int numVagoni;
+	
+	private LocalDate dataCreaz;
+	
 	@Transient
 	@OneToMany(mappedBy = "treno")
     private List<Ordine> ordini = new ArrayList<>();
+	
 	
     //RELATIONS
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -58,22 +74,15 @@ public class Treno implements Serializable,Bean{
 	public Treno() {}
 	
 
-	public Treno(int idTreno,
-			String nome,
-			Utente utente, String sigla, String compagnia) {
-		super();
-		this.idTreno = idTreno;
-		this.nome = nome;
-		this.utente = utente;
-		this.sigla = sigla;
-		this.compagnia = compagnia;
-
-	}
-
 	//GETTERS & SETTERS
     
 	public int getIdTreno() {
 		return idTreno;
+	}
+
+
+	public void setOrdini(List<Ordine> ordini) {
+		this.ordini = ordini;
 	}
 
 
@@ -135,5 +144,120 @@ public class Treno implements Serializable,Bean{
 		this.vagone = vagone;
 	}
 	
+	public double getPesoTotale() {
+		return pesoTotale;
+	}
+	
+	public void setPesoTotale(double pesoTotale) {
+		this.pesoTotale = pesoTotale;
+	}
 
+	public double getPrezzoTotale() {
+		return prezzoTotale;
+	}
+
+	public void setPrezzoTotale(double prezzoTotale) {
+		this.prezzoTotale = prezzoTotale;
+	}
+
+	public double getLunghezzaTotale() {
+		return lunghezzaTotale;
+	}
+
+
+	public void setLunghezzaTotale(double lunghezzaTotale) {
+		this.lunghezzaTotale = lunghezzaTotale;
+	}
+
+
+	public LocalDate getDataCreaz() {
+		return dataCreaz;
+	}
+
+
+	public void setDataCreaz(LocalDate dataCreaz) {
+		this.dataCreaz = dataCreaz;
+	}
+	
+	public int getNumVagoni() {
+		return numVagoni;
+	}
+
+	public void setNumVagoni(int numVagoni) {
+		this.numVagoni = numVagoni;
+	}
+	
+	public List<Ordine> getOrdini() {
+		return ordini;
+	}
+
+//metodi per il calcolo di prezzo totale, peso totale, lunghezza totale, numero vagoni totale da sostituire tramite setter
+	
+    public void calcolaEAggiornaPesoTotale() {
+        double pesoTotale = 0.0;
+
+        for (Vagone vagone : this.getVagone()) {
+            pesoTotale += vagone.getPeso();
+        }
+
+        this.setPesoTotale(pesoTotale);
+    }
+
+
+	public void calcolaEAggiornaPrezzoTotale() {
+        double prezzoTotale = 0.0;
+
+        for (Vagone vagone : this.getVagone()) {
+            prezzoTotale += vagone.getCosto();
+        }
+
+        this.setPrezzoTotale(prezzoTotale);
+    }
+	
+	public void calcolaEAggiornaLunghezza() {
+		int lunghezza = 0;
+		
+		for (Vagone vagone : this.getVagone()) {
+			lunghezza += vagone.getLunghezza();
+		}
+		
+		this.setLunghezzaTotale(lunghezza);
+	}
+	
+	public void calcolaEAggiornaNumVagoni() {
+		int numVagoni = 0;
+		for (Vagone vagone : this.getVagone()) {
+			numVagoni += 1;
+		}
+		this.setNumVagoni(numVagoni);
+	}
+	
+//metodi di formattazione per le view 
+	  public String getFormattedDate(){
+		  if (this.dataCreaz != null) {
+		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		        return this.dataCreaz.format(formatter);
+		    } else {
+		        return "N/A";
+		    }
+	    }
+		    
+	  public String getFormattedPrezzoTotale() {
+		  Locale locale = new Locale("it", "IT");
+		  NumberFormat currencyFormatter = DecimalFormat.getCurrencyInstance(locale);
+		  return currencyFormatter.format(prezzoTotale);
+	  }
+	  
+	  public String getFormattedPesoTotale() {
+		  DecimalFormat pesoFormatter = new DecimalFormat("0.00");
+		  return pesoFormatter.format(pesoTotale) + " t";
+	  }
+	  
+	  public String getFormattedLunghezza() {
+		  DecimalFormat lunghezzaFormatter = new DecimalFormat("0.00");
+		  return lunghezzaFormatter.format(lunghezzaTotale) + " m";
+	  }
+	  
+
+	  
 }

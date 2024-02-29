@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <!DOCTYPE html>
@@ -28,10 +27,10 @@
 		</div> 	    	
  	</div>
 
-	<div class="d-flex row row-cols-4 g-3">
+	<div class="d-flex row row-cols-2 g-3 justify-content-center">
 			<div class="col">
 				<div class="card" style="min-height:400px; ">   
-					<div style="display: flex; justify-content: center; align-items: center;">
+					<div style="display: flex; justify-content: center; align-items: center;  min-height:120px;">
 							
 		                <c:choose> 
 		                   <c:when test="${empty vagone.base64Image}">
@@ -39,22 +38,51 @@
 		                        <img src="${pageContext.request.contextPath}/resources/vagone_default.png" style="width:80%;" alt="Immagine vagone di default">
 		                   </c:when>
 		                    <c:otherwise>
-		                	    <img src="data:image/png;base64,${vagone.base64Image}"  style="width:100%; " alt="Immagine vagone">
+		                	    <img src="data:image/png;base64,${vagone.base64Image}"  style="width:100%;" alt="Immagine vagone">
 		                    </c:otherwise>
 		                </c:choose>
-		              </div>
-					  <div class="card-body">
-						    <h5 class="card-title">Tipologia: ${vagone.tipologia}</h5>
-				 
+		               </div>
+					   <div class="card-body">
+					      <h5 class="card-title" style="text-align:center;">Tipologia: ${tipologiaMap[vagone.tipologia]} ( ${vagone.tipologia} )</h5>
+			 
 						  <ul class="list-group list-group-flush">
 						    <li class="list-group-item">Compagnia: ${vagone.compagnia}</li>
-						    <li class="list-group-item">Prezzo: ${vagone.costo} Euro</li>
-						    <li class="list-group-item">Capacit‡: ${vagone.capienza}</li>
-						    <li class="list-group-item">Forza Motrice: ${vagone.pesoTrainante} t</li>
+						    <li class="list-group-item">Costo: ${vagone.getFormattedCosto()}</li>
+						    <li class="list-group-item">Lunghezza: ${vagone.getFormattedLunghezza()}</li>
+						    <li class="list-group-item">Peso: ${vagone.getFormattedPeso()}</li>
+						    <li class="list-group-item">Capacit√†: 
+						    	<c:choose>
+										<c:when
+											test="${tipologiaMap[vagone.tipologia] eq 'Passeggeri'}">
+					                        ${vagone.capienza} passeggeri
+					                    </c:when>
+										<c:when
+											test="${tipologiaMap[vagone.tipologia] eq 'Ristorante'}">
+					                        ${vavagoneg.capienza} clienti
+					                    </c:when>
+										<c:when test="${tipologiaMap[vagone.tipologia] eq 'Locomotiva'}">
+					                        ${vagone.capienza} conducenti
+					                    </c:when>
+										<c:when
+											test="${tipologiaMap[vagone.tipologia] eq 'Cargo'}">
+					                        ${vagone.capienza} litri
+					                    </c:when>
+								</c:choose>
+						    </li>
+						    <li class="list-group-item">Forza Motrice: 
+							    <c:choose>
+							        <c:when test="${tipologiaMap[vagone.tipologia] eq 'Locomotiva'}">
+							            ${vagone.getFormattedPeso()}
+							        </c:when>
+							        <c:otherwise>
+							            N/A
+							        </c:otherwise>
+							    </c:choose>
+						    </li>
 						  </ul>
-					</div>	
-			</div>    	
-		</div>        
+					  </div>	
+				</div>    	
+			</div>        
 	</div>	
 
 </div>

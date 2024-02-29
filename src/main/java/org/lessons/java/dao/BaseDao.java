@@ -35,7 +35,6 @@ public abstract class BaseDao {
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 
-	      
 	      try {
 	         tx = session.beginTransaction();
 	         
